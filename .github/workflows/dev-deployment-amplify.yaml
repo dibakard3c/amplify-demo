@@ -1,0 +1,60 @@
+name: Deploy Deployment Amplify
+
+on:
+  push:
+    branches:
+      - development  
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+      BRANCH_NAME: main
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies & build project
+        run: |
+          export NEXT_PUBLIC_API_URL=https://api.example.com
+          export NODE_ENV=development
+          npm install --legacy-peer-deps
+          npm run build
+          zip -r site.zip out
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.TF_EXEC_ROLE_DEV }}
+
+      - name: Create Amplify Deployment
+        run: |
+          aws amplify create-deployment \
+            --app-id "$APP_ID" \
+            --branch-name "$BRANCH_NAME" > deploy.json
+
+      - name: Export Deployment Environment Variables
+        run: |
+          echo "JOB_ID=$(jq -r '.jobId' deploy.json)" >> $GITHUB_ENV
+          echo "ZIP_URL=$(jq -r '.zipUploadUrl' deploy.json)" >> $GITHUB_ENV
+
+      - name: Upload ZIP to Amplify
+        run: |
+          curl -T site.zip "$ZIP_URL"
+
+      - name: Publish Deployment to Amplify
+        run: |
+          aws amplify start-deployment \
+            --app-id "$APP_ID" \
+            --branch-name "$BRANCH_NAME" \
+            --job-id "$JOB_ID"
