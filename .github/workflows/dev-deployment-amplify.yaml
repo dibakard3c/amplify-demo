@@ -2,14 +2,14 @@ name: Deploy Deployment Amplify
 
 on:
   workflow_dispatch:
-
+  
 permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+      id-token: write # This is required for aws oidc connection
+      contents: read # This is required for actions/checkout
+      pull-requests: write # This is required for gh bot to comment PR
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     env:
@@ -32,29 +32,6 @@ jobs:
           npm install --legacy-peer-deps --save-dev
           npm run build
           cd out && zip -r ../site.zip . && cd ..
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-zip
-          path: site.zip
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    env:
-      APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-      BRANCH_NAME: development
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: site-zip
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
