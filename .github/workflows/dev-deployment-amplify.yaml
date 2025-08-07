@@ -9,7 +9,7 @@ permissions:
       pull-requests: write # This is required for gh bot to comment PR
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     env:
@@ -32,7 +32,17 @@ jobs:
           npm install --legacy-peer-deps --save-dev
           npm run build
           cd out && zip -r ../site.zip . && cd ..
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
 
+    env:
+      APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+      BRANCH_NAME: development
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
