@@ -31,7 +31,10 @@ jobs:
           npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
-          
+          npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
+          mkdir -p ./amplify-artifacts
+          zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
+          ZIP_PATH=./amplify-artifacts/app.zip
 
 
       - name: Configure AWS credentials
@@ -40,22 +43,12 @@ jobs:
           aws-region: eu-west-1
           role-to-assume: ${{ secrets.TF_EXEC_ROLE_DEV }}
 
-      - name: Create Amplify Deployment
-        run: |
-          aws amplify create-deployment \
-            --app-id "$APP_ID" \
-            --branch-name "$BRANCH_NAME" > deploy.json
-
-      - name: Export Deployment Environment Variables
-        run: |
-          echo "JOB_ID=$(jq -r '.jobId' deploy.json)" >> $GITHUB_ENV
-          echo "ZIP_URL=$(jq -r '.zipUploadUrl' deploy.json)" >> $GITHUB_ENV
-
       - name: Upload ZIP to Amplify
         run: |
-         mkdir -p ./amplify-artifacts
-         npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
-         zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
+          DEPLOYMENT_JSON=$(aws amplify create-deployment --app-id "$APP_ID" --branch-name "$BRANCH_NAME")
+          UPLOAD_URL=$(echo $DEPLOYMENT_JSON | jq -r '.zipUploadUrl')
+          JOB_ID=$(echo $DEPLOYMENT_JSON | jq -r '.jobId')
+          curl -T "$ZIP_PATH" "$UPLOAD_URL"
 
       - name: Publish Deployment to Amplify
         run: |
