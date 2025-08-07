@@ -31,11 +31,7 @@ jobs:
           npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
-          npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
-
-          mkdir -p ./amplify-artifacts
-          zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
-
+          cd out && zip -r ../site.zip . && cd ..
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -43,28 +39,20 @@ jobs:
           aws-region: eu-west-1
           role-to-assume: ${{ secrets.TF_EXEC_ROLE_DEV }}
 
-      - name: Stop previous job if running
+      - name: Create Amplify Deployment
         run: |
-          JOBS=$(aws amplify list-jobs --app-id "$APP_ID" --branch-name "$BRANCH_NAME")
-          LAST_JOB_ID=$(echo $JOBS | jq -r '.jobSummaries[0].jobId')
-          LAST_JOB_STATUS=$(echo $JOBS | jq -r '.jobSummaries[0].status')
-          echo "Last job: $LAST_JOB_ID ($LAST_JOB_STATUS)"
-          if [[ "$LAST_JOB_STATUS" == "PENDING" || "$LAST_JOB_STATUS" == "RUNNING" ]]; then
-            echo "Stopping stuck job $LAST_JOB_ID..."
-            aws amplify stop-job --app-id "$APP_ID" --branch-name "$BRANCH_NAME" --job-id "$LAST_JOB_ID"
-          fi
+          aws amplify create-deployment \
+            --app-id "$APP_ID" \
+            --branch-name "$BRANCH_NAME" > deploy.json
+
+      - name: Export Deployment Environment Variables
+        run: |
+          echo "JOB_ID=$(jq -r '.jobId' deploy.json)" >> $GITHUB_ENV
+          echo "ZIP_URL=$(jq -r '.zipUploadUrl' deploy.json)" >> $GITHUB_ENV
+
       - name: Upload ZIP to Amplify
         run: |
-          DEPLOYMENT_JSON=$(aws amplify create-deployment --app-id "$APP_ID" --branch-name "$BRANCH_NAME")
-          echo "Created deployment: $DEPLOYMENT_JSON"
-
-          UPLOAD_URL=$(echo "$DEPLOYMENT_JSON" | jq -r '.zipUploadUrl')
-          JOB_ID=$(echo "$DEPLOYMENT_JSON" | jq -r '.jobId')
-
-          echo "Uploading ZIP..."
-          curl -T ./amplify-artifacts/app.zip "$UPLOAD_URL"
-
-          echo "JOB_ID=$JOB_ID" >> $GITHUB_ENV
+          curl -T site.zip "$ZIP_URL"
 
       - name: Publish Deployment to Amplify
         run: |
