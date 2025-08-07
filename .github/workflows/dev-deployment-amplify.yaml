@@ -31,7 +31,7 @@ jobs:
           npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
-          zip -r site.zip out
+          cd out && zip -r ../site.zip . && cd ..
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
