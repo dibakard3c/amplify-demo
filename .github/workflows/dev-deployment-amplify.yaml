@@ -9,7 +9,7 @@ jobs:
 
     env:
       APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-      BRANCH_NAME: main
+      BRANCH_NAME: development
 
     steps:
       - name: Checkout repo
@@ -23,7 +23,12 @@ jobs:
       - name: Install dependencies & build project
         run: |
           export NEXT_PUBLIC_API_URL=https://api.example.com
-          export NODE_ENV=production
+          export NODE_ENV=development
+          export NEXT_PUBLIC_FRESH_DESK_TICKET_API_KEY=
+          export NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
+          export NODE_ENV=development
+          export NEXT_PUBLIC_FRESH_DESK_TICKET_API_KEY=
+          export NEXT_PUBLIC_FRESH_DESK_TICKET_DOMAIN=
           npm install --legacy-peer-deps --platform=linux
           npm rebuild sharp --force
           npm run build
