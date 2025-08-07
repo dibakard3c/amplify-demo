@@ -31,9 +31,7 @@ jobs:
           npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
-          mkdir -p ./amplify-artifacts
-          npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
-          zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
+          
 
 
       - name: Configure AWS credentials
@@ -55,7 +53,9 @@ jobs:
 
       - name: Upload ZIP to Amplify
         run: |
-          curl -T site.zip "$ZIP_URL"
+         mkdir -p ./amplify-artifacts
+         npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
+         zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
 
       - name: Publish Deployment to Amplify
         run: |
