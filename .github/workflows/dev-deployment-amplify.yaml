@@ -31,7 +31,10 @@ jobs:
           npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
-          cd out && zip -r ../site.zip . && cd ..
+          mkdir -p ./amplify-artifacts
+          npx esbuild next.config.ts --bundle --platform=node --outfile=next.config.js
+          zip -r ./amplify-artifacts/app.zip .next public package.json next.config.js
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
