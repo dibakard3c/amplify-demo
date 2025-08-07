@@ -22,6 +22,8 @@ jobs:
 
       - name: Install dependencies & build project
         run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
           npm install --legacy-peer-deps --save-dev
           npm run build
           zip -r site.zip out
