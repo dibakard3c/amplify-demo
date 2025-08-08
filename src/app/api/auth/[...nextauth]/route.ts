@@ -9,6 +9,9 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.COGNITO_CLIENT_ID!,
       clientSecret: process.env.COGNITO_CLIENT_SECRET || '',
       issuer: `https://cognito-idp.eu-west-1.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`,
+      client: { token_endpoint_auth_method: "none" }, // important
+      checks: ["pkce", "state"],
+      authorization: { params: { scope: "openid email profile" } },
     }),
   ],
   callbacks: {
