@@ -63,10 +63,10 @@ jobs:
               --app-id "$app_id" \
               --build-spec "$build_spec"
           fi
-          echo "app_id=$app_id" >> $GITHUB_OUTPUT
 
       - name: Publish to Amplify
         run: |
+            app_id="${{ env.APP_ID }}"
             echo "Waiting for pending jobs..."
             while aws amplify list-jobs --app-id "$app_id" --branch-name "${{ env.BRANCH_NAME }}" \
               --query "jobSummaries[?!(status=='FAILED' || status=='SUCCEED' || status=='CANCELLED')]" \
