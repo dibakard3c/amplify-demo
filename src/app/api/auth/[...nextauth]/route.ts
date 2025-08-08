@@ -7,13 +7,14 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CognitoProvider({
       clientId: process.env.COGNITO_CLIENT_ID!,
-      clientSecret: '',
+      clientSecret: process.env.COGNITO_CLIENT_SECRET || "",
       issuer: `https://cognito-idp.eu-west-1.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`,
-      client: { token_endpoint_auth_method: "none" }, // important
+      client: { token_endpoint_auth_method: process.env.COGNITO_CLIENT_SECRET ? "client_secret_basic" : "none" },
       checks: ["pkce", "state"],
       authorization: { params: { scope: "openid email profile" } },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }) {
       
@@ -23,8 +24,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log('ddd')
-      session.accessToken = token.accessToken as string;
+      session.accessToken = token.accessToken;
+      session.idToken = token.idToken;
+      session.user = token.user;
       return session;
     },
     async redirect({ baseUrl }) {
