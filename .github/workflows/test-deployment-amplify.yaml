@@ -10,7 +10,7 @@ env:
   ROLE_ARN: ${{ secrets.TF_EXEC_ROLE_DEV  }}
   AWS_REGION: eu-west-1                  
   AMPLIFY_APP_NAME: amplify-eu-west-1a-d-app        
-  APP_INSTALL_DEPS_PRE_COMMAND: npm ci
+  APP_INSTALL_DEPS_PRE_COMMAND: npm install --legacy-peer-deps
   APP_BUILD_COMMAND: npm run build
   APP_BUILD_FOLDER: .next
   AMPLIFY_ENV_VARS: ',SOME_ENV=test1,SOME_OTHER_ENV=test2'  # Optional environment vars
