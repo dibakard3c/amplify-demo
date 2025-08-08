@@ -1,0 +1,79 @@
+name: Deploy Application Into Amplify
+
+on:
+  workflow_dispatch:
+  
+permissions:
+      id-token: write # This is required for aws oidc connection
+      contents: read # This is required for actions/checkout
+      pull-requests: write # This is required for gh bot to comment PR
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+      BRANCH_NAME: master
+      REGION: eu-west-1
+      BUILD_DIR: .next
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.REGION }}
+          role-to-assume: ${{ secrets.TF_EXEC_ROLE_DEV }}
+
+      - name: Init or update Amplify app
+        id: amplify
+        run: |
+          build_spec=$(cat <<EOF
+          {
+            "version": 1,
+            "frontend": {
+              "phases": {
+                "preBuild": { "commands": [
+                  "rm -rf node_modules package-lock.json", 
+                  "npm cache clean --force",
+                  "npm install --legacy-peer-deps --save-dev"
+                ] },
+                "build": { "commands": ["npm run build"] }
+              },
+              "artifacts": {
+                "baseDirectory": "${{ env.BUILD_DIR }}",
+                "files": ["**/*"]
+              }
+            }
+          }
+          EOF
+          )
+          if [ -n "$app_id" ]; then
+            echo "Updating existing Amplify app"
+            
+            aws amplify update-app \
+              --app-id "$app_id" \
+              --build-spec "$build_spec"
+          fi
+          echo "app_id=$app_id" >> $GITHUB_OUTPUT
+
+      - name: Publish to Amplify
+        run: |
+            echo "Waiting for pending jobs..."
+            while aws amplify list-jobs --app-id "$app_id" --branch-name "${{ env.BRANCH_NAME }}" \
+              --query "jobSummaries[?!(status=='FAILED' || status=='SUCCEED' || status=='CANCELLED')]" \
+              --output text | grep -q .; do
+                sleep 10
+            done
+            echo "Starting RELEASE job"
+            aws amplify start-job \
+            --app-id "$app_id" \
+            --branch-name "${{ env.BRANCH_NAME }}" \
+            --job-type RELEASE
