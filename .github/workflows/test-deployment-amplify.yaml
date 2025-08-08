@@ -1,55 +1,120 @@
-name: Test Deployment Amplify
+name: Deploy SSR app to Amplify
 
 on:
+  push:
+    branches:
+      - development
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+env:
+  ROLE_ARN: ${{ secrets.TF_EXEC_ROLE_DEV  }}
+  AWS_REGION: eu-west-1                  
+  AMPLIFY_APP_NAME: amplify-eu-west-1a-d-app        
+  APP_INSTALL_DEPS_PRE_COMMAND: npm ci
+  APP_BUILD_COMMAND: npm run build
+  APP_BUILD_FOLDER: .next
+  AMPLIFY_ENV_VARS: ',SOME_ENV=test1,SOME_OTHER_ENV=test2'  # Optional environment vars
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    env:
-      APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-      BRANCH_NAME: development
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/checkout@v4
         with:
-          node-version: 18
-
-      - name: Install dependencies & build project
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install --legacy-peer-deps
-          npm run build
-          zip -r site.zip .next node_modules package.json package-lock.json next.config.js public .env.production
+          fetch-depth: 0
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: eu-west-1
-          role-to-assume: ${{ secrets.TF_EXEC_ROLE_DEV }}
+          role-to-assume: ${{ env.ROLE_ARN }}
+          role-session-name: github-actions-session
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Create Amplify Deployment
-        id: create_deployment
-        run: |
-          aws amplify create-deployment --app-id "$APP_ID" --branch-name "$BRANCH_NAME" > deploy.json
-          echo "job_id=$(jq -r '.jobId' deploy.json)" >> $GITHUB_OUTPUT
-          echo "zip_url=$(jq -r '.zipUploadUrl' deploy.json)" >> $GITHUB_OUTPUT
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-      - name: Upload ZIP to Amplify
+      - name: Install dependencies and build app
         run: |
-          curl -T site.zip "${{ steps.create_deployment.outputs.zip_url }}"
+          ${{ env.APP_INSTALL_DEPS_PRE_COMMAND }}
+          ${{ env.APP_BUILD_COMMAND }}
 
-      - name: Publish Deployment to Amplify
+      - name: Initialize Amplify app and get appId
+        id: init_amplify
         run: |
-          aws amplify start-deployment --app-id "$APP_ID" --branch-name "$BRANCH_NAME" --job-id "${{ steps.create_deployment.outputs.job_id }}"
+          apps_json=$(aws amplify list-apps --region ${{ env.AWS_REGION }})
+          app_id=$(echo "$apps_json" | jq -r ".apps[] | select(.name==\"${{ env.AMPLIFY_APP_NAME }}\") | .appId")
+
+          build_spec='{
+            "version": 1,
+            "frontend": {
+              "phases": {
+                "preBuild": {
+                  "commands": ["npm ci"]
+                },
+                "build": {
+                  "commands": ["npm run build"]
+                }
+              },
+              "artifacts": {
+                "baseDirectory": "${{ env.APP_BUILD_FOLDER }}",
+                "files": ["**/*"]
+              }
+            }
+          }'
+
+          if [ -z "$app_id" ]; then
+            echo "Amplify app not found, creating..."
+            repo_url="https://github.com/${{ github.repository }}"
+
+            create_app_output=$(aws amplify create-app \
+              --name "${{ env.AMPLIFY_APP_NAME }}" \
+              --repository "$repo_url" \
+              --platform WEB_COMPUTE \
+              --region ${{ env.AWS_REGION }} \
+              --iam-service-role-arn ${{ env.ROLE_ARN }} \
+              --build-spec "$build_spec")
+
+            app_id=$(echo "$create_app_output" | jq -r '.app.appId')
+          else
+            echo "Amplify app exists with appId: $app_id"
+            aws amplify update-app \
+              --app-id "$app_id" \
+              --build-spec "$build_spec" \
+              --region ${{ env.AWS_REGION }} \
+              --iam-service-role-arn ${{ env.ROLE_ARN }}
+          fi
+
+          echo "appId=$app_id" >> $GITHUB_OUTPUT
+
+      - name: Create or update Amplify branch
+        run: |
+          app_id=${{ steps.init_amplify.outputs.appId }}
+          branch_name=${{ github.ref_name }}
+
+          aws amplify create-branch --app-id "$app_id" --branch-name "$branch_name" --stage PRODUCTION || echo "Branch exists"
+
+      - name: Start Amplify deployment job
+        run: |
+          app_id=${{ steps.init_amplify.outputs.appId }}
+          branch_name=${{ github.ref_name }}
+
+          # Create deployment job and get jobId and zipUrl
+          deploy_json=$(aws amplify create-deployment --app-id "$app_id" --branch-name "$branch_name" --region ${{ env.AWS_REGION }})
+          job_id=$(echo "$deploy_json" | jq -r '.jobId')
+          zip_url=$(echo "$deploy_json" | jq -r '.zipUploadUrl')
+
+          echo "Uploading build artifacts..."
+          zip -r site.zip ${{ env.APP_BUILD_FOLDER }} node_modules package.json package-lock.json next.config.js public .env.production
+          curl -T site.zip "$zip_url"
+
+          echo "Starting deployment job $job_id"
+          aws amplify start-deployment --app-id "$app_id" --branch-name "$branch_name" --job-id "$job_id" --region ${{ env.AWS_REGION }}
+
