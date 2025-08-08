@@ -6,9 +6,9 @@ import { Toaster } from '@estia/components/ui/sonner';
 import StoreProvider from '@estia/store/store-provider';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { generateMeta } from '@estia/helpers/meta';
-
-export const metadata: Metadata = generateMeta('Dashboard');
-
+import { SessionProvider } from "next-auth/react";
+// export const metadata: Metadata = generateMeta('Dashboard');
+import SessionWrapper from '@estia/components/session-wrapper';
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang='en' suppressHydrationWarning>
@@ -18,6 +18,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <title>Estia Payments</title>
       </head>
       <body className={`${customFonts.className} text-neutral-3 antialiased`}>
+        <SessionWrapper>
         {/*<ThemeProvider*/}
         {/*  attribute='class'*/}
         {/*  forcedTheme='dark'*/}
@@ -29,6 +30,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </main>
         <Toaster />
         {/*</ThemeProvider>*/}
+        </SessionWrapper>
+        
       </body>
     </html>
   );
