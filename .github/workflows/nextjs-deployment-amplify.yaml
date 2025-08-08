@@ -14,7 +14,7 @@ jobs:
 
     env:
       APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-      BRANCH_NAME: master
+      BRANCH_NAME: development
       REGION: eu-west-1
       BUILD_DIR: .next
     steps:
