@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async redirect({ baseUrl }) {
-      return `${baseUrl}/dashboard`; // send user to dashboard after login
+      return `${baseUrl}/profile`; // send user to dashboard after login
     },
   },
 };
