@@ -3,19 +3,19 @@ name: Deploy SSR app to Amplify
 on:
   push:
     branches:
-      - development
+      - staging
+    paths:
+      - 'pages/**'
+      - 'src/**'
+      - 'package.json'
+      - 'next.config.js'
+      - 'amplify.yml'
   workflow_dispatch:
-
-env:
-  ROLE_ARN: ${{ secrets.TF_EXEC_ROLE_DEV  }}
-  AWS_REGION: eu-west-1                  
-
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
       pull-requests: write
 
@@ -25,19 +25,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ env.ROLE_ARN }}
-          role-session-name: github-actions-session
-          aws-region: ${{ env.AWS_REGION }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies and build app
+      - name: Install dependencies
         run: npm ci
 
       - name: Lint
@@ -47,5 +40,7 @@ jobs:
         run: npm test
 
       - name: Trigger Amplify Build
-        run: curl -X POST -d {} ${{ secrets.AMPLIFY_WEBHOOK_URL }}        
-
+        if: success()  # Only run if lint and tests passed
+        run: |
+          curl -X POST -d '{}' "${{ secrets.AMPLIFY_WEBHOOK_URL }}" \
+               -H "Content-Type:application/json"
