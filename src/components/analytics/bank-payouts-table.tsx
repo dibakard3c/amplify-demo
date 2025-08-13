@@ -156,12 +156,13 @@ export function BankPayoutsTable({ perPage }: BankPayoutsTableProps) {
 
   return (
     <div className='mt-3 w-full'>
-      <div className='mr-4 mb-3 flex justify-end'>
-        <div className='flex items-center self-end'>
+      <div className='mb-3 flex justify-end sm:mr-4'>
+        <div className='flex w-full items-center sm:w-auto sm:self-end'>
           <Input
             type='text'
             placeholder='Search transactions'
-            className='border-primary-1 mb-1 h-11 min-w-[280px] border pr-10'
+            containerClassName='w-full'
+            className='border-primary-1 mb-1 h-11 w-full border pr-10 sm:min-w-[280px]'
           />
           <SearchIcon className='-ml-9' />
         </div>

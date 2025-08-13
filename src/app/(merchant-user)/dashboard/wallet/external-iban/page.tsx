@@ -71,22 +71,24 @@ export default function Page() {
   return (
     <div
       className={cn(
-        'mx-[10%] flex w-auto flex-col items-center justify-center',
+        'flex w-auto flex-col items-center justify-center lg:mx-[10%]',
         !addNewIban && isEmpty(data) && 'h-full'
       )}
     >
-      <h1 className='mb-6 text-3xl font-bold'>External IBAN friendly names</h1>
+      <h1 className='mb-6 text-xl font-bold max-lg:mb-12 md:text-3xl'>
+        External IBAN friendly names
+      </h1>
       {data?.map((item, index) => (
         <div key={index} className='mt-3 mb-6 flex w-full items-center'>
-          <div className='mr-8 w-[32%]'>
+          <div className='mr-4 w-[28%] md:mr-8'>
             <span className='text-sm font-bold'>FRIENDLY NAME</span>
             <span className='text-neutral-4 mt-4 block text-base font-bold'>
               {item?.name}
             </span>
           </div>
-          <div className='w-[40%]'>
+          <div className='w-[40%] max-lg:w-[45%] md:w-[40%]'>
             <span className='text-sm font-bold'>IBAN NUMBER</span>
-            <span className='text-neutral-4 mt-4 block text-base font-bold'>
+            <span className='text-neutral-4 mt-4 block overflow-hidden text-base font-bold text-ellipsis'>
               {item?.iban}
             </span>
           </div>
@@ -131,14 +133,14 @@ export default function Page() {
       ))}
       {addNewIban && (
         <div className='my-3 flex w-full items-end'>
-          <div className='mr-8 w-[32%]'>
+          <div className='mr-4 w-[28%] md:mr-8'>
             <span className='text-sm font-bold'>FRIENDLY NAME</span>
             <Input
               ref={friendlyNameRef}
               className='placeholder:text-neutral-4 h-11 text-base font-bold'
             />
           </div>
-          <div className='w-[40%]'>
+          <div className='w-[40%] pr-3'>
             <span className='text-sm font-bold'>IBAN NUMBER</span>
             <Input
               ref={ibanRef}
@@ -175,7 +177,7 @@ export default function Page() {
             onClick={() => {
               setAddNewIban(true);
             }}
-            className='m-0 mr-12 h-12 w-auto px-10 py-4 text-base font-bold'
+            className='m-0 mr-6 h-12 w-auto px-8 py-4 text-base font-bold md:mr-12'
           >
             <AddIcon className='size-6' />
             Add New IBAN
@@ -183,7 +185,7 @@ export default function Page() {
           <Button
             size='xl'
             variant='outline'
-            className='border-primary-1 m-0 mr-12 h-12 w-auto px-10 py-4 text-base font-bold hover:border-white'
+            className='border-primary-1 m-0 h-12 w-auto px-10 py-4 text-base font-bold hover:border-white md:mr-12'
           >
             Back to Wallet
           </Button>

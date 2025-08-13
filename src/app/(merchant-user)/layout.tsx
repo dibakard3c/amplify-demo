@@ -30,19 +30,22 @@ export default function Layout({ children }: PropsWithChildren) {
   const [first, second, third] = segments;
 
   useEffect(() => {
-    if (
-      isEmpty(accessToken) &&
-      first !== 'auth' &&
-      !isUserLoggedIn &&
-      typeof window !== 'undefined'
-    ) {
-      router.replace(SCREENS.LOGIN);
-    } else if (
-      first !== 'dashboard' &&
-      isUserLoggedIn &&
-      third !== 'sub-user'
-    ) {
-      router.replace(SCREENS.DASHBOARD);
+    //TODO: remove development bypass
+    if (process.env.NODE_ENV !== 'development') {
+      if (
+        isEmpty(accessToken) &&
+        first !== 'auth' &&
+        !isUserLoggedIn &&
+        typeof window !== 'undefined'
+      ) {
+        router.replace(SCREENS.LOGIN);
+      } else if (
+        first !== 'dashboard' &&
+        isUserLoggedIn &&
+        third !== 'sub-user'
+      ) {
+        router.replace(SCREENS.DASHBOARD);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, first, isUserLoggedIn]);

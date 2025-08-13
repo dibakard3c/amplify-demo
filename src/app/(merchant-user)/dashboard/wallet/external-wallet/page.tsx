@@ -38,21 +38,24 @@ export default function Page() {
   };
 
   return (
-    <div className='ml-[10%] flex w-auto flex-col items-center justify-center pr-[2.5%]'>
-      <h1 className='mb-6 text-3xl font-bold'>
+    <div className='flex w-auto flex-col items-center justify-center bg-red-500'>
+      <h1 className='mb-6 text-xl font-bold max-lg:mb-12 md:text-3xl'>
         External Wallets friendly names
       </h1>
       {ibans?.map((item, index) => (
-        <div key={index} className='mt-3 mb-6 flex w-full items-center'>
-          <div className='mr-8 w-[28%]'>
+        <div
+          key={index}
+          className='mt-3 mb-6 flex w-full flex-wrap items-center'
+        >
+          <div className='mr-4 md:w-[28%] lg:mr-8'>
             <span className='text-sm font-bold'>FRIENDLY NAME</span>
             <span className='text-neutral-4 mt-4 block text-base font-bold'>
               {item?.name}
             </span>
           </div>
-          <div className='w-[47%]'>
+          <div className='w-[40%] lg:w-[47%]'>
             <span className='text-sm font-bold'>WALLET ADDRESS</span>
-            <span className='text-neutral-4 mt-4 block text-base font-bold'>
+            <span className='text-neutral-4 mt-4 block overflow-hidden text-base font-bold text-ellipsis'>
               {item?.address}
             </span>
           </div>
@@ -73,14 +76,14 @@ export default function Page() {
       ))}
       {(addNewWallet || isEmpty(ibans)) && (
         <div className='mt-3 flex w-full items-end'>
-          <div className='mr-8 w-[28%]'>
+          <div className='mr-4 w-[28%] lg:mr-8'>
             <span className='text-sm font-bold'>FRIENDLY NAME</span>
             <Input
               ref={friendlyNameRef}
               className='text-neutral-4 h-11 text-base font-bold'
             />
           </div>
-          <div className='w-[47%]'>
+          <div className='w-[40%] lg:w-[47%]'>
             <span className='text-sm font-bold'>WALLET ADDRESS</span>
             <Input
               ref={addressRef}
@@ -105,7 +108,7 @@ export default function Page() {
           onClick={() => {
             setAddNewWallet(true);
           }}
-          className='m-0 mr-12 h-12 w-auto px-10 py-4 text-base font-bold'
+          className='m-0 mr-6 h-12 w-auto py-4 text-sm font-bold md:text-base lg:mr-12 lg:px-10'
         >
           <AddIcon className='size-6' />
           Add New External Wallet
@@ -113,7 +116,7 @@ export default function Page() {
         <Button
           size='xl'
           variant='outline'
-          className='border-primary-1 m-0 mr-12 h-12 w-auto px-10 py-4 text-base font-bold hover:border-white'
+          className='border-primary-1 m-0 h-12 w-auto px-10 py-4 text-sm font-bold hover:border-white md:text-base lg:mr-12'
         >
           Back to Wallet
         </Button>

@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { cn } from '@estia/lib/utils';
 import { Button } from '@estia/components/ui/button';
 import { ErrorIcon } from '@estia/assets/icons/error';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 interface ErrorViewProps extends PropsWithChildren {
   className?: string;
@@ -19,12 +20,7 @@ export default function ErrorView({
   errorMsg,
 }: ErrorViewProps) {
   return (
-    <div
-      className={cn(
-        'mx-auto mt-24 flex max-w-[40%] flex-col items-center justify-center',
-        className
-      )}
-    >
+    <DashboardSubNavCard className={cn('mt-24', className)}>
       <h1 className='text-2xl font-bold'>{title}</h1>
       <ErrorIcon className='relative my-8 size-28' />
       <h2 className='px-4 text-center text-base leading-relaxed font-bold'>
@@ -41,6 +37,6 @@ export default function ErrorView({
           {btnTitle}
         </Button>
       ) : null}
-    </div>
+    </DashboardSubNavCard>
   );
 }

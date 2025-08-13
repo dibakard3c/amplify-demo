@@ -8,42 +8,46 @@ import { CustomerDemographicsTable } from '@estia/components/analytics/customer-
 import { CustomerDemographicsGraph } from '@estia/components/analytics/customer-demographics-graph';
 import Link from 'next/link';
 import { SCREENS } from '@estia/constants/screens';
+import DashboardCard from '@estia/components/layout/dashboard-card';
 
 export default function Page() {
   return (
-    <div className='bg-neutral-8 mt-8 rounded-2xl p-8'>
-      <h1 className='mb-4 text-3xl font-bold'>Sales Analytics</h1>
-      <h2 className='mb-4 text-4xl font-bold'>4.768,00 EUR</h2>
-      <div className='dashboard-shadow relative mt-8 rounded-xl p-6'>
-        <div className='mb-2 flex flex-row justify-between'>
-          <h2 className='text-2xl'>Sales (Current Year)</h2>
+    <DashboardCard title='Sales Analytics'>
+      <h2 className='mb-4 text-2xl font-bold md:text-4xl'>4.768,00 EUR</h2>
+      <div className='dashboard-shadow relative mt-4 rounded-xl p-4 md:mt-8 md:p-6'>
+        <div className='mb-2 flex flex-row items-center justify-between md:items-start'>
+          <h2 className='text-lg md:text-2xl'>Sales (Current Year)</h2>
           <Button asChild size='md' className='h-10'>
             <Link href={SCREENS.SALES}>See All</Link>
           </Button>
         </div>
         <SalesChart showTimeline={false} />
       </div>
-      <div className='dashboard-shadow relative mt-8 rounded-xl p-6'>
+      <div className='dashboard-shadow relative mt-8 rounded-xl p-4 md:p-6'>
         <div className='mb-4 flex flex-row justify-between'>
-          <h2 className='text-2xl'>Customer Demographics (Current Year)</h2>
+          <h2 className='mr-2 text-lg md:text-2xl'>
+            Customer <br className='md:hidden' />
+            Demographics <br className='md:hidden' />
+            (Current Year)
+          </h2>
           <Button asChild size='md' className='h-10'>
             <Link href={SCREENS.DEMOGRAPHICS}>See All</Link>
           </Button>
         </div>
         <div className='flex'>
-          <CustomerDemographicsTable className='mr-8 w-1/2' />
-          <CustomerDemographicsGraph className='ml-2 w-1/2 flex-1' />
+          <CustomerDemographicsTable className='md:mr-8 md:w-1/2' />
+          <CustomerDemographicsGraph className='flex-1 md:ml-2 md:w-1/2' />
         </div>
       </div>
-      <div className='dashboard-shadow relative mt-8 rounded-xl p-6'>
-        <div className='mb-2 flex flex-row justify-between'>
-          <h2 className='text-2xl'>Bank Payouts</h2>
+      <div className='dashboard-shadow relative mt-8 rounded-xl p-4 md:p-6'>
+        <div className='mb-2 flex flex-row items-center justify-between md:items-start'>
+          <h2 className='text-lg md:text-2xl'>Bank Payouts</h2>
           <Button asChild size='md' className='h-10'>
             <Link href={SCREENS.PAYOUTS}>See All</Link>
           </Button>
         </div>
         <BankPayoutsTable perPage={5} />
       </div>
-    </div>
+    </DashboardCard>
   );
 }

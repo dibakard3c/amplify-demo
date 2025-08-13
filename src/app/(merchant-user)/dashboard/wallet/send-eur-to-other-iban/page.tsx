@@ -47,6 +47,7 @@ import { SCREENS } from '@estia/constants/screens';
 import { BankIcon } from '@estia/assets/icons/wallet';
 import { formatIBAN } from '@estia/utils/currency';
 import { Toast } from '@estia/helpers/toast';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 export default function Page() {
   const router = useRouter();
@@ -230,8 +231,7 @@ export default function Page() {
 
   return (
     <Form {...sendEuroToOtherIbanForm}>
-      <div className='mx-auto flex h-full max-w-[45%] flex-col items-center justify-center'>
-        <h1 className='mb-12 text-3xl font-bold'>Send EUR to other IBAN</h1>
+      <DashboardSubNavCard title='Send EUR to other IBAN'>
         <FormField
           control={sendEuroToOtherIbanForm?.control}
           name='amount'
@@ -244,7 +244,7 @@ export default function Page() {
             />
           )}
         />
-        <h5 className='text-primary-1 mt-6 mb-2 text-lg font-bold'>
+        <h5 className='text-primary-1 mt-6 mb-2 text-lg font-bold max-lg:mb-12'>
           EUR will be transferred to this IBAN
         </h5>
         <FormField
@@ -317,7 +317,7 @@ export default function Page() {
             Cancel
           </Button>
         ) : null}
-      </div>
+      </DashboardSubNavCard>
     </Form>
   );
 }

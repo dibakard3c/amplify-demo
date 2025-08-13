@@ -3,12 +3,12 @@ import { SCREENS } from '@estia/constants/screens';
 import { cn } from '@estia/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function UsersTabSwitcher() {
+export default function UsersTabSwitcher({ className }: any) {
   const router = useRouter();
   const pathname = usePathname();
 
   return (
-    <div className='flex items-center justify-end text-sm'>
+    <div className={cn('flex items-center text-sm sm:justify-end', className)}>
       <p
         onClick={() => {
           router.push(SCREENS.USERS);

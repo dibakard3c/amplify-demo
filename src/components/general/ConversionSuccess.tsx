@@ -37,7 +37,7 @@ export default function ConversionSuccess({
   return (
     <div
       className={cn(
-        'mx-auto flex max-w-[40%] flex-col items-center justify-center',
+        'mx-auto flex w-full flex-col items-center justify-center sm:max-w-[40%]',
         className
       )}
     >

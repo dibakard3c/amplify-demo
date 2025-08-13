@@ -26,6 +26,7 @@ import { maskEmail } from '@estia/utils/general';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@estia/store/selector';
 import { Toast } from '@estia/helpers/toast';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 const CHANGE_EMAIL_STEPS = {
   OLD_MAIL_VERIFICATION: 'old_mail_verification',
@@ -114,7 +115,7 @@ export default function Page() {
 
   if (mode === CHANGE_EMAIL_STEPS.CHANGE_SUCCESS) {
     return (
-      <div className='mx-auto flex h-full max-w-[50%] flex-col items-center justify-center pb-24'>
+      <div className='mx-auto flex h-full flex-col items-center justify-center pb-24 md:max-w-[50%]'>
         <div className='relative size-24 lg:size-30'>
           <Image src={Icons.success} alt='' fill />
         </div>
@@ -148,7 +149,7 @@ export default function Page() {
           resendEmailOtp('EMAIL_ADDRESS_CHANGE');
         }}
         onComplete={onVerifyNewEmail}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
@@ -156,8 +157,7 @@ export default function Page() {
 
   if (mode === CHANGE_EMAIL_STEPS.CHANGE_MAIL) {
     return (
-      <div className='mx-auto flex max-w-[60%] flex-col items-center justify-center pt-12'>
-        <p className='my-8 text-3xl font-bold'>Change email address</p>
+      <DashboardSubNavCard title='Change email address' titleClassName='my-8'>
         <div>
           <p className='my-4 text-base leading-loose'>
             We will text a verification code to your new email address to
@@ -188,7 +188,7 @@ export default function Page() {
         >
           Change email address
         </Button>
-      </div>
+      </DashboardSubNavCard>
     );
   }
 
@@ -204,15 +204,17 @@ export default function Page() {
         mode='email'
         onResendCode={onSendMail}
         onComplete={onVerifyEmail}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
   }
 
   return (
-    <div className='mx-auto flex max-w-[50%] flex-col items-center justify-center pt-12'>
-      <p className='my-8 text-3xl font-bold'>Change email address</p>
+    <DashboardSubNavCard
+      title='Change email address'
+      titleClassName='my-8 text-xl'
+    >
       <div>
         <p className='my-4 text-base leading-loose'>
           To change your email, you will follow these steps:
@@ -228,13 +230,13 @@ export default function Page() {
         </ul>
       </div>
       <Button
-        className='mt-12 h-14 w-full px-16 text-lg'
+        className='mt-12 h-14 w-full px-16 text-base md:text-lg'
         onClick={() => {
           onSendMail();
         }}
       >
         Proceed to change email address
       </Button>
-    </div>
+    </DashboardSubNavCard>
   );
 }

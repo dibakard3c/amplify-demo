@@ -31,8 +31,8 @@ const CustomTraveller = ({ x, y, width, height }: any) => {
       xmlns='http://www.w3.org/2000/svg'
     >
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule-='evenodd'
         d='M0 28H2V0H0V28Z'
         fill='#A9ABB6'
       />

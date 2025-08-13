@@ -9,10 +9,19 @@ import { walletLinks } from '@estia/helpers/links';
 import Link from 'next/link';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 
-export default function WalletMenuItem() {
+interface WalletMenuItemProps {
+  className?: string;
+}
+
+export default function WalletMenuItem({ className }: WalletMenuItemProps) {
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger className='text-md mx-5 h-11 rounded-full border-2 bg-transparent px-4 py-0 font-bold 2xl:h-12'>
+      <NavigationMenuTrigger
+        className={cn(
+          'text-md mx-5 h-11 rounded-full border-2 bg-transparent px-4 py-0 font-bold max-sm:hidden 2xl:h-12',
+          className
+        )}
+      >
         Wallet
       </NavigationMenuTrigger>
       <NavigationMenuContent>

@@ -29,6 +29,7 @@ import { SendEstForm } from '@estia/typings/wallet-forms';
 import { FormInputField } from '@estia/components/form/form-input';
 import { isEmpty } from 'lodash';
 import { Toast } from '@estia/helpers/toast';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 export default function Page() {
   const user = useAppSelector(selectUser);
@@ -137,7 +138,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <ProcessingLoader
-        className='mx-auto mt-24 max-w-[45%]'
+        className='mx-auto mt-24 w-full md:max-w-[45%]'
         title='Conversion'
         subtitle='Initiating conversion'
         message='Please don’t leave this screen'
@@ -156,7 +157,7 @@ export default function Page() {
         mode='email'
         onResendCode={sendTwoFactorEmail}
         onComplete={verifyTwoFactorEmail}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
@@ -164,8 +165,7 @@ export default function Page() {
 
   return (
     <Form {...sendEstForm}>
-      <div className='mx-auto mt-24 flex max-w-[45%] flex-col items-center justify-center'>
-        <h1 className='mb-6 text-3xl font-bold'>Send EST to other Wallets</h1>
+      <DashboardSubNavCard title='Send EST to other Wallets'>
         <FormField
           control={sendEstForm?.control}
           name='amount'
@@ -217,7 +217,7 @@ export default function Page() {
         >
           Continue
         </Button>
-      </div>
+      </DashboardSubNavCard>
     </Form>
   );
 }

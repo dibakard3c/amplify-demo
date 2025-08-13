@@ -48,6 +48,7 @@ export default function AmountInput({
         ) : (
           <CurrencyInput
             autoFocus
+            allowNegativeValue={false}
             ref={inputRef}
             placeholder='0.00'
             className='currency-input placeholder-primary text-5xl font-semibold text-black outline-none'
@@ -79,7 +80,7 @@ export default function AmountInput({
             {formatCurrency(exchangeRate, true)} (EST)
           </h4>
           {infoText ? (
-            <h5 className='text-primary-1 mt-6 text-lg font-bold'>
+            <h5 className='text-primary-1 mt-6 text-lg font-bold max-lg:mt-12'>
               {infoText}
             </h5>
           ) : null}

@@ -16,6 +16,7 @@ import { UsersTable } from '@estia/components/users/users-table';
 import { AddUserDialog } from '@estia/components/dialogs/add-user';
 import UsersTabSwitcher from '@estia/components/users/users-tab-switcher';
 import { ColumnFiltersState } from '@tanstack/react-table';
+import DashboardCard from '@estia/components/layout/dashboard-card';
 
 export default function Page() {
   const [search, setSearch] = useState('');
@@ -32,17 +33,19 @@ export default function Page() {
   );
 
   return (
-    <div className='bg-neutral-8 mt-8 rounded-2xl p-8'>
-      <h1 className='mb-4 text-3xl font-bold'>User Management</h1>
-      <UsersTabSwitcher />
-      <div className='my-4 flex items-center justify-end text-sm'>
-        <AddUserDialog />
+    <DashboardCard title='User Management'>
+      <div className='flex flex-row justify-between py-4 md:flex-col md:py-0'>
+        <UsersTabSwitcher className='flex-1' />
+        <div className='flex items-center justify-end text-sm md:my-4'>
+          <AddUserDialog />
+        </div>
       </div>
       <div className='mb-4 flex items-center justify-between'>
-        <div className='flex items-center'>
+        <div className='flex w-full items-center md:w-auto'>
           <Input
             type='text'
             placeholder='Search user'
+            containerClassName='w-full'
             className='border-primary-1 mb-1 h-11 min-w-[280px] border pr-10'
             value={search ?? ''}
             onChange={(event) => {
@@ -52,18 +55,18 @@ export default function Page() {
           <SearchIcon className='-ml-9' />
         </div>
       </div>
-      <div className='dashboard-shadow rounded-xl bg-white p-6'>
-        <div className='flex justify-between'>
-          <h2 className='text-2xl'>Users</h2>
+      <div className='dashboard-shadow rounded-xl bg-white p-4 md:p-6'>
+        <div className='flex items-center justify-between md:items-start'>
+          <h2 className='text-xl md:text-2xl'>Users</h2>
           <DropdownMenu>
             <Button
               asChild
               variant='outline'
-              className='border-primary-1 h-11 w-36 hover:border-white'
+              className='border-primary-1 h-11 w-28 hover:border-white md:w-36'
             >
               <DropdownMenuTrigger>
                 <div className='flex items-center pl-2'>
-                  <span className='text-base font-bold'>
+                  <span className='text-sm font-bold md:text-base'>
                     {selectedRole || 'All Users'}
                   </span>
                   <ChevronDown className='ml-1 size-6' />
@@ -110,6 +113,6 @@ export default function Page() {
           setColumnFilters={setColumnFilters}
         />
       </div>
-    </div>
+    </DashboardCard>
   );
 }

@@ -11,6 +11,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Toast } from '@estia/helpers/toast';
 import { isEmpty } from 'lodash';
 import ErrorView from '@estia/components/general/ErrorView';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 export default function Page() {
   const currentUser = useSelector(selectUser);
@@ -56,9 +57,8 @@ export default function Page() {
   }
 
   return (
-    <div className='mt-6 ml-[10%] flex w-auto flex-col items-center justify-center pr-[2.5%]'>
-      <h1 className='mb-8 text-3xl font-bold'>My IBAN</h1>
-      <div className='iban-shadow w-[55%] rounded-2xl bg-white p-6'>
+    <DashboardSubNavCard title='My IBAN'>
+      <div className='iban-shadow w-full max-w-[27rem] rounded-2xl bg-white p-6'>
         {ibanDetails?.map((item, index) => (
           <CopyToClipboard
             key={index}
@@ -81,6 +81,6 @@ export default function Page() {
           </CopyToClipboard>
         ))}
       </div>
-    </div>
+    </DashboardSubNavCard>
   );
 }

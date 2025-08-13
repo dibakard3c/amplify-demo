@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { FormInputField } from '@estia/components/form/form-input';
 import { FormField } from '@estia/components/ui/form';
@@ -16,11 +15,10 @@ import { useAppDispatch } from '@estia/store/store';
 import { setLoginPayload } from '@estia/store/slices/auth';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Toast } from '@estia/helpers/toast';
-import { signIn, signOut, useSession } from "next-auth/react";
+
 export default function EmailAndPassword({
   onMoveToNextStep,
 }: RegistrationForm) {
-  const { data: session, status } = useSession();
   const form = useFormContext<LoginForm>();
   const dispatch = useAppDispatch();
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -81,7 +79,7 @@ export default function EmailAndPassword({
         });
     });
   }
-  console.log("User is logged in:", session?.user, status);
+
   return (
     <div className='mx-auto w-full self-center px-4 pl-2 sm:w-[44%] sm:max-w-[32rem]'>
       <h1 className='mt-3 mb-6 text-center text-3xl font-bold'>Sign In</h1>
@@ -130,19 +128,12 @@ export default function EmailAndPassword({
       >
         Sign in
       </Button>
-      <div className='text-center'>
-        <span >OR</span>
-      </div>
-       <Button type="button" onClick={() => signIn("cognito", { callbackUrl: "/api/auth/callback/cognito" })} size='lg' className='my-6 w-full text-lg'>Cognito Login</Button>
-
       <Link href={SCREENS.REGISTER}>
         <p className='text-primary-1 max-w-max py-3 pr-2 text-sm font-bold'>
           Don’t have an account? Create one{' '}
           <span className='underline'>here</span>.
         </p>
       </Link>
-     
     </div>
-    
   );
 }

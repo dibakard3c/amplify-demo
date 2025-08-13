@@ -27,6 +27,7 @@ import { maskString } from '@estia/utils/general';
 import { Toast } from '@estia/helpers/toast';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 const CHANGE_STEPS = {
   CHANGE_MOBILE: 'change_mobile',
@@ -152,7 +153,7 @@ export default function Page() {
 
   if (mode === CHANGE_STEPS.CHANGE_SUCCESS) {
     return (
-      <div className='mx-auto flex h-full max-w-[50%] flex-col items-center justify-center pb-24'>
+      <div className='mx-auto flex h-full flex-col items-center justify-center pb-24 md:max-w-[50%]'>
         <div className='relative size-24 lg:size-30'>
           <Image src={Icons.success} alt='' fill />
         </div>
@@ -186,7 +187,7 @@ export default function Page() {
           resendMobileOtp('MOBILE_CHANGE');
         }}
         onComplete={onVerifyNewMobile}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
@@ -194,7 +195,7 @@ export default function Page() {
 
   if (mode === CHANGE_STEPS.CHANGE_MOBILE) {
     return (
-      <div className='mx-auto flex max-w-[60%] flex-col pt-12'>
+      <div className='mx-auto flex flex-col pt-12 md:max-w-[60%]'>
         <p className='mt-8 text-center text-3xl font-bold'>
           Change mobile phone
         </p>
@@ -238,15 +239,14 @@ export default function Page() {
         resendMode
         onResendCode={onSendMobileOtp}
         onComplete={onVerifyMobile}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
   }
 
   return (
-    <div className='mx-auto flex max-w-[50%] flex-col items-center justify-center pt-12'>
-      <p className='my-8 text-3xl font-bold'>Change mobile phone</p>
+    <DashboardSubNavCard title='Change mobile phone' titleClassName='my-8'>
       <div>
         <p className='my-4 text-base leading-loose'>
           To change your mobile phone, you will follow these steps:
@@ -269,6 +269,6 @@ export default function Page() {
       >
         Proceed to change mobile phone
       </Button>
-    </div>
+    </DashboardSubNavCard>
   );
 }

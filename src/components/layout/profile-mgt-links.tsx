@@ -7,11 +7,13 @@ import { cn } from '@estia/lib/utils';
 import { InfoIcon } from '@estia/assets';
 import { usePathname } from 'next/navigation';
 
-export function ProfileMgtLinks() {
+export function ProfileMgtLinks({ className }: any) {
   const pathname = usePathname();
 
   return (
-    <div className='max-w-70'>
+    <div
+      className={cn('max-w-[15rem] min-w-[15rem] min-lg:max-w-70', className)}
+    >
       <div className='ml-4'>
         {profileMgtLinks?.map((item, index) => (
           <Link key={index} href={item?.path}>

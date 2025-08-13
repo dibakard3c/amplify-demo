@@ -24,6 +24,7 @@ import { PasswordForm } from '@estia/typings/registration-form';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@estia/store/selector';
 import { maskEmail, maskString } from '@estia/utils/general';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 const CHANGE_STEPS = {
   EMAIL_OTP_VERIFICATION: 'email_otp_verification',
@@ -105,7 +106,7 @@ export default function Page() {
 
   if (mode === CHANGE_STEPS.CHANGE_SUCCESS) {
     return (
-      <div className='mx-auto flex h-full max-w-[50%] flex-col items-center justify-center pb-24'>
+      <div className='mx-auto flex h-full flex-col items-center justify-center pb-24 md:max-w-[50%]'>
         <div className='relative size-24 lg:size-30'>
           <Image src={Icons.success} alt='' fill />
         </div>
@@ -127,10 +128,12 @@ export default function Page() {
 
   if (mode === CHANGE_STEPS.CHANGE_PASSWORD) {
     return (
-      <div className='mx-auto max-w-[60%] pb-4'>
-        <p className='mt-4 mb-6 text-3xl font-bold'>Change password</p>
+      <DashboardSubNavCard className='mx-auto w-full pb-4 md:max-w-[60%]'>
+        <p className='mt-4 mb-6 text-center text-3xl font-bold md:text-left'>
+          Change password
+        </p>
         <Form {...form}>
-          <p className='pr-12 text-base leading-loose'>
+          <p className='text-base leading-loose md:pr-12'>
             Your password must be at least 8 characters long, and include at
             least 3 of three following:
             <br />- An uppercase letter
@@ -150,7 +153,7 @@ export default function Page() {
                 placeholder='Your password'
                 value={field.value}
                 onChange={field.onChange}
-                className='mt-8 max-w-[70%]'
+                className='mt-8 w-full md:max-w-[70%]'
                 inputClassName='max-w-auto w-full'
               />
             )}
@@ -166,7 +169,7 @@ export default function Page() {
                 placeholder='Your password'
                 value={field.value}
                 onChange={field.onChange}
-                className='mt-4 mb-4 max-w-[70%]'
+                className='mt-4 mb-4 w-full md:max-w-[70%]'
                 inputClassName='max-w-auto w-full'
               />
             )}
@@ -184,7 +187,7 @@ export default function Page() {
         >
           Change password
         </Button>
-      </div>
+      </DashboardSubNavCard>
     );
   }
 
@@ -200,7 +203,7 @@ export default function Page() {
         mode='sms'
         onResendCode={() => onSendMail()}
         onComplete={onVerifyMobile}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
       />
     );
   }
@@ -217,15 +220,14 @@ export default function Page() {
         mode='email'
         onResendCode={() => onSendMail()}
         onComplete={onVerifyEmail}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
   }
 
   return (
-    <div className='mx-auto flex max-w-[50%] flex-col items-center justify-center pt-12'>
-      <p className='my-8 text-3xl font-bold'>Change password</p>
+    <DashboardSubNavCard title='Change password' titleClassName='my-8'>
       <div>
         <p className='my-4 text-base leading-loose'>
           To change your password, you will follow these steps:
@@ -250,6 +252,6 @@ export default function Page() {
       >
         Proceed to change password
       </Button>
-    </div>
+    </DashboardSubNavCard>
   );
 }

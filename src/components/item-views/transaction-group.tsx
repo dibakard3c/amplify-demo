@@ -9,7 +9,7 @@ export default function TransactionGroup({ title, transactions }: any) {
       <h1 className='text-neutral-2 text-base font-medium'>
         {formatHumanReadableDate(title, false)}
       </h1>
-      <div className='my-4 mb-2'>
+      <div className='my-4 mb-2 overflow-x-scroll'>
         {transactions?.map((item: Transaction, index: string) => (
           <TransactionItem key={index} item={item} />
         ))}

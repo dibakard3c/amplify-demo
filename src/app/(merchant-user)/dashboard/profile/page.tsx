@@ -38,42 +38,42 @@ export default function Page() {
   }
 
   return (
-    <div className='p-4'>
+    <div className='md:p-4'>
       <BusinessReviewItem
         title='BUSINESS NAME (as it appears in the Nation Business Registry)'
         value={user?.companyName}
-        className='max-w-[70%]'
+        className='lg:max-w-[70%]'
       />
       <BusinessReviewItem
         title='BUSINESS LOGO'
         image={user?.merchantLogo}
         value={'N/A'}
-        className='max-w-[70%]'
+        className='lg:max-w-[70%]'
       />
       <BusinessReviewItem
         title='MERCHANT CATEGORY'
         value={user?.merchantType}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='VAT IDENTIFICATION NUMBER'
         value={user?.registrationNumber}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='REVENUE RANGE'
         value={user?.revenueRange || 'N/A'}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='ADDRESS'
         value={user?.addressLine}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='POSTAL CODE'
         value={user?.addressPostalCode}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='COUNTRY'
@@ -82,7 +82,7 @@ export default function Page() {
             (item) => item?.countryAbbreviation === user?.addressCountry
           )?.countryName
         }
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='BUSINESS PHONE NUMBER'
@@ -91,22 +91,22 @@ export default function Page() {
             ? user?.businessPhoneCountryCode + '  ' + user?.businessPhone
             : 'N/A'
         }
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='BUSINESS EMAIL'
         value={user?.businessEmailAddress}
-        className='border-border max-w-[40%] border-b pb-4'
+        className='border-border border-b pb-4 lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='CONTACT FIRST NAME'
         value={user?.primaryUserFirstName}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='CONTACT LAST NAME'
         value={user?.primaryUserLastName}
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='CONTACT MOBILE NUMBER'
@@ -115,14 +115,14 @@ export default function Page() {
           '  ' +
           maskPhoneNo(user?.primaryUserMobileNumber)
         }
-        className='max-w-[40%]'
+        className='lg:max-w-[40%]'
       />
       <BusinessReviewItem
         title='CONTACT EMAIL'
         value={maskEmail(user?.email)}
-        className='border-border max-w-[40%] border-b pb-4'
+        className='border-border border-b pb-4 lg:max-w-[40%]'
       />
-      <div className='max-w-[40%]'>
+      <div className='lg:max-w-[40%]'>
         <Form {...form}>
           <FormField
             control={form.control}
@@ -180,7 +180,7 @@ export default function Page() {
         <Button
           onClick={form.handleSubmit(onSubmit)}
           size='lg'
-          className='mb-12 w-full'
+          className='mt-8 w-full md:mt-0 md:mb-12'
         >
           Save Settings
         </Button>

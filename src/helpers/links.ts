@@ -10,6 +10,7 @@ import {
   UserIcon,
 } from '@estia/assets';
 import { SCREENS } from '@estia/constants/screens';
+import { MobileLink } from '@estia/typings/nav-links';
 
 export const navbarLinks = [
   // {
@@ -157,4 +158,56 @@ export const profileLinks = [
     path: 'https://estiapayments.io/estia-payments-s-m-p-c-privacy-policy',
   },
   { icon: LogoutIcon, title: 'Log out', path: SCREENS.LOGIN },
+];
+
+export const mobileNavLinks = [
+  {
+    title: 'Dashboard',
+    path: '/dashboard',
+  },
+  {
+    title: 'Transactions',
+    path: '/dashboard/transactions',
+  },
+  {
+    title: 'Analytics',
+    path: '/dashboard/analytics',
+    matches: [
+      '/dashboard/analytics/sales',
+      '/dashboard/analytics/demographics',
+      '/dashboard/analytics/payouts',
+    ],
+  },
+  {
+    title: 'Retailers',
+    path: '/dashboard/retailers',
+  },
+  {
+    title: 'Users & POS',
+    matches: ['/dashboard/users', '/dashboard/pos'],
+    path: '/dashboard/users',
+  },
+];
+
+export const mobileLinks: MobileLink[] = [
+  {
+    groupTitle: '',
+    list: [...mobileNavLinks],
+  },
+  {
+    groupTitle: 'Wallet',
+    list: walletLinks,
+  },
+  {
+    groupTitle: 'Profile Management',
+    list: profileMgtLinks,
+  },
+  {
+    groupTitle: 'Support',
+    list: [
+      // { title: 'Online Chat', path: '/dashboard/support' },
+      { title: 'Ticket', path: '/dashboard/support' },
+      { title: 'Feedback', path: '/dashboard/support/feedback' },
+    ],
+  },
 ];

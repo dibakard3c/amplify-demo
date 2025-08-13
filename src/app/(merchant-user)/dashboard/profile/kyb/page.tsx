@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '@estia/store/selector';
 import { Button } from '@estia/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Icons } from '@estia/assets';
 
 export default function Page() {
   const dispatch = useAppDispatch();
@@ -52,18 +54,23 @@ export default function Page() {
       //  onError={(data) => console.log('onError', data)}
     />
   ) : (
-    <div className='mx-auto flex max-w-[50%] flex-col items-center justify-center pt-12'>
-      <p className='my-8 text-3xl font-bold'>
-        Business Verification Successful
+    <div className='mx-auto flex flex-col items-center justify-center pt-12 min-md:max-w-[90%] lg:max-w-md'>
+      <div className='relative mx-auto size-24 lg:size-30'>
+        <Image src={Icons.success} alt='' fill />
+      </div>
+      <p className='my-6 text-center text-2xl font-bold md:text-3xl'>
+        Business Verification
+        <br />
+        Successful
       </p>
       <div>
-        <p className='my-4 text-center text-base leading-loose'>
+        <p className='text-base leading-loose'>
           Your business identity has been successfully verified. You now have
           unrestricted access to your dashboard and all available features
           designed to support and grow your business operations.
         </p>
       </div>
-      <Button asChild className='mt-12 h-14 w-full px-16 text-lg'>
+      <Button asChild className='mt-6 h-14 w-full px-16 text-base md:text-lg'>
         <Link href='/dashboard'>Continue to Dashboard</Link>
       </Button>
     </div>

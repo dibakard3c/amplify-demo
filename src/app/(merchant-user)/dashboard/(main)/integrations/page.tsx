@@ -9,13 +9,13 @@ import { CopyIcon } from '@estia/assets';
 export default function Page() {
   return (
     <div className='bg-card-bg mt-8 min-h-[80vh] rounded-2xl p-8'>
-      <h1 className='text-3xl font-bold'>Integrations</h1>
-      <h2 className='text-neutral-1 mt-3 mb-6 text-base font-medium'>
+      <h1 className='text-xl font-bold md:text-3xl'>Integrations</h1>
+      <h2 className='text-neutral-1 mt-3 mb-6 text-sm font-medium md:text-base'>
         Learn more about Estia Payment plug-ins available for various e-commerce
         platforms
       </h2>
       <div className='dashboard-shadow flex w-full flex-col justify-end rounded-2xl p-6 pb-8 text-sm'>
-        <h3 className='text-2xl'>Plugin Tokens</h3>
+        <h3 className='text-lg md:text-2xl'>Plugin Tokens</h3>
         <div className='relative'>
           <Input
             label='Secret 1'
@@ -24,7 +24,7 @@ export default function Page() {
             containerClassName='mt-6'
             className='text-neutral-4 border-neutral-4 border-2 py-6 pl-4 font-bold'
           />
-          <div className='absolute right-4 bottom-4 z-10 cursor-pointer'>
+          <div className='absolute right-4 bottom-4 z-10 cursor-pointer bg-white'>
             <CopyToClipboard
               text='IxMjM0NTY3ODkwIiwicGVybWlzc2l'
               onCopy={() =>
@@ -45,7 +45,7 @@ export default function Page() {
             containerClassName='mt-6'
             className='text-neutral-4 border-neutral-4 border-2 py-6 pl-4 font-bold'
           />
-          <div className='absolute right-4 bottom-4 z-10 cursor-pointer'>
+          <div className='absolute right-4 bottom-4 z-10 cursor-pointer bg-white'>
             <CopyToClipboard
               text='IxMjM0NTY3ODkwIiwicGVybWlzc2l'
               onCopy={() =>

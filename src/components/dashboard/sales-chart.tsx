@@ -96,9 +96,9 @@ export function SalesChart({ showTimeline = true }: any) {
   };
 
   return (
-    <div className='relative w-full'>
+    <div className='relative w-full overflow-x-auto'>
       {showTimeline ? (
-        <div className='mt-4 flex items-center'>
+        <div className='mt-2 flex items-center sm:mt-4'>
           <h3 className='mr-4 -ml-1 p-2 text-base font-bold'>Time</h3>
           {options?.map((item, index) => (
             <div
@@ -112,14 +112,14 @@ export function SalesChart({ showTimeline = true }: any) {
                   'bg-neutral-3 rounded-3xl text-white'
               )}
             >
-              <h3 className='text-base font-bold'>{item?.title}</h3>
+              <h3 className='text-sm font-bold sm:text-base'>{item?.title}</h3>
             </div>
           ))}
         </div>
       ) : null}
       <ChartContainer
         config={chartConfig}
-        className='mt-2 h-96 w-full rounded-lg p-0'
+        className='mt-2 h-96 overflow-x-auto rounded-lg p-0 sm:w-full'
       >
         <BarChart barSize='100%' accessibilityLayer data={chartData}>
           <CartesianGrid className='rounded-2xl' radius={100} />

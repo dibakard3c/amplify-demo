@@ -29,8 +29,8 @@ export default function BalanceSummary() {
     });
 
   return (
-    <div className='border-border dashboard-shadow flex-1 rounded-xl bg-white p-4 sm:flex-[0.58_0.58_0%] sm:p-6'>
-      <h2 className='text-neutral-2 text-xl sm:text-2xl'>Total Amount</h2>
+    <div className='border-border dashboard-shadow flex-1 rounded-xl bg-white p-4 sm:flex-[0.58_0.58_0%] sm:px-8 sm:py-6'>
+      <h2 className='text-neutral-2 text-lg sm:text-2xl'>Total Amount</h2>
       <div className='mt-2'>
         {isFetching ? (
           <Skeleton height={25} width={130} />
@@ -40,18 +40,22 @@ export default function BalanceSummary() {
           </h3>
         )}
       </div>
-      <div className='text-primary mt-8 flex justify-between pr-2'>
-        <div className='flex w-[20%] justify-between'>
-          <EstiaLogo className='mr-4 size-12' />
-          <div className='w-max text-right'>
-            <p className='text-sm font-medium sm:text-base'>Estia/€</p>
-            {isFetching ? (
-              <Skeleton height={20} width={60} />
-            ) : (
-              <p className='text-base font-bold sm:text-lg'>
-                {formatCurrency(dashboardSummary?.estiaAmountInEuro)}
-              </p>
-            )}
+      <div className='text-primary mt-8 flex items-center justify-between pr-2'>
+        <div className='flex'>
+          <div className='mr-4 size-10'>
+            <EstiaLogo width='100%' height='100%' className='sm:block' />
+          </div>
+          <div className='flex justify-between'>
+            <div className='w-max text-right'>
+              <p className='text-sm font-medium sm:text-base'>Estia/€</p>
+              {isFetching ? (
+                <Skeleton height={20} width={60} />
+              ) : (
+                <p className='text-base font-bold sm:text-lg'>
+                  {formatCurrency(dashboardSummary?.estiaAmountInEuro)}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <div className='text-right sm:w-[40%]'>
@@ -76,7 +80,7 @@ export default function BalanceSummary() {
         </div>
       </div>
       <div className='text-primary mt-8 flex flex-col justify-between pr-2 sm:flex-row'>
-        <div className='flex w-full sm:w-[20%] sm:justify-end'>
+        <div className='w-max-w flex sm:justify-end sm:px-4'>
           <div className='flex w-max items-center text-right sm:block'>
             <p className='mr-2 text-sm font-medium sm:mr-0 sm:text-base'>
               Estia IBAN
@@ -90,7 +94,7 @@ export default function BalanceSummary() {
             )}
           </div>
         </div>
-        <div className='my-2 flex w-full items-center sm:my-0 sm:block sm:w-[40%] sm:text-right'>
+        <div className='w-max-w my-2 flex items-center sm:my-0 sm:block sm:w-[40%] sm:text-right'>
           <p className='mr-2 text-sm font-medium sm:mr-0 sm:text-base'>
             Total Revenue generated
           </p>
@@ -100,7 +104,7 @@ export default function BalanceSummary() {
             <p className='text-base font-bold sm:text-lg'>PENDING</p>
           )}
         </div>
-        <div className='flex w-full items-center sm:block sm:w-[30%] sm:text-right'>
+        <div className='w-max-w flex items-center sm:block sm:w-[30%] sm:text-right'>
           <p className='mr-2 text-sm font-medium sm:mr-0 sm:text-base'>
             Estia Rate
           </p>

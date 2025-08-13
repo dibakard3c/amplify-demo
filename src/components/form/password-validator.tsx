@@ -43,7 +43,7 @@ export default function PasswordValidator({
   );
 
   return (
-    <div>
+    <div className='w-full sm:w-auto'>
       <p className='mb-2 text-base'>Your password must contain:</p>
       {requirements?.map((item, index) => (
         <div key={index} className='realtive mb-1 flex flex-row items-center'>

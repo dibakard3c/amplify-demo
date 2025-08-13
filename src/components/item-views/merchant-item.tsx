@@ -23,7 +23,7 @@ export default function MerchantItem({ item, className }: MerchantItemProps) {
           <div className='bg-neutral-6 flex size-12 items-center justify-center rounded-[12px] pl-0.5'></div>
         )}
         <div className='ml-4'>
-          <h2 className='text-neutral-3 text-base font-medium'>
+          <h2 className='text-neutral-3 text-base font-medium sm:max-w-40 lg:max-w-48'>
             {item?.companyName}
           </h2>
         </div>

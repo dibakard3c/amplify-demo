@@ -22,6 +22,7 @@ import { selectTransactions } from '@estia/store/selector';
 import TransactionGroup from '@estia/components/item-views/transaction-group';
 import Image from 'next/image';
 import { CloseIcon } from '@estia/assets/icons/close';
+import DashboardCard from '@estia/components/layout/dashboard-card';
 
 const activityOptions = [
   { title: 'All Activity Type', value: '' },
@@ -60,14 +61,14 @@ export default function Page() {
   );
 
   return (
-    <div className='bg-card-bg mt-8 rounded-2xl p-8'>
-      <h1 className='text-3xl font-bold'>Transactions</h1>
-      <div className='mt-3 mb-5 flex items-center justify-between'>
+    <DashboardCard title='Transactions'>
+      <div className='mt-3 mb-5 flex flex-col justify-between md:flex-row md:items-center'>
         <div className='flex items-center'>
           <Input
             type='text'
             placeholder='Search'
-            className='border-primary-1 mb-1 h-11 min-w-[280px] border pr-10'
+            containerClassName='w-full'
+            className='border-primary-1 mb-1 h-11 min-w-[280px] border md:pr-10'
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
@@ -84,8 +85,8 @@ export default function Page() {
             />
           )}
         </div>
-        <div className='flex items-center'>
-          <h2 className='mr-6 ml-8 text-lg font-bold'>Filter</h2>
+        <div className='mt-4 flex items-center md:mt-0'>
+          <h2 className='mr-6 flex-1 text-lg font-bold md:ml-8'>Filter</h2>
           <DropdownMenu>
             <Button
               asChild
@@ -178,6 +179,6 @@ export default function Page() {
           </div>
         ) : null}
       </div>
-    </div>
+    </DashboardCard>
   );
 }

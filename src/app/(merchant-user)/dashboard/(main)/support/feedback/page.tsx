@@ -80,7 +80,7 @@ export default function Page() {
   }
 
   return (
-    <div className='bg-card-bg mt-8 rounded-2xl p-8'>
+    <div className='bg-card-bg mt-8 rounded-2xl p-4 md:p-8'>
       <div className='dashboard-shadow flex w-full flex-col items-start justify-start rounded-2xl p-6 text-sm'>
         <div className='w-full px-3'>
           <h1 className='text-left text-3xl font-bold'>Support</h1>

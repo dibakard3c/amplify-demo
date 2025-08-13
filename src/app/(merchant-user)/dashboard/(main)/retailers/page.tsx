@@ -50,16 +50,16 @@ export default function Page() {
     return (
       <div className='bg-card-bg mt-8 rounded-2xl p-8'>
         <div className='dashboard-shadow flex w-full flex-col items-start justify-start rounded-2xl p-6 text-sm'>
-          <div className='mb-4 flex w-full items-center justify-between px-3'>
+          <div className='mb-4 flex w-full flex-col items-center justify-between px-3 md:flex-row'>
             <div
-              className='text-left text-3xl font-bold'
+              className='mb-3 text-left text-3xl font-bold md:mb-0'
               onClick={() => {
                 setSelectedCategory('');
               }}
             >
               <span
                 className={cn(
-                  'cursor-pointer text-3xl font-bold',
+                  'mb-3 cursor-pointer self-start text-3xl font-bold md:mb-0',
                   !isEmpty(selectedCategory) && 'text-secondary-3'
                 )}
               >
@@ -71,10 +71,11 @@ export default function Page() {
                 </span>
               ) : null}
             </div>
-            <div className='flex items-center'>
+            <div className='flex w-full items-center md:w-auto'>
               <Input
                 type='text'
                 placeholder='Search'
+                containerClassName='w-full md:w-auto'
                 className='border-primary-1 mb-1 h-11 min-w-[280px] border pr-10'
                 value={search ?? ''}
                 onChange={(event) => {
@@ -116,22 +117,23 @@ export default function Page() {
   }
 
   return (
-    <div className='bg-card-bg mt-8 rounded-2xl p-8'>
+    <div className='bg-card-bg mt-8 rounded-2xl p-4 md:p-8'>
       <div className='dashboard-shadow flex w-full flex-col items-start justify-start rounded-2xl p-6 text-sm'>
-        <div className='mb-4 flex w-full items-center justify-between px-3'>
+        <div className='mb-4 flex w-full flex-col items-center justify-between md:flex-row md:px-3'>
           <h1
-            className='cusor-pointer text-left text-3xl font-bold'
+            className='cusor-pointer mb-3 self-start text-left text-xl font-bold md:mb-0 md:text-3xl'
             onClick={() => {
               setSelectedCategory('');
             }}
           >
             Merchants&#39; List
           </h1>
-          <div className='flex items-center'>
+          <div className='flex w-full items-center md:w-auto'>
             <Input
               type='text'
               placeholder='Search'
-              className='border-primary-1 mb-1 h-11 min-w-[280px] border pr-10'
+              containerClassName='w-full md:w-auto'
+              className='border-primary-1 mb-1 h-11 border pr-10 md:min-w-[280px]'
               value={search ?? ''}
               onChange={(event) => {
                 setSearch(event?.target?.value || '');
@@ -157,7 +159,7 @@ export default function Page() {
               ?.map((item, dataKey) => (
                 <div key={dataKey} className='block'>
                   <div className='mt-4 mb-2 flex w-full items-center justify-between'>
-                    <h1 className='text-neutral-2 text-xl font-semibold'>
+                    <h1 className='text-neutral-2 text-lg font-semibold md:text-xl'>
                       {item?.title}
                     </h1>
                     <Button
@@ -171,8 +173,14 @@ export default function Page() {
                       See All
                     </Button>
                   </div>
-                  <div className='mb-2 grid grid-cols-12'>
-                    {[...item?.list]
+                  <div className='mb-2 grid md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12'>
+                    {[
+                      ...item?.list,
+                      ...item?.list,
+                      ...item?.list,
+                      ...item?.list,
+                      ...item?.list,
+                    ]
                       ?.sort((a, b) => {
                         return a?.companyName
                           ?.toLowerCase()

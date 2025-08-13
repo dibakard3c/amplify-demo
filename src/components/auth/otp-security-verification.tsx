@@ -62,7 +62,7 @@ const OtpSecurityVerification = forwardRef<
     }));
 
     return (
-      <div className={cn(className)}>
+      <div className={cn('w-full', className)}>
         <h1
           className={cn('mb-3 text-2xl font-bold sm:text-3xl', titleClassName)}
         >

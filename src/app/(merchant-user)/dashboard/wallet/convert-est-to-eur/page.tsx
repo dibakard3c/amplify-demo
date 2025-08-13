@@ -40,6 +40,7 @@ import { useRouter } from 'next/navigation';
 import { SCREENS } from '@estia/constants/screens';
 import { useCountDownTimer } from '@estia/hooks/useCountDownTimer';
 import { Toast } from '@estia/helpers/toast';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 export default function Page() {
   const router = useRouter();
@@ -218,7 +219,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <ProcessingLoader
-        className='mx-auto -mt-12 h-full max-w-[45%]'
+        className='mx-auto -mt-12 h-full w-full md:max-w-[45%]'
         title='Conversion'
         subtitle='Initiating conversion'
         message='Please don’t leave this screen'
@@ -237,15 +238,14 @@ export default function Page() {
         mode='email'
         onResendCode={sendTwoFactorEmail}
         onComplete={verifyTwoFactorEmail}
-        className='mx-auto mt-24 max-w-[45%] xl:max-w-[400px]'
+        className='mx-auto mt-24 w-full md:max-w-[45%] xl:max-w-[400px]'
         actionText='Send me again'
       />
     );
   }
 
   return (
-    <div className='mx-auto flex max-w-[45%] flex-col items-center justify-center'>
-      <h1 className='mb-12 text-3xl font-bold'>Convert EST to EUR</h1>
+    <DashboardSubNavCard title='Convert EST to EUR'>
       <AmountInput
         isFromEst
         readonly={!isEmpty(mode)}
@@ -253,7 +253,7 @@ export default function Page() {
         rate={rate}
         onChangeValue={setAmount}
       />
-      <div className='mt-5 flex'>
+      <div className='mt-5 flex max-lg:mb-12'>
         <GradientCircle className='mt-2'>
           <WalletIcon className='size-full' />
         </GradientCircle>
@@ -307,6 +307,6 @@ export default function Page() {
           Cancel
         </Button>
       ) : null}
-    </div>
+    </DashboardSubNavCard>
   );
 }

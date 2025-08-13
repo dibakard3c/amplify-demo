@@ -114,8 +114,8 @@
     --sidebar-foreground: oklch(0.18 0.01 318.9);
     --sidebar-primary: oklch(0.238 0.073 318.9);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.792 0.201 83.21);
-    --sidebar-accent-foreground: oklch(0.15 0.005 83.21);
+    --sidebar-accent: #aa84b7;
+    --sidebar-accent-foreground: #ffffff;
     --sidebar-border: oklch(0.9 0.01 318.9);
     --sidebar-ring: oklch(0.6 0.02 318.9);
 
@@ -288,7 +288,29 @@
 
 @layer utilities {
     .container {
-        @apply w-full max-xl:px-[5%] max-w-[1280px] 2xl:max-w-[1200px];
+        @apply w-full max-sm:px-[5%];
+
+        @media (width >= 40rem /* 640px */) {
+            max-width: 40rem /* 640px */;
+        }
+
+        @media (width >= 48rem /* 768px */) {
+            max-width: none; /* <-- remove fixed width so it can grow naturally */
+            @apply px-[5%];
+        }
+
+        @media (width >= 64rem /* 1024px */) {
+            max-width: 64rem;
+            @apply px-0;
+        }
+
+        @media (width >= 80rem /* 1280px */) {
+            max-width: 80rem /* 1280px */;
+        }
+
+        @media (width >= 96rem /* 1536px */) {
+            max-width: 96rem /* 1536px */;
+        }
     }
 
     tbody tr {

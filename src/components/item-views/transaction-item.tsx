@@ -50,7 +50,7 @@ export default function TransactionItem({ item }: TransactionItemProps) {
   return (
     <div className='flex items-center justify-between py-3'>
       <div className='flex w-full items-center justify-evenly'>
-        <div className='flex w-[25%] items-center'>
+        <div className='flex w-[25%] min-w-60 items-center'>
           <div className='bg-primary-2 mr-4 flex size-14 items-center justify-center rounded-[12px] pl-0.5'>
             {compareIgnoreCase(item?.walletTransactionState, 'failed') ? (
               <div className='flex-row items-center'>
@@ -132,13 +132,13 @@ export default function TransactionItem({ item }: TransactionItemProps) {
                 )}
           </h2>
         </div>
-        <div className='w-1/6'>
+        <div className='w-1/6 min-w-44'>
           <h2 className='text-neutral-4 text-sm font-medium'>Date</h2>
           <h3 className='text-neutral-3 mt-0.5 text-lg font-medium'>
             {formatHumanReadableDate(item?.createdAt)}
           </h3>
         </div>
-        <div className='w-1/5'>
+        <div className='w-1/5 min-w-56'>
           <h2 className='text-neutral-4 text-sm font-medium'>
             Transaction no.
           </h2>
@@ -150,7 +150,7 @@ export default function TransactionItem({ item }: TransactionItemProps) {
         {/*  <h2 className='text-neutral-4 text-sm font-medium'>Network</h2>*/}
         {/*  <h3 className='text-neutral-3 mt-0.5 text-lg font-medium'>Polygon</h3>*/}
         {/*</div>*/}
-        <div className='w-1/6'>
+        <div className='w-1/6 min-w-12'>
           <h2 className='text-neutral-4 text-sm font-medium'>Status</h2>
           <h3
             className={cn(
@@ -162,7 +162,7 @@ export default function TransactionItem({ item }: TransactionItemProps) {
             {startCase(item?.walletTransactionState?.toLowerCase())}
           </h3>
         </div>
-        <div className='w-[10%] text-right'>
+        <div className='w-[10%] min-w-44 text-right'>
           <h2 className='text-neutral-3 text-sm font-medium'>Amount</h2>
           <h3
             className={cn(

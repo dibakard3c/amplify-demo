@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { walletLinks } from '@estia/helpers/links';
 import Link from 'next/link';
 import { cn } from '@estia/lib/utils';
@@ -15,22 +15,17 @@ export default function WalletLayout({ children }: any) {
   const pathname = usePathname();
   const user = useSelector(selectUser);
 
-  const currentPageTitle = useMemo(
-    () => walletLinks?.find((item) => item?.path === pathname)?.title,
-    [pathname]
-  );
-
   useFetchDefiWalletQuery(undefined, {
     skip: !compareIgnoreCase(user?.kycStatus, 'COMPLETED'),
   });
 
   return (
     <div className='bg-neutral-8 mt-10 rounded-2xl p-8'>
-      <div className='mb-8 flex items-center justify-between'>
+      <div className='mb-8 hidden items-center justify-between sm:flex'>
         <h1 className='text-3xl font-bold'>Wallet</h1>
       </div>
       <div className='flex w-full rounded-2xl text-sm'>
-        <div className='max-w-70'>
+        <div className='hidden max-w-[15rem] min-w-[15rem] sm:block min-md:max-w-70'>
           {walletLinks?.map((item, index) => (
             <Link key={index} href={item?.path}>
               <div
@@ -56,8 +51,10 @@ export default function WalletLayout({ children }: any) {
             </Link>
           ))}
         </div>
-        <div className='min-h-[70vh] flex-1'>
-          {!compareIgnoreCase(user?.kycStatus, 'COMPLETED') ? null : children}
+        <div className='min-h-[70vh] flex-1 min-md:pl-8 min-lg:pl-0'>
+          {!compareIgnoreCase(user?.kycStatus, 'COMPLETED', '')
+            ? null
+            : children}
         </div>
       </div>
       {!compareIgnoreCase(user?.kycStatus, 'COMPLETED') ? <KycModal /> : null}

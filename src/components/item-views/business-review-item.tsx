@@ -4,7 +4,7 @@ import { cn } from '@estia/lib/utils';
 
 export function BusinessReviewItem({ title, value, image, className }: any) {
   return (
-    <div className={cn('mb-4 max-w-[30rem]', className)}>
+    <div className={cn('mb-4 sm:max-w-[30rem]', className)}>
       <p className='text-neutral-4 text-sm font-bold'>{title}</p>
       {image ? (
         <div className='relative mt-2 ml-4 size-24 rounded border'>

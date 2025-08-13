@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { Icons } from '@estia/assets';
+import { Icons, MenuOpen } from '@estia/assets';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
@@ -27,11 +27,15 @@ import {
   connectSocket,
   disconnectSocket,
 } from '@estia/networking/stomp-middleware';
+import { useIsMobile } from '@estia/hooks/useIsMobile';
+import { SidebarProvider, SidebarTrigger } from '@estia/components/ui/sidebar';
+import { MobileSidebar } from '@estia/components/layout/sidebar';
 
 export default function Layout({ children }: any) {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const [firstSegment, secondSegment] = useSelectedLayoutSegments();
+  const isMobile = useIsMobile();
 
   useRefreshAccountInfoQuery(
     {
@@ -51,10 +55,51 @@ export default function Layout({ children }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (isMobile) {
+    return (
+      <SidebarProvider>
+        <MobileSidebar />
+        <main className="h-full min-h-dvh w-full bg-[url('/dashboard-bg.png')] bg-cover bg-no-repeat dark:bg-none">
+          {/* Mobile Header */}
+          <header className='bg-nav-bg dark:bg-neutral-8 h-[70px] w-full'>
+            <div className='container m-auto flex h-full items-center justify-between'>
+              <div className='flex h-full w-auto items-center'>
+                <SidebarTrigger className='text-neutral-4 mr-2 size-12 hover:text-white'>
+                  <MenuOpen className='size-12 p-3' />
+                </SidebarTrigger>
+                {/* LOGO */}
+                <div className='border-divider flex h-full items-center'>
+                  <Link
+                    href='/dashboard'
+                    className='relative aspect-[3] h-[70%] w-auto cursor-pointer max-xl:h-[60%]'
+                  >
+                    <Image src={Icons.estiaLogo2} alt='Estia logo' fill />
+                  </Link>
+                </div>
+              </div>
+              {/* ACTIONS */}
+              <div className='flex items-center'>
+                <NavigationMenu delayDuration={1000}>
+                  <NavigationMenuList>
+                    <NotificationMenuItem containerClassName='min-md:mr-3' />
+                    <WalletMenuItem className='mr-3 ml-0' />
+                    <ProfileMenuItem />
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </div>
+            </div>
+          </header>
+          <div className='container mx-auto pb-24'>{children}</div>
+        </main>
+      </SidebarProvider>
+    );
+  }
+
   return (
     <>
       <div className="h-full min-h-dvh w-full bg-[url('/dashboard-bg.png')] bg-cover bg-fixed bg-no-repeat dark:bg-none">
-        <header className='bg-nav-bg dark:bg-neutral-8 hidden h-[90px] w-full sm:block'>
+        {/* Desktop Header */}
+        <header className='bg-nav-bg dark:bg-neutral-8 hidden h-[90px] w-full md:block'>
           <div className='container m-auto flex h-full items-center'>
             {/* LOGO */}
             <div className='border-divider flex h-full items-center'>
@@ -117,75 +162,6 @@ export default function Layout({ children }: any) {
                   </Link>
                   <NotificationMenuItem />
                   <WalletMenuItem />
-                  <ProfileMenuItem />
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          </div>
-        </header>
-        <header className='bg-nav-bg dark:bg-neutral-8 h-[90px] w-full sm:hidden'>
-          <div className='container m-auto flex h-full items-center justify-between'>
-            {/* LOGO */}
-            <div className='border-divider flex h-full items-center'>
-              <Link
-                href='/dashboard'
-                className='relative aspect-[3] h-[60%] w-auto cursor-pointer max-xl:h-[50%]'
-              >
-                <Image src={Icons.estiaLogo2} alt='Estia logo' fill />
-              </Link>
-            </div>
-            {/* DIVIDER */}
-            <div className='border-divider mx-8 h-[50%] w-1 border-r max-xl:mx-2'></div>
-            {/* NAVIGATIONS */}
-            {/*<div className='flex-1'>*/}
-            {/*  <NavigationMenu delayDuration={1000}>*/}
-            {/*    <ul className='flex items-center'>*/}
-            {/*      {navbarLinks?.map((item, index) =>*/}
-            {/*        item?.isContextMenu ? (*/}
-            {/*          <ContextMenuItem*/}
-            {/*            key={index}*/}
-            {/*            totalSize={item?.subMenu?.length}*/}
-            {/*            item={item}*/}
-            {/*            pathname={pathname}*/}
-            {/*          />*/}
-            {/*        ) : (*/}
-            {/*          <NavigationMenuItem key={index}>*/}
-            {/*            <NavigationMenuLink*/}
-            {/*              asChild*/}
-            {/*              className={cn(*/}
-            {/*                'text-neutral-4 pr-3 max-xl:pr-1 2xl:pr-4',*/}
-            {/*                compareIgnoreCase(*/}
-            {/*                  pathname,*/}
-            {/*                  item?.path,*/}
-            {/*                  ...(item?.matches || [])*/}
-            {/*                ) && 'text-neutral-1'*/}
-            {/*              )}*/}
-            {/*            >*/}
-            {/*              <Link*/}
-            {/*                className='cursor-pointer px-3 py-6 text-base font-bold'*/}
-            {/*                href={item?.path}*/}
-            {/*              >*/}
-            {/*                {item?.title}*/}
-            {/*              </Link>*/}
-            {/*            </NavigationMenuLink>*/}
-            {/*          </NavigationMenuItem>*/}
-            {/*        )*/}
-            {/*      )}*/}
-            {/*    </ul>*/}
-            {/*  </NavigationMenu>*/}
-            {/*</div>*/}
-            {/* ACTIONS */}
-            <div className='flex items-center'>
-              <NavigationMenu delayDuration={1000}>
-                <NavigationMenuList>
-                  {/*<Link*/}
-                  {/*  href={SCREENS.DASHBOARD}*/}
-                  {/*  className='text-neutral-4 hover:bg-accent relative mr-3 flex size-11 items-center justify-center rounded-full bg-transparent p-0 pb-0.5 hover:text-white 2xl:size-12'*/}
-                  {/*>*/}
-                  {/*  <HomeIcon className='size-7 2xl:size-8' />*/}
-                  {/*</Link>*/}
-                  <NotificationMenuItem containerClassName='mr-4' />
-                  {/*<WalletMenuItem />*/}
                   <ProfileMenuItem />
                 </NavigationMenuList>
               </NavigationMenu>

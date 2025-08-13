@@ -11,20 +11,26 @@ import { compareIgnoreCase } from '@estia/utils/general';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Toast } from '@estia/helpers/toast';
 import { RWebShare } from 'react-web-share';
+import DashboardSubNavCard from '@estia/components/layout/dashboard-sub-nav-card';
 
 export default function Page() {
   const user = useSelector(selectUser);
 
-  const { data: defiInfo } = useFetchDefiWalletQuery(undefined, {
+  const { data: defiInfo, isLoading } = useFetchDefiWalletQuery(undefined, {
     skip: !compareIgnoreCase(user?.kycStatus, 'COMPLETED'),
   });
 
+  if (isLoading) {
+    return (
+      <div className='mx-auto flex h-full max-w-[45%] flex-col items-center justify-center'>
+        <h3 className='text-center text-xl font-semibold'>Loading...</h3>
+      </div>
+    );
+  }
+
   return (
-    <div className='mx-auto flex max-w-[50%] flex-col items-start justify-center pt-4'>
-      <h1 className='mb-8 self-center text-3xl font-bold'>
-        Receive EST from other Wallets
-      </h1>
-      <div className='self-center'>
+    <DashboardSubNavCard title='Receive EST from other Wallets'>
+      <div className='max-w-[27rem] self-center'>
         <div>
           <p className='text-lg font-bold'>Network</p>
           <h1 className='text-primary-1 mt-1 mb-4 text-2xl font-bold'>
@@ -75,6 +81,6 @@ export default function Page() {
           </div>
         </RWebShare>
       </div>
-    </div>
+    </DashboardSubNavCard>
   );
 }

@@ -5,7 +5,10 @@ import {
   NavigationMenuTrigger,
 } from '@estia/components/ui/navigation-menu';
 import { Button } from '@estia/components/ui/button';
-import NotificationIcon from '@estia/assets/icons/notification';
+import {
+  NotificationIcon,
+  NotificationMobileIcon,
+} from '@estia/assets/icons/notification';
 import Link from 'next/link';
 import {
   useListNotificationsQuery,
@@ -41,6 +44,7 @@ export default function NotificationMenuItem({ containerClassName }: any) {
   const markAllAsRead = () => {
     markAllAsReadMutation();
   };
+
   function markNotificationAsRead(id: string) {
     markAsRead(id)
       .unwrap()
@@ -53,17 +57,18 @@ export default function NotificationMenuItem({ containerClassName }: any) {
     <NavigationMenuItem>
       <NavigationMenuTrigger
         className={cn(
-          'text-neutral-4 relative flex size-11 items-center justify-center rounded-full bg-transparent p-0 hover:text-white 2xl:size-12',
+          'sm:text-neutral-4 text-neutral-4 relative flex size-11 items-center justify-center rounded-full bg-transparent p-0 hover:text-white 2xl:size-12',
           containerClassName
         )}
       >
         {pendingNotificationData?.hasPending ? (
           <div className='bg-primary-4 absolute top-0 right-0.5 size-3 rounded-full'></div>
         ) : null}
-        <NotificationIcon className='size-5 2xl:size-6' />
+        <NotificationIcon className='hidden size-5 sm:block 2xl:size-6' />
+        <NotificationMobileIcon className='size-8 sm:hidden' />
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <div className='w-[350px]'>
+        <div className='w-[calc(100vw_-_60px)] sm:w-[350px]'>
           <h1 className='px-4 pt-4 text-xl font-bold 2xl:text-2xl'>
             Notifications
           </h1>

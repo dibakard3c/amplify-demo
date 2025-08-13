@@ -8,12 +8,14 @@ export const metadata: Metadata = generateMeta('Profile');
 export default function Layout({ children }: any) {
   return (
     <div className='bg-card-bg mt-10 rounded-2xl p-8'>
-      <div className='mb-8 flex items-center justify-between'>
-        <h1 className='text-3xl font-bold'>Profile Management</h1>
+      <div className='mb-8 hidden items-center justify-between md:block'>
+        <h1 className='text-2xl font-bold md:text-3xl'>Profile Management</h1>
       </div>
       <div className='flex w-full rounded-2xl text-sm'>
-        <ProfileMgtLinks />
-        <div className='ml-[5%] min-h-[70vh] flex-1'>{children}</div>
+        <ProfileMgtLinks className='hidden md:block' />
+        <div className='min-h-[65vh] w-full flex-1 md:ml-[5%] md:min-h-[70vh]'>
+          {children}
+        </div>
       </div>
     </div>
   );

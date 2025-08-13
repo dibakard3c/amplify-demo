@@ -41,3 +41,4 @@ export * from './eye';
 export * from './info-icon';
 export * from './transaction-icons';
 export * from './trends';
+export * from './menu-open';
