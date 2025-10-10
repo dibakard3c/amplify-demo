@@ -95,11 +95,14 @@ jobs:
           cat resp.json
 
           UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
+          DEPLOYMENT_ID=$(jq -r '.jobId // empty' resp.json)
+
           if [ -z "$UPLOAD_URL" ] || [ "$UPLOAD_URL" == "null" ]; then
             echo "❌ ERROR: Amplify did not return a valid upload URL"
             exit 1
           fi
           echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
 
       - name: Upload Source ZIP
         run: |
@@ -108,10 +111,12 @@ jobs:
 
       - name: Start Amplify Deployment (SSR)
         run: |
-          echo "Starting Amplify deployment (auto-select latest uploaded zip)..."
+          echo "Starting Amplify deployment for uploaded ZIP (job ID: $DEPLOYMENT_ID)..."
           aws amplify start-deployment \
             --app-id $APP_ID \
-            --branch-name $BRANCH
+            --branch-name $BRANCH \
+            --job-id $DEPLOYMENT_ID
+
 
       - name: Wait for Amplify Deployment to Finish
         run: |
