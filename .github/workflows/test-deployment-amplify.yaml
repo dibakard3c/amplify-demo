@@ -43,27 +43,30 @@ jobs:
       - name: Check and stop stuck Amplify deployment (if any)
         run: |
           echo "Checking for existing Amplify deployment..."
+
+          # get only numeric job id
           JOB_ID=$(aws amplify list-jobs \
             --app-id $APP_ID \
             --branch-name $BRANCH \
             --max-items 1 \
             --query "jobSummaries[0].jobId" \
-            --output text 2>/dev/null || echo "")
+            --output text 2>/dev/null | grep -Eo '^[0-9]+' || echo "")
 
-          # handle empty or 'None'
-          if [ -z "$JOB_ID" ] || [ "$JOB_ID" = "None" ]; then
-            echo "No previous job found."
+          if [ -z "$JOB_ID" ]; then
+            echo "No valid job found."
             exit 0
           fi
+
+          echo "Found latest job: $JOB_ID"
 
           STATUS=$(aws amplify get-job \
             --app-id $APP_ID \
             --branch-name $BRANCH \
             --job-id "$JOB_ID" \
             --query "job.summary.status" \
-            --output text)
+            --output text 2>/dev/null || echo "UNKNOWN")
 
-          echo "Found job $JOB_ID with status $STATUS"
+          echo "Job status: $STATUS"
 
           if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ] || [ "$STATUS" = "DEPLOYING" ]; then
             echo "Stopping stuck job $JOB_ID..."
@@ -71,12 +74,11 @@ jobs:
               --app-id $APP_ID \
               --branch-name $BRANCH \
               --job-id "$JOB_ID" || true
-            echo "Waiting 20 s before continuing..."
+            echo "Waiting 20s before continuing..."
             sleep 20
           else
             echo "No active deployment running."
           fi
-
 
       - name: Zip Source Code (for Amplify SSR build)
         run: |
