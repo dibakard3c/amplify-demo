@@ -12,7 +12,7 @@ on:
       app_id:
         description: "Amplify App ID (optional override)"
         required: false
-        default: ""
+        default: "d23o9z9yprlq3v"
       message:
         description: "Deployment note (optional)"
         required: false
@@ -40,6 +40,34 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Check and stop stuck Amplify deployment (if any)
+        run: |
+          echo "Checking for existing Amplify deployment..."
+          JOB_ID=$(aws amplify list-jobs \
+            --app-id $APP_ID \
+            --branch-name $BRANCH \
+            --max-items 1 \
+            --query "jobSummaries[0].jobId" \
+            --output text || echo "")
+          
+          if [ -n "$JOB_ID" ] && [ "$JOB_ID" != "None" ]; then
+            STATUS=$(aws amplify get-job \
+              --app-id $APP_ID \
+              --branch-name $BRANCH \
+              --job-id $JOB_ID \
+              --query "job.summary.status" \
+              --output text)
+            echo "Found job $JOB_ID with status $STATUS"
+            if [ "$STATUS" == "PENDING" ] || [ "$STATUS" == "RUNNING" ] || [ "$STATUS" == "DEPLOYING" ]; then
+              echo "Stopping stuck job $JOB_ID..."
+              aws amplify stop-job --app-id $APP_ID --branch-name $BRANCH --job-id $JOB_ID || true
+              echo "Waiting 20s before continuing..."
+              sleep 20
+            fi
+          else
+            echo "No running jobs detected."
+          fi
+
       - name: Zip Source Code (for Amplify SSR build)
         run: |
           zip -r source.zip . -x '*.git*' '*.github*' 'node_modules/*'
@@ -50,16 +78,29 @@ jobs:
           RESPONSE=$(aws amplify create-deployment \
             --app-id $APP_ID \
             --branch-name $BRANCH)
+          echo "AMPLIFY RESPONSE: $RESPONSE"
           echo "$RESPONSE" > resp.json
-          echo "UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)" >> $GITHUB_ENV
-          echo "DEPLOYMENT_ID=$(jq -r '.deploymentId' resp.json)" >> $GITHUB_ENV
+
+          UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
+          DEPLOYMENT_ID=$(jq -r '.deploymentId // empty' resp.json)
+
+          if [ -z "$DEPLOYMENT_ID" ]; then
+            echo "❌ ERROR: Amplify did not return a deploymentId"
+            cat resp.json
+            exit 1
+          fi
+
+          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
 
       - name: Upload Source ZIP
         run: |
+          echo "Uploading source.zip to Amplify..."
           curl -T source.zip "${UPLOAD_URL}"
 
       - name: Start Amplify Deployment (SSR)
         run: |
+          echo "Starting Amplify deployment ID: $DEPLOYMENT_ID"
           aws amplify start-deployment \
             --app-id $APP_ID \
             --branch-name $BRANCH \
@@ -68,7 +109,7 @@ jobs:
       - name: Wait for Amplify Deployment to Finish
         run: |
           echo "Waiting for Amplify deployment to complete..."
-          for i in {1..40}; do
+          for i in {1..60}; do
             STATUS=$(aws amplify get-deployment \
               --app-id $APP_ID \
               --branch-name $BRANCH \
@@ -77,13 +118,13 @@ jobs:
               --output text)
             echo "Deployment status: $STATUS"
             if [ "$STATUS" == "SUCCEED" ]; then
-              echo "✅ Amplify deployment succeeded"
+              echo "✅ Amplify deployment succeeded!"
               exit 0
             elif [ "$STATUS" == "FAILED" ]; then
-              echo "❌ Amplify deployment failed"
+              echo "❌ Amplify deployment failed!"
               exit 1
             fi
             sleep 15
           done
-          echo "⚠️ Timed out waiting for Amplify deployment"
+          echo "⚠️ Timed out waiting for Amplify deployment."
           exit 1
