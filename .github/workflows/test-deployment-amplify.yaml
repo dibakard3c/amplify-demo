@@ -42,7 +42,7 @@ jobs:
 
       - name: Zip Source Code (for Amplify SSR build)
         run: |
-          zip -r source.zip . -x '*.git*' '*.github*'
+          zip -r source.zip . -x '*.git*' '*.github*' 'node_modules/*'
 
       - name: Create Amplify Deployment
         id: create
@@ -52,32 +52,30 @@ jobs:
             --branch-name $BRANCH)
           echo "$RESPONSE" > resp.json
           echo "UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)" >> $GITHUB_ENV
-          echo "JOB_ID=$(jq -r '.jobId' resp.json)" >> $GITHUB_ENV
+          echo "DEPLOYMENT_ID=$(jq -r '.deploymentId' resp.json)" >> $GITHUB_ENV
 
       - name: Upload Source ZIP
         run: |
           curl -T source.zip "${UPLOAD_URL}"
 
-      - name: Start Amplify Build (SSR)
+      - name: Start Amplify Deployment (SSR)
         run: |
-          aws amplify start-job \
+          aws amplify start-deployment \
             --app-id $APP_ID \
             --branch-name $BRANCH \
-            --job-id $JOB_ID \
-            --job-type RELEASE \
-            --job-reason "${{ inputs.message }}"
+            --deployment-id $DEPLOYMENT_ID
 
-      - name: Wait for Amplify Build to Finish
+      - name: Wait for Amplify Deployment to Finish
         run: |
-          echo "Waiting for Amplify build to complete..."
+          echo "Waiting for Amplify deployment to complete..."
           for i in {1..40}; do
-            STATUS=$(aws amplify get-job \
+            STATUS=$(aws amplify get-deployment \
               --app-id $APP_ID \
               --branch-name $BRANCH \
-              --job-id $JOB_ID \
-              --query "job.summary.status" \
+              --deployment-id $DEPLOYMENT_ID \
+              --query "deployment.status" \
               --output text)
-            echo "Build status: $STATUS"
+            echo "Deployment status: $STATUS"
             if [ "$STATUS" == "SUCCEED" ]; then
               echo "✅ Amplify deployment succeeded"
               exit 0
@@ -87,5 +85,5 @@ jobs:
             fi
             sleep 15
           done
-          echo "⚠️ Timed out waiting for Amplify build"
+          echo "⚠️ Timed out waiting for Amplify deployment"
           exit 1
