@@ -84,7 +84,7 @@ jobs:
         run: |
           zip -r source.zip . -x '*.git*' '*.github*' 'node_modules/*'
 
-      - name: Create Amplify Deployment
+       - name: Create Amplify Deployment
         id: create
         run: |
           RESPONSE=$(aws amplify create-deployment \
@@ -96,39 +96,35 @@ jobs:
 
           UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
           DEPLOYMENT_ID=$(jq -r '.deploymentId // empty' resp.json)
-          JOB_ID=$(jq -r '.jobId // empty' resp.json)
 
-          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
-          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
-          echo "JOB_ID=$JOB_ID" >> $GITHUB_ENV
+          # Some older manual apps return jobId instead of deploymentId.
+          # For these, Amplify still expects start-deployment.
+          if [ -z "$DEPLOYMENT_ID" ]; then
+            DEPLOYMENT_ID=$(jq -r '.jobId // empty' resp.json)
+            echo "Using jobId as deployment reference: $DEPLOYMENT_ID"
+          fi
 
-          if [ -z "$DEPLOYMENT_ID" ] && [ -z "$JOB_ID" ]; then
-            echo "❌ ERROR: Amplify returned neither deploymentId nor jobId."
+          if [ -z "$DEPLOYMENT_ID" ]; then
+            echo "❌ ERROR: Amplify did not return a deployment reference"
             cat resp.json
             exit 1
           fi
+
+          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
 
       - name: Upload Source ZIP
         run: |
           echo "Uploading source.zip to Amplify..."
           curl -T source.zip "${UPLOAD_URL}"
 
-      - name: Start Amplify Build (SSR)
+      - name: Start Amplify Deployment (SSR)
         run: |
-          if [ -n "$DEPLOYMENT_ID" ]; then
-            echo "Detected deploymentId: $DEPLOYMENT_ID (new API)"
-            aws amplify start-deployment \
-              --app-id $APP_ID \
-              --branch-name $BRANCH \
-              --deployment-id $DEPLOYMENT_ID
-          elif [ -n "$JOB_ID" ]; then
-            echo "Detected jobId: $JOB_ID (legacy API)"
-            aws amplify start-job \
-              --app-id $APP_ID \
-              --branch-name $BRANCH \
-              --job-id $JOB_ID \
-              --job-type RELEASE
-          fi
+          echo "Starting Amplify deployment reference: $DEPLOYMENT_ID"
+          aws amplify start-deployment \
+            --app-id $APP_ID \
+            --branch-name $BRANCH \
+            --deployment-id $DEPLOYMENT_ID
 
       - name: Wait for Amplify Deployment to Finish
         run: |
