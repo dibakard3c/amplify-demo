@@ -40,10 +40,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Ensure jq is installed
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Check and stop stuck Amplify deployment (if any)
         run: |
           echo "Checking for existing Amplify deployment..."
-
           JOB_ID=$(aws amplify list-jobs \
             --app-id $APP_ID \
             --branch-name $BRANCH \
@@ -61,7 +63,6 @@ jobs:
               --output text 2>/dev/null || echo "UNKNOWN")
 
             echo "Job status: $STATUS"
-
             if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ] || [ "$STATUS" = "DEPLOYING" ]; then
               echo "Stopping stuck job $JOB_ID..."
               aws amplify stop-job \
@@ -77,39 +78,28 @@ jobs:
             echo "No valid job found."
           fi
 
-      - name: Ensure jq is installed
-        run: sudo apt-get update && sudo apt-get install -y jq
-
       - name: Zip Source Code (for Amplify SSR build)
         run: |
+          echo "Zipping source code..."
           zip -r source.zip . -x '*.git*' '*.github*' 'node_modules/*'
 
       - name: Create Amplify Deployment
         id: create
         run: |
+          echo "Creating Amplify deployment for app $APP_ID on branch $BRANCH..."
           RESPONSE=$(aws amplify create-deployment \
             --app-id $APP_ID \
             --branch-name $BRANCH)
           echo "AMPLIFY RESPONSE:"
-          echo "$RESPONSE"
           echo "$RESPONSE" > resp.json
+          cat resp.json
 
           UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
-          DEPLOYMENT_ID=$(jq -r '.deploymentId // empty' resp.json)
-
-          if [ -z "$DEPLOYMENT_ID" ]; then
-            DEPLOYMENT_ID=$(jq -r '.jobId // empty' resp.json)
-            echo "Using jobId as deployment reference: $DEPLOYMENT_ID"
-          fi
-
-          if [ -z "$DEPLOYMENT_ID" ]; then
-            echo "❌ ERROR: Amplify did not return a deployment reference"
-            cat resp.json
+          if [ -z "$UPLOAD_URL" ] || [ "$UPLOAD_URL" == "null" ]; then
+            echo "❌ ERROR: Amplify did not return a valid upload URL"
             exit 1
           fi
-
           echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
-          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
 
       - name: Upload Source ZIP
         run: |
@@ -118,22 +108,20 @@ jobs:
 
       - name: Start Amplify Deployment (SSR)
         run: |
-          echo "Starting Amplify deployment reference: $DEPLOYMENT_ID"
-          aws amplify start-job \
+          echo "Starting Amplify deployment (auto-select latest uploaded zip)..."
+          aws amplify start-deployment \
             --app-id $APP_ID \
-            --branch-name $BRANCH \
-            --job-id $DEPLOYMENT_ID \
-            --job-type RELEASE
+            --branch-name $BRANCH
 
       - name: Wait for Amplify Deployment to Finish
         run: |
           echo "Waiting for Amplify deployment to complete..."
           for i in {1..60}; do
-            STATUS=$(aws amplify get-deployment \
+            STATUS=$(aws amplify list-jobs \
               --app-id $APP_ID \
               --branch-name $BRANCH \
-              --deployment-id $DEPLOYMENT_ID \
-              --query "deployment.status" \
+              --max-items 1 \
+              --query "jobSummaries[0].status" \
               --output text)
             echo "Deployment status: $STATUS"
             if [ "$STATUS" == "SUCCEED" ]; then
