@@ -119,10 +119,11 @@ jobs:
       - name: Start Amplify Deployment (SSR)
         run: |
           echo "Starting Amplify deployment reference: $DEPLOYMENT_ID"
-          aws amplify start-deployment \
+          aws amplify start-job \
             --app-id $APP_ID \
             --branch-name $BRANCH \
-            --deployment-id $DEPLOYMENT_ID
+            --job-id $DEPLOYMENT_ID \
+            --job-type RELEASE
 
       - name: Wait for Amplify Deployment to Finish
         run: |
