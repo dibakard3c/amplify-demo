@@ -90,33 +90,45 @@ jobs:
           RESPONSE=$(aws amplify create-deployment \
             --app-id $APP_ID \
             --branch-name $BRANCH)
-          echo "AMPLIFY RESPONSE: $RESPONSE"
+          echo "AMPLIFY RESPONSE:"
+          echo "$RESPONSE"
           echo "$RESPONSE" > resp.json
 
           UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
           DEPLOYMENT_ID=$(jq -r '.deploymentId // empty' resp.json)
-
-          if [ -z "$DEPLOYMENT_ID" ]; then
-            echo "❌ ERROR: Amplify did not return a deploymentId"
-            cat resp.json
-            exit 1
-          fi
+          JOB_ID=$(jq -r '.jobId // empty' resp.json)
 
           echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
           echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
+          echo "JOB_ID=$JOB_ID" >> $GITHUB_ENV
+
+          if [ -z "$DEPLOYMENT_ID" ] && [ -z "$JOB_ID" ]; then
+            echo "❌ ERROR: Amplify returned neither deploymentId nor jobId."
+            cat resp.json
+            exit 1
+          fi
 
       - name: Upload Source ZIP
         run: |
           echo "Uploading source.zip to Amplify..."
           curl -T source.zip "${UPLOAD_URL}"
 
-      - name: Start Amplify Deployment (SSR)
+      - name: Start Amplify Build (SSR)
         run: |
-          echo "Starting Amplify deployment ID: $DEPLOYMENT_ID"
-          aws amplify start-deployment \
-            --app-id $APP_ID \
-            --branch-name $BRANCH \
-            --deployment-id $DEPLOYMENT_ID
+          if [ -n "$DEPLOYMENT_ID" ]; then
+            echo "Detected deploymentId: $DEPLOYMENT_ID (new API)"
+            aws amplify start-deployment \
+              --app-id $APP_ID \
+              --branch-name $BRANCH \
+              --deployment-id $DEPLOYMENT_ID
+          elif [ -n "$JOB_ID" ]; then
+            echo "Detected jobId: $JOB_ID (legacy API)"
+            aws amplify start-job \
+              --app-id $APP_ID \
+              --branch-name $BRANCH \
+              --job-id $JOB_ID \
+              --job-type RELEASE
+          fi
 
       - name: Wait for Amplify Deployment to Finish
         run: |
