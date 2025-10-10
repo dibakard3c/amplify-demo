@@ -44,7 +44,6 @@ jobs:
         run: |
           echo "Checking for existing Amplify deployment..."
 
-          # get only numeric job id
           JOB_ID=$(aws amplify list-jobs \
             --app-id $APP_ID \
             --branch-name $BRANCH \
@@ -52,39 +51,40 @@ jobs:
             --query "jobSummaries[0].jobId" \
             --output text 2>/dev/null | grep -Eo '^[0-9]+' || echo "")
 
-          if [ -z "$JOB_ID" ]; then
-            echo "No valid job found."
-            exit 0
-          fi
-
-          echo "Found latest job: $JOB_ID"
-
-          STATUS=$(aws amplify get-job \
-            --app-id $APP_ID \
-            --branch-name $BRANCH \
-            --job-id "$JOB_ID" \
-            --query "job.summary.status" \
-            --output text 2>/dev/null || echo "UNKNOWN")
-
-          echo "Job status: $STATUS"
-
-          if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ] || [ "$STATUS" = "DEPLOYING" ]; then
-            echo "Stopping stuck job $JOB_ID..."
-            aws amplify stop-job \
+          if [ -n "$JOB_ID" ]; then
+            echo "Found latest job: $JOB_ID"
+            STATUS=$(aws amplify get-job \
               --app-id $APP_ID \
               --branch-name $BRANCH \
-              --job-id "$JOB_ID" || true
-            echo "Waiting 20s before continuing..."
-            sleep 20
+              --job-id "$JOB_ID" \
+              --query "job.summary.status" \
+              --output text 2>/dev/null || echo "UNKNOWN")
+
+            echo "Job status: $STATUS"
+
+            if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ] || [ "$STATUS" = "DEPLOYING" ]; then
+              echo "Stopping stuck job $JOB_ID..."
+              aws amplify stop-job \
+                --app-id $APP_ID \
+                --branch-name $BRANCH \
+                --job-id "$JOB_ID" || true
+              echo "Waiting 20s before continuing..."
+              sleep 20
+            else
+              echo "No active deployment running."
+            fi
           else
-            echo "No active deployment running."
+            echo "No valid job found."
           fi
+
+      - name: Ensure jq is installed
+        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Zip Source Code (for Amplify SSR build)
         run: |
           zip -r source.zip . -x '*.git*' '*.github*' 'node_modules/*'
 
-       - name: Create Amplify Deployment
+      - name: Create Amplify Deployment
         id: create
         run: |
           RESPONSE=$(aws amplify create-deployment \
@@ -97,8 +97,6 @@ jobs:
           UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
           DEPLOYMENT_ID=$(jq -r '.deploymentId // empty' resp.json)
 
-          # Some older manual apps return jobId instead of deploymentId.
-          # For these, Amplify still expects start-deployment.
           if [ -z "$DEPLOYMENT_ID" ]; then
             DEPLOYMENT_ID=$(jq -r '.jobId // empty' resp.json)
             echo "Using jobId as deployment reference: $DEPLOYMENT_ID"
