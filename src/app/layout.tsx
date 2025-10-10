@@ -20,8 +20,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         <title>Estia Payments</title>
       </head>
       <body
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <main>
           <StoreProvider>{children}</StoreProvider>
         </main>
-        <Toaster />
+        <Toaster theme='light' closeButton={true} />
         {/*</ThemeProvider>*/}
       </body>
     </html>

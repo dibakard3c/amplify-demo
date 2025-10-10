@@ -26,8 +26,10 @@ export default function IbanSelectorView({
           <WalletIcon className='size-full' />
         </GradientCircle>
         <div className='ml-4'>
-          <h1 className='text-neutral-2 text-lg font-bold'>{title}</h1>
-          <p className='text-neutral-2 mt-1 text-lg font-medium'>
+          <h1 className='text-neutral-2 text-sm font-bold md:text-lg'>
+            {title}
+          </h1>
+          <p className='text-neutral-2 mt-1 text-sm font-medium md:text-lg'>
             {formatIBAN(iban)}
           </p>
         </div>

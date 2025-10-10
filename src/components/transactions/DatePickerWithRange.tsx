@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { addDays, format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
 import { DateRange } from 'react-day-picker';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { Button } from '@estia/components/ui/button';
 import { Calendar } from '@estia/components/ui/calendar';
 import {
@@ -11,7 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@estia/components/ui/popover';
-import { DropdownMenuTrigger } from '@estia/components/ui/dropdown-menu';
+import { useTranx } from '@estia/hooks/useTranx';
+import { useDateLocale } from '@estia/hooks/useDateLocale';
 
 export function DatePickerWithRange({
   className,
@@ -21,6 +21,9 @@ export function DatePickerWithRange({
   date: DateRange | undefined;
   setDate: (date: DateRange | undefined) => void;
 }) {
+  const { t } = useTranx();
+  const locale = useDateLocale();
+
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>
@@ -28,7 +31,7 @@ export function DatePickerWithRange({
           <Button
             asChild
             variant='outline'
-            className='border-primary-1 ml-4 h-11 px-8 text-base font-bold hover:border-white'
+            className='border-primary-1 ml-4 h-11 px-8 text-base font-bold hover:border-white min-[140rem]:h-14'
           >
             <span>
               {date?.from ? (
@@ -41,7 +44,7 @@ export function DatePickerWithRange({
                   format(date.from, 'LLL dd, y')
                 )
               ) : (
-                'Date'
+                t('common.date')
               )}
             </span>
           </Button>
@@ -54,6 +57,7 @@ export function DatePickerWithRange({
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
+            locale={locale}
           />
         </PopoverContent>
       </Popover>

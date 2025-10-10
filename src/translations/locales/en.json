@@ -1,0 +1,1153 @@
+{
+  "common": {
+    "filter": "Filter",
+    "date": "Date",
+    "load_more": "Load more",
+    "back_to_top": "Back to top",
+    "see_all": "See All",
+    "no_results_found": "No results found",
+    "loading": "Loading...",
+    "loading_please_wait": "Loading, please wait...",
+    "clipboard_copy": "Copied to clipboard successfully",
+    "cancel": "Cancel",
+    "today": "Today",
+    "euro": "Euro",
+    "english": "English",
+    "greek": "Greek",
+    "security_verification": "Security Verification",
+    "security_verification_email_desc": "Please enter 6-digit code we have sent to your email at {{email}}",
+    "security_verification_sms_desc": "Please enter 6-digit code we have sent to your mobile phone {{mobile_phone}}",
+    "security_verification_resend_desc": "Resend {{mode}} in {{minutes}}:{{seconds}}",
+    "security_verification_send_again_desc": "Send me again",
+    "security_verification_didnt_receive_desc": "I didn’t receive a code",
+    "security_verification_check_mail": "Please make sure to check your Spam folder, if you don’t receive it in your Inbox.",
+    "security_verification_attempts_left_one": "Invalid code, {{count}} attempt left.",
+    "security_verification_attempts_left_other": "Invalid code, {{count}} attempts left.",
+    "empty_amount_validation": "Enter a valid amount to proceed",
+    "insufficient_balance_validation": "Insufficient balance. Please enter a valid amount to proceed.",
+    "transaction_failed": "Transaction failed",
+    "go_back_to_wallet": "Back to wallet",
+    "to": "to",
+    "share": "Share",
+    "continue": "Continue",
+    "convert": "Convert",
+    "transfer": "Transfer",
+    "estia_logo_alt": "Estia logo image",
+    "merchant_logo_alt": "Merchant logo image",
+    "empty_notification_alt": "Empty notifications image",
+    "estia_welcome_left_alt": "Welcome icons image on left side",
+    "estia_welcome_right_alt": "Welcome icons image on right side",
+    "signup": "Sign Up",
+    "login": "Login",
+    "coming_soon": "Coming soon!",
+    "tap_to_browse": "Tap to browse",
+    "upload": "Upload",
+    "drop_files": "Or Drop Files",
+    "file_max_size": "File is larger than {{size}}",
+    "company_name": "{{app_name}} Payments",
+    "company_desc": "Easy Crypto Payments for Retailers & Consumers",
+    "add": "Add",
+    "delete": "Delete",
+    "rights_reserved": "© {{app_name}} Payments, All Rights Reserved"
+  },
+  "auth": {
+    "recaptcha_error": "reCAPTCHA validation failed. Please refresh this page and try again.",
+    "welcome_page": {
+      "slide_1_title": "Spend Smart,<lb/>Earn More,",
+      "slide_1_desc": "Enjoy Instant up to <bold>10% Cashback</bold> with {{app_name}}!,",
+      "slide_2_title": "Instant IBAN account,",
+      "slide_2_desc": "Open your IBAN account <bold>instantly</bold> with {{app_name}} payments!",
+      "slide_3_title": "Unlock Your Financial Freedom",
+      "slide_3_desc": "Discover the power of {{app_name}} token!",
+      "slide_4_title": "Seamless Transactions, Limitless Possibilities",
+      "slide_4_desc": "Experience the {{app_name}} payment gateway!",
+      "slide_5_title": "Know Your Earnings",
+      "slide_5_desc": "Empowering you with <bold>smart analytics</bold> through the {{app_name}} App!",
+      "get_started": "Get Started",
+      "next": "Next",
+      "arrow_btn_alt": "arrow right"
+    },
+    "login_page": {
+      "page_title": "Sign In",
+      "form_labels": {
+        "email": "EMAIL",
+        "email_hint": "Email address",
+        "password": "PASSWORD",
+        "password_hint": "Password"
+      },
+      "forgot_password": "Forgot password ?",
+      "submit_btn": "Sign in",
+      "dont_have_an_account": "Don’t have an account? Create one",
+      "here": "here",
+      "choose_2_factor_verification": "Choose a 2-step verification",
+      "2_step_sms": "Security code sent by SMS",
+      "2_step_email": "Security code sent by email",
+      "method": "method"
+    },
+    "register_page": {
+      "menu_labels": {
+        "language_and_currency": "Language & currency",
+        "language_and_currency_title": "Select your country, language & currency",
+        "business_details": "Business Details",
+        "business_details_title": "Enter your business details",
+        "create_password": "Create Password",
+        "create_password_title": "Create your password",
+        "review_business_details": "Review Business Details",
+        "mobile_validation": "Mobile validation",
+        "email_validation": "E-mail validation"
+      },
+      "form_labels": {
+        "business_name": "BUSINESS NAME (as it appears in the Nation Business Registry)",
+        "business_name_hint": "Your business name",
+        "business_name_info": "Must be 2–150 characters long. Alphabetic characters only.",
+        "business_logo": "BUSINESS LOGO",
+        "business_logo_info": "Disclaimer: Logo file size up to 2MB. Image size: 120x120px",
+        "merchant_category": "MERCHANT CATEGORY",
+        "merchant_category_hint": "Your merchant category",
+        "vat_id": "VAT IDENTIFICATION NUMBER",
+        "vat_hint": "Your VAT identification number",
+        "vat_info": "Minimum of 2 up to 40 characters in length",
+        "revenue_range": "REVENUE RANGE",
+        "revenue_range_hint": "Your company revenue range",
+        "business_phone": "BUSINESS PHONE NUMBER",
+        "business_phone_hint": "Your business mobile number",
+        "business_email": "BUSINESS EMAIL",
+        "business_email_hint": "Your business email",
+        "contact_first_name": "CONTACT FIRST NAME",
+        "contact_first_name_hint": "Your contact first name",
+        "contact_first_name_info": "Minimum of 2 up to 40 characters in length",
+        "contact_last_name": "CONTACT LAST NAME",
+        "contact_last_name_hint": "Your contact last name",
+        "contact_last_name_info": "Minimum of 2 up to 40 characters in length",
+        "contact_email": "CONTACT EMAIL",
+        "contact_email_hint": "Your email",
+        "contact_email_info": "This email address is associated with your username and will also be used to send you important information.",
+        "contact_phone": "CONTACT MOBILE NUMBER",
+        "contact_phone_hint": "Your contact mobile number"
+      },
+      "language_step": {
+        "country_label": "COUNTRY *",
+        "country_hint": "Your country",
+        "country_search": "Search country...",
+        "country_not_found": "No country found.",
+        "language_label": "LANGUAGE",
+        "language_hint": "Your language",
+        "usd": "United States dollar",
+        "euro": "Euro",
+        "agreement_checkbox_alt": "Agreement checkbox",
+        "terms_pre": "By signing up I agree that I’m 18 years of age or older, to our",
+        "terms_continue": "Terms of Use and Privacy Policy",
+        "continue_btn": "Continue to details",
+        "terms_dialog": {
+          "title": "Terms of Use",
+          "subtitle": " Privacy Policy",
+          "description": " We value your privacy and are committed to protecting your personal information. Our policy agreement explains how we collect, use, and safeguard your data. You can take a moment to review the details, as your continued use of our services indicates your acceptance of these terms.",
+          "learn_more": "Learn more"
+        }
+      },
+      "password_step": {
+        "instructions": "Your password must be at least 8 characters long, and comply with the following security requirements.",
+        "password_label": "ENTER YOUR PASSWORD",
+        "confirm_password_label": "CONFIRM YOUR PASSWORD",
+        "password_hint": "Your password",
+        "continue_btn": "Continue"
+      },
+      "business_details_step": {
+        "revenue_range_less_than": "Less than {{amount}}",
+        "revenue_range_more_than": "More than {{amount}}"
+      },
+      "review_business_details_step": {
+        "step_title": "Review business details",
+        "error_msg_title": "Something’s wrong",
+        "error_msg_btn": "Back to business details",
+        "proceed_btn": "Complete merchant registration",
+        "revert_btn": "Change business details"
+      },
+      "mobile_verification_step": {
+        "step_success": "Success",
+        "step_success_desc": "Your mobile number has been validated",
+        "continue_to_email_verification": "Continue to email verification"
+      },
+      "email_verification_step": {
+        "step_success": "Success",
+        "step_success_desc": "Your mobile number has been validated",
+        "continue_to_dashboard": "Continue to your dashboard"
+      }
+    },
+    "register_sub_user_page": {
+      "validation_instructions": "Your password must be at least 8 characters long, and comply with the following security requirements.",
+      "review_business_details": "Review business details",
+      "password_label": "ENTER YOUR PASSWORD",
+      "confirm_password_label": "CONFIRM YOUR PASSWORD",
+      "password_hint": "Your password",
+      "business_name": "BUSINESS NAME",
+      "business_user_first_name": "BUSINESS USER FIRST NAME",
+      "business_user_last_name": "BUSINESS USER LAST NAME",
+      "business_user_email": "BUSINESS USER EMAIL",
+      "business_user_phone": "BUSINESS USER MOBILE NUMBER",
+      "complete_reg": "Complete user registration",
+      "complete_reg_info": " If any of your information is incorrect, please contact your administrator.",
+      "mobile_verification_step": {
+        "step_success": "Success",
+        "step_success_desc": "Your mobile number has been validated",
+        "continue_to_email_verification": "Continue to email verification"
+      },
+      "email_verification_step": {
+        "step_success": "Success",
+        "step_success_desc": "Your mobile number has been validated",
+        "continue_to_dashboard": "Continue to your dashboard"
+      }
+    },
+    "forgot_password_page": {
+      "page_title": "Forgot your password?",
+      "page_desc": "Enter your email address to reset it.",
+      "email_label": "EMAIL",
+      "email_hint": "Email address",
+      "submit_btn": "Send verification PIN",
+      "back_to_sign_in": "Back to Sign In",
+      "new_password_title": "New password",
+      "new_password_success_msg": "Your password has changed.",
+      "instructions": "Your password must be at least 8 characters long, and comply with the following security requirements.",
+      "password_label": "ENTER YOUR PASSWORD",
+      "confirm_password_label": "CONFIRM YOUR PASSWORD",
+      "password_hint": "Your password",
+      "create_password_btn": "Create password"
+    }
+  },
+  "alerts": {
+    "logo_upload_success": "Business Logo Updated successfully",
+    "change_mobile_unique_error": "You can’t use your current number. Please enter a different one.",
+    "ticket_submit_success": "Ticket submitted successfully",
+    "complete_reg_success": "Welcome! You have successfully completed registration.",
+    "resend_otp_success_msg": "OTP resent successfully",
+    "logged_in_success_msg": "Welcome back, You have logged in successfully.",
+    "network_session_expired": "Session expired, Please login again",
+    "network_retry": "Encountered an issue processing your request. Please try again",
+    "network_timeout": "Oops! The server seems to be unreachable right now. Please try again shortly.",
+    "network_connect_error": "Unable to connect. Please check your internet.",
+    "complete_sub_reg_success": "Welcome, {{first_name}}! You have successfully completed registration.",
+    "create_sub_user_success": "User added successfully",
+    "delete_sub_user_success": "User deleted successfully",
+    "invite_sub_user_success": "Invitation sent successfully",
+    "pos_added_success": "POS added successfully",
+    "pos_delete_success": "POS deleted successfully"
+  },
+  "dialogs": {
+    "inactive_timer": {
+      "icon_alt": "Inactive timeout image",
+      "title": "Are you still there?",
+      "duration": "Your session will timeout due to inactivity in:",
+      "btn": "Yes, I'm still here"
+    },
+    "user_and_pos_actions": {
+      "reset_token": "Reset Token",
+      "send_invitation": "Send Invitation",
+      "delete": "Delete",
+      "are_you_sure": "Are you absolutely sure?",
+      "are_you_sure_pos_desc": "This action cannot be undone. This will permanently delete this POS.",
+      "are_you_sure_user_desc": "This action cannot be undone. This will permanently delete this user."
+    },
+    "kyb": {
+      "icon_alt": "KYC banner image",
+      "kyb_desc": "You’ll complete KYB with our partner. To see what documents you’ll need, check the KYB Requirements page first. Your KYB information is always available on your Profile Manager page.",
+      "complete_kyb_btn": "Complete the KYB process",
+      "view_kyb_btn": "View KYB Requirements"
+    },
+    "kyb_requirements": {
+      "learn_more": "Learn more",
+      "what_need_to_know": "What else do I need to know?",
+      "what_need_to_know_desc": "Every UBO and individual must provide KYC documents (ID/passport, proof of address, AFM/TIN, PEP/AML consent).",
+      "required_doc_title": "Documents must be:",
+      "required_doc_valid": "Valid and up-to-date",
+      "required_doc_format": "In PDF, JPG, or PNG format",
+      "required_doc_lang": "In Greek or English (otherwise translated by certified translator)",
+      "required_doc_notarization": "Some may require notarization (depending on the provider)",
+      "additional_doc": "For larger shareholding structures, additional documents may be requested.",
+      "additional_doc_info": "You'll upload these directly in our partner's KYB platform.",
+      "ok": "OK"
+    },
+    "terms": {
+      "terms_btn": "Terms of Use and Privacy Policy",
+      "title": "Terms of Use",
+      "desc": "Privacy Policy",
+      "info": "We value your privacy and are committed to protecting your personal information. Our policy agreement explains how we collect, use, and safeguard your data. You can take a moment to review the details, as your continued use of our services indicates your acceptance of these terms.",
+      "learn_more": "Learn more"
+    }
+  },
+  "validations": {
+    "register": {
+      "language_required": "Language is required",
+      "country_required": "Country is required",
+      "agreement_required": "Agreement is required",
+      "business_name_alpha": "Only alphabetic characters are allowed",
+      "business_name_min": "Must be at least 2 characters",
+      "business_name_max": "Cannot exceed 150 characters",
+      "business_name_required": "Business name is required",
+      "business_logo_size": "Image is too large (max 2MB)",
+      "business_logo_type": "Only image files are allowed",
+      "business_logo_required": "Business logo image is required",
+      "merchant_category_required": "Merchant category is required",
+      "vat_min": "Must be at least 2 characters",
+      "vat_max": "Cannot exceed 40 characters",
+      "vat_required": "VAT Identification number is required",
+      "revenue_range_required": "Revenue range is required",
+      "business_phone_country_code_required": "Country code is required",
+      "business_phone_required": "Business phone is required",
+      "business_email_invalid": "Please enter a valid email",
+      "business_email_required": "Business Email is required",
+      "contact_firstname_min": "Must be at least 2 characters",
+      "contact_firstname_max": "Cannot exceed 40 characters",
+      "contact_firstname_required": "Contact first name is required",
+      "contact_lastname_min": "Must be at least 2 characters",
+      "contact_lastname_max": "Cannot exceed 40 characters",
+      "contact_lastname_required": "Contact last name is required",
+      "contact_email_invalid": "Please enter a valid email",
+      "contact_email_required": "Contact Email is required",
+      "contact_phone_country_code_required": "Country code is required",
+      "contact_phone_required": "Contact phone is required"
+    },
+    "password": {
+      "password_required": "Password is required",
+      "password_min": "Password must be at least 8 characters long",
+      "password_max": "Password must be at most 32 characters long",
+      "password_lowercase": "Password must contain at least one lowercase letter",
+      "password_uppercase": "Password must contain at least one uppercase letter",
+      "password_number": "Password must contain at least one number",
+      "password_special": "Password must contain at least one special character",
+      "confirm_password_required": "Confirm Password is required",
+      "confirm_password_match": "Password does not match"
+    },
+    "login": {
+      "email_valid": "Please enter a valid email",
+      "email_required": "Email is required",
+      "password_required": "Password is required"
+    },
+    "forgot_password": {
+      "email_valid": "Please enter a valid email",
+      "email_required": "Email is required"
+    },
+    "change_email": {
+      "email_valid": "Please enter a valid email",
+      "email_required": "Email is required"
+    },
+    "otp_type_required": "OTP type is required",
+    "otp_code_required": "OTP code is required",
+    "ticket": {
+      "subject_required": "Subject is required",
+      "description_required": "Description is required",
+      "issue_type_required": "Issue type is required"
+    },
+    "feedback": {
+      "overall_satisfaction_min": "Please rate your overall satisfaction.",
+      "overall_satisfaction_required": "Overall satisfaction is required.",
+      "ease_of_use_min": "Please rate the ease of use.",
+      "ease_of_use_required": "Ease of use is required.",
+      "design_and_aesthetics_min": "Please rate the design and aesthetics.",
+      "design_and_aesthetics_required": "Design and aesthetics rating is required.",
+      "performance_and_speed_min": "Please rate the performance and speed.",
+      "performance_and_speed_required": "Performance and speed rating is required.",
+      "feature_satisfaction_min": "Please rate your satisfaction with the features.",
+      "feature_satisfaction_required": "Feature satisfaction is required.",
+      "security_and_privacy_min": "Please rate the security and privacy.",
+      "security_and_privacy_required": "Security and privacy rating is required.",
+      "reliability_min": "Please rate the reliability.",
+      "reliability_required": "Reliability rating is required.",
+      "support_experience_min": "Please rate your support experience.",
+      "support_experience_required": "Support experience rating is required."
+    },
+    "create_user": {
+      "name_min": "Must be at least 2 characters",
+      "name_max": "Cannot exceed 40 characters",
+      "firstname_required": "Contact first name is required",
+      "lastname_required": "Contact last name is required",
+      "email_invalid": "Please enter a valid email",
+      "email_required": "Contact Email is required",
+      "phone_country_code_required": "Country code is required",
+      "phone_number_required": "Contact phone is required",
+      "role_required": "Role is required"
+    },
+    "create_pos": {
+      "name_required": "Name is required",
+      "pos_mac_id_required": "POS Mac ID is required",
+      "pos_model_required": "POS model is required",
+      "login_token_required": "Login token is required",
+      "register_token_required": "Register token is required"
+    },
+    "send_eur": {
+      "amount_required": "Amount is required",
+      "address_required": "Wallet Address is required",
+      "address_invalid": "Please enter a valid ERC-20 Wallet Address"
+    },
+    "password_checker": {
+      "title": "Your password must contain:",
+      "password_length": "8-32 characters long",
+      "one_lowercase": "1 lowercase letter (a-z)",
+      "one_uppercase": "1 uppercase character (A-Z)",
+      "one_number": "1 number",
+      "one_special_char": "1 special character e.g. !@#$%",
+      "match": "Passwords do match"
+    }
+  },
+  "dashboard": {
+    "nav_links": {
+      "dashboard": "Dashboard",
+      "transactions": "Transactions",
+      "analytics": "Analytics",
+      "retailers": "Retailers",
+      "users_and_pos": "Users & POS",
+      "support": "Support",
+      "ticket": "Ticket",
+      "feedback": "Feedback",
+      "wallet": "Wallet",
+      "profile_mgt": "Profile Management"
+    },
+    "wallet_nav_links": {
+      "convert_eur_to_est": "Convert EUR to EST",
+      "convert_eur_to_est_info": "Exchange € for EST tokens effortlessly",
+      "convert_est_to_eur": "Convert EST to EUR",
+      "convert_est_to_eur_info": "Easily convert your EST tokens into €",
+      "send_est_to_others": "Send EST to other Wallets",
+      "send_est_to_others_info": "Transfer EST tokens to external wallets",
+      "receive_est_from_others": "Receive EST from other Wallets",
+      "receive_est_from_others_info": "Show wallet information so others can send you EST coins",
+      "send_eur_to_others": "Send EUR to other IBAN",
+      "send_eur_to_others_info": "Transfer € to External IBAN friendly names",
+      "external_iban_friendly_names": "External IBAN friendly names",
+      "external_iban_friendly_names_info": "Effortlessly save and manage your External IBAN friendly names with personalized labels for quick and easy access",
+      "external_wallet_friendly_names": "External Wallets friendly names",
+      "external_wallet_friendly_names_info": "Effortlessly save and manage your External Wallet friendly names with personalized labels for quick and easy access",
+      "my_iban": "My IBAN",
+      "my_iban_info": "Total control of your IBAN account"
+    },
+    "profile_nav_links": {
+      "my_profile": "My Profile",
+      "my_profile_info": "Important account details",
+      "integrations": "Integrations",
+      "integrations_info": "Information about the Estia Payment plug-ins for various e-shops",
+      "marketing": "Marketing",
+      "marketing_info": "Insights for all your  marketing campaigns",
+      "merchants": "Merchants",
+      "merchants_info": "Check out our merchants list",
+      "our_agreements": "Our Agreements",
+      "our_agreements_info": "User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent",
+      "logout": "Log out"
+    },
+    "home_page": {
+      "page_title": "Dashboard",
+      "paid_with_method": "Paid with {{method}}",
+      "payment_type": "Payment Type",
+      "transactions": "Transactions",
+      "sales_analytics": "Sales Analytics",
+      "sales": "Sales",
+      "account": {
+        "total_amount": "Total Amount",
+        "tokens": "tokens",
+        "cash_back": "Cash Back",
+        "iban_balance": "IBAN Balance",
+        "revenue_type": "Revenue {{type}}",
+        "estia_rate": "Rate"
+      },
+      "recent_transactions": {
+        "empty_transactions_alt": "Empty Transactions",
+        "no_new_transactions": "No new transactions"
+      }
+    },
+    "transactions": {
+      "page_title": "Transactions",
+      "search_hint": "Search",
+      "type": "Type",
+      "type_filter": {
+        "all": "All Activity Type",
+        "transactions": "Transactions",
+        "payments": "Payments"
+      },
+      "empty_transactions": "Empty Transactions",
+      "no_transactions_found": "No transactions found",
+      "table_labels": {
+        "description": "Description",
+        "date_and_time": "Date Time",
+        "transaction_no": "Transaction Number",
+        "pos_id": "POS ID",
+        "status": "Status",
+        "amount": "Amount"
+      }
+    },
+    "analytics": {
+      "main_page": {
+        "page_title": "Sales Analytics",
+        "sales_euro": "Sales (Euro)",
+        "sales_estia": "Sales (Estia)",
+        "sales_current_year": "Sales (Current Year)",
+        "customer_demo_current_year": "Customer Demographics (Current Year)",
+        "account_transfers": "Account Transfers",
+        "demographics_table_labels": {
+          "city": "City",
+          "total_sales": "Total Sales"
+        }
+      },
+      "demographics_page": {
+        "page_title": "Customer Demographics",
+        "total_customers": "Total Customers",
+        "total_sales": "Total Sales",
+        "total_customers_metrics": "{{percentage}}% from last month",
+        "average_age": "Average Age",
+        "average_age_count": "{{age}} years old",
+        "average_age_metrics": "{{percentage}}% from last year",
+        "income": "Income (per year)",
+        "income_metrics": "{{percentage}}% from last month",
+        "age_distribution_title": "Age Distribution",
+        "age_distribution_chart": {
+          "time": "Time",
+          "1_day": "1D",
+          "1_week": "1W",
+          "1_month": "1M",
+          "3_months": "3M",
+          "current_year": "CURRENT YEAR",
+          "all_time": "ALL TIME"
+        },
+        "detailed_demographics_title": "Detailed Demographics",
+        "demographics_detailed_table_labels": {
+          "age_group": "Age Group",
+          "count": "Count",
+          "percentage": "Percentage",
+          "trend": "Trend"
+        }
+      },
+      "sales_page": {
+        "page_title": "Sales (Current Year)",
+        "sales_euro": "Sales (Euro)",
+        "sales_estia": "Sales (Estia)",
+        "chart_title": "Sales (Current Year)",
+        "search_sales": "Search Sales",
+        "sales_chart": {
+          "time": "Time",
+          "1_day": "1D",
+          "1_week": "1W",
+          "1_month": "1M",
+          "3_months": "3M",
+          "current_year": "CURRENT YEAR",
+          "all_time": "ALL TIME"
+        },
+        "sales_table": {
+          "pos_id": "POS ID",
+          "transaction_no": "Transaction Number",
+          "date_and_time": "Date/Time",
+          "amount": "Amount"
+        }
+      },
+      "transfer_page": {
+        "page_title": "Analytics",
+        "table_title": "Account Transfers",
+        "search_hint": "Search Amount Transfers",
+        "table_labels": {
+          "iban_friendly_name": "IBAN Friendly Name",
+          "recipient_iban": "Recipient&#39;s IBAN",
+          "date_and_time": "Date/Time",
+          "transaction_no": "Transaction Number",
+          "amount": "Amount",
+          "transfer_fee": " Transfer Fee",
+          "amount_credited": "Amount Credited"
+        }
+      }
+    },
+    "kyb": {
+      "requirements_page": {
+        "page_title": "KYB Documents per Legal Entity Type Component",
+        "kyc_reminder": "KYC Reminder: All Ultimate Beneficial Owners (UBOs) and individuals must also complete KYC documentation.",
+        "search_hint": "Search by entity name, code, or description",
+        "kyb_table_labels": {
+          "entity_type": "Entity Type",
+          "code": "Code",
+          "required_docs": "Required Docs",
+          "last_updated": "Last Updated",
+          "actions": "Actions"
+        },
+        "document_one": "{{count}} Document",
+        "document_other": "{{count}} Documents",
+        "download": "Download"
+      }
+    },
+    "notifications_page": {
+      "page_title": "Notifications",
+      "view_all": "View all",
+      "mark_all_as_read": "Mark all as read",
+      "no_new_notifications": "No new notifications",
+      "empty_notifications_alt": "empty notifications image"
+    },
+    "users_and_pos": {
+      "users_switcher": "Users",
+      "pos_switcher": "POS",
+      "pos_page": {
+        "page_title": "POS Management",
+        "search_hint": "Search POS",
+        "table_title": "POS",
+        "table_labels": {
+          "name": "Name",
+          "pos_mac_id": "POS MacID",
+          "pos_model": "POS Model",
+          "login_token": "Login Token",
+          "auth_token": "Auth Token",
+          "actions": "Actions"
+        }
+      },
+      "users_page": {
+        "page_title": "User Management",
+        "search_hint": "Search user",
+        "table_title": "Users",
+        "default_role": "All Users",
+        "manager_role": "Manager",
+        "staff_role": "Staff",
+        "viewer_role": "Viewer",
+        "table_labels": {
+          "first_name": "First Name",
+          "last_name": "Last Name",
+          "company_email": "Company email",
+          "mobile": "Mobile",
+          "role": "Role",
+          "actions": "Actions"
+        }
+      },
+      "add_user_dialog": {
+        "dialog_title": "Add User",
+        "form_labels": {
+          "first_name": "FIRST NAME",
+          "first_name_hint": "Enter first name",
+          "last_name": "LAST NAME",
+          "last_name_hint": "Enter last name",
+          "name_info": "Minimum of 2 up to 40 characters in length",
+          "company_email": "COMPANY EMAIL",
+          "company_email_hint": "Enter company email",
+          "company_email_info": "If the user already uses Estia Payments on the mobile app or desktop, they should enter a different email address here",
+          "mobile": "MOBILE NUMBER",
+          "mobile_hint": "Enter mobile number",
+          "role": "ROLE",
+          "role_hint": "Enter role"
+        },
+        "submit": "Add User"
+      },
+      "add_pos_dialog": {
+        "dialog_title": "Add POS",
+        "form_labels": {
+          "name": "NAME (MUST BE UNIQUE)",
+          "name_hint": "Enter name",
+          "pos_mac_id": "POS MACID",
+          "pos_mac_id_hint": "Enter POS MACID",
+          "login_token": "LOGIN TOKEN",
+          "login_token_hint": "Enter login token",
+          "register_token": "REGISTER TOKEN",
+          "register_token_hint": "Enter register token",
+          "pos_model": "POS MODEL",
+          "pos_model_hint": "Enter model",
+          "others_pos_model": "Others"
+        },
+        "submit": "Add POS"
+      }
+    },
+    "retailers_page": {
+      "page_title": "Merchants' List",
+      "search_hint": "Search"
+    },
+    "support": {
+      "feedback_page": {
+        "page_title": "Support",
+        "page_sub_title": "Feedback",
+        "page_desc": "Your experience matters to us.\nPlease take a moment to rate your experience with our app and let us know how we can improve. Your feedback will help us create a better app for you!\nHere, you can open a support ticket to report any issues about our application and services.",
+        "ratings": {
+          "overall_satisfaction": "overall satisfaction",
+          "overall_satisfaction_desc": "Rate the overall experience using the application",
+          "ease_of_use": "ease of use",
+          "ease_of_use_desc": "How easy was it to navigate and use the appShow wallet information so others can send you EST coins",
+          "design_and_aesthetics": "design & aesthetics",
+          "design_and_aesthetics_desc": "How satisfied are you with the app's design and layoutShow wallet information so others can send you EST coins",
+          "performance_and_speed": "performance & speed",
+          "performance_and_speed_desc": "How would you rate the app’s performance, speed, and responsivenessShow wallet information so others can send you EST coins",
+          "feature_satisfaction": "feature satisfaction",
+          "feature_satisfaction_desc": "How satisfied are you with the features available in the appShow wallet information so others can send you EST coins",
+          "security_and_privacy": "security & privacy",
+          "security_and_privacy_desc": "Rate your level of confidence in the app’s security and privacy features",
+          "reliability": "reliability",
+          "reliability_desc": "How often does the app work without issues, crashes, or errorsShow wallet information so others can send you EST coins",
+          "support_experience": "support experience",
+          "support_experience_desc": "Rate the helpfulness and responsiveness of our support team if you interacted with them"
+        },
+        "submit": "Send"
+      },
+      "ticket_page": {
+        "page_title": "Support",
+        "page_sub_title": "Ticket Form",
+        "page_desc": "Here, you can open a support ticket to report any issues about our application and services.\nOur team is dedicated to providing prompt and effective solutions, and we&#39;re here to help you every step of the way.\nTo ensure we can assist you efficiently, please provide as much detail as possible when submitting your ticket.\nAfter submitting your ticket, you will receive a confirmation email with a unique link to track the status of your ticket.\nFrom there, you can follow its progress, view updates, and respond to any inquiries from our support team.",
+        "form_labels": {
+          "full_name": "FULL NAME",
+          "email": "EMAIL ADDRESS",
+          "subject": "TICKET SUBJECT",
+          "subject_info": "Briefly describe the issue or request",
+          "description": "DETAILED DESCRIPTION",
+          "description_info": "Describe the issue or request in detail",
+          "issue_type": "ISSUE TYPE",
+          "issue_type_hint": "Select type",
+          "attachment_upload": "ATTACHMENT UPLOAD",
+          "attachment_upload_info": "Upload screenshots that could help the support team understand and diagnose the issue better"
+        },
+        "submit": "Send",
+        "issue_types": {
+          "technical": "Technical",
+          "account": "Account",
+          "billing": "Billing",
+          "payments": "Payments",
+          "transfer": "Transfer",
+          "conversion": "Conversion"
+        }
+      }
+    },
+    "terms_and_conditions": {},
+    "profile_management": {
+      "page_title": "Profile Management",
+      "links": {
+        "my_profile": "My Profile",
+        "change_email": "Change Email",
+        "change_password": "Change Password",
+        "change_mobile": "Change Mobile",
+        "kyb": "ΚΥΒ - Know Your Business"
+      },
+      "my_profile_page": {
+        "business_name": "BUSINESS NAME (as it appears in the Nation Business Registry)",
+        "business_logo": "BUSINESS LOGO",
+        "business_logo_info": "Disclaimer: Logo file size up to 2MB. Image size: 120x120px",
+        "merchant_category": "MERCHANT CATEGORY",
+        "vat_id": "VAT IDENTIFICATION NUMBER",
+        "revenue_range": "REVENUE RANGE",
+        "address": "ADDRESS",
+        "postal_code": "POSTAL CODE",
+        "country": "COUNTRY",
+        "business_phone": "BUSINESS PHONE NUMBER",
+        "business_email": "BUSINESS EMAIL",
+        "contact_first_name": "CONTACT FIRST NAME",
+        "contact_last_name": "CONTACT LAST NAME",
+        "contact_mobile_no": "CONTACT MOBILE NUMBER",
+        "contact_email": "CONTACT EMAIL",
+        "currency": "CURRENCY",
+        "currency_hint": "Your currency",
+        "language": "LANGUAGE",
+        "language_hint": "Your language",
+        "dark_theme": "DARK THEME",
+        "save_settings": "Save Settings",
+        "disclaimer": "Disclaimer: The page is view-only and you cannot edit the data displayed here. Edit can be done only via KYB - Know Your Business"
+      },
+      "change_email_page": {
+        "page_title": "Change email address",
+        "success_message": "Your email address has changed",
+        "success_message_action": "Back to Profile",
+        "otp_desc": "We will text a verification code to your new email address to confirm it.",
+        "instruction_title": "To change your email, you will follow these steps:",
+        "instruction_steps": [
+          "Enter the verification code sent to your current email.",
+          "Enter your new email address.",
+          "Enter the verification code sent to your new email."
+        ],
+        "start_process_btn": "Proceed to change email address",
+        "email_label": "EMAIL",
+        "email_hint": "Your email",
+        "error_message": "You can’t use your current email. Please enter a different one."
+      },
+      "change_mobile_page": {
+        "page_title": "Change mobile phone",
+        "success_message": "Your mobile phone has changed",
+        "success_message_action": "Back to Profile",
+        "otp_desc": "We will text a verification code to your new mobile phone to confirm it.",
+        "instruction_title": "To change your mobile phone, you will follow these steps:",
+        "instruction_steps": [
+          "Enter the verification code sent to your current mobile phone.",
+          "Enter your new mobile phone.",
+          "Enter the verification code sent to your new mobile phone."
+        ],
+        "start_process_btn": "Proceed to change mobile phone",
+        "mobile_label": "MOBILE PHONE",
+        "mobile_hint": "Your mobile number"
+      },
+      "change_password_page": {
+        "page_title": "Change password",
+        "success_message": "Your password has changed",
+        "success_message_action": "Back to Profile",
+        "otp_desc": "We will text a verification code to your new mobile phone to confirm it.",
+        "instruction_title": "To change your password, you will follow these steps:",
+        "instruction_steps": [
+          "Enter the verification code sent to your email.",
+          "Enter the verification code sent to your mobile",
+          "Change password."
+        ],
+        "start_process_btn": "Proceed to change password",
+        "validation_instructions": "Your password must be at least 8 characters long, and comply with the following security requirements.",
+        "password_label": "ENTER YOUR PASSWORD",
+        "confirm_password_label": "CONFIRM YOUR PASSWORD",
+        "password_hint": "Your password"
+      },
+      "kyb_page": {
+        "success_title": "Business Verification\nSuccessful",
+        "success_message": "Your business identity has been successfully verified. You now have unrestricted access to your dashboard and all available features designed to support and grow your business operations.",
+        "success_message_action": "Continue to Dashboard"
+      }
+    },
+    "wallet": {
+      "page_title": "Wallet",
+      "conversion_success_title": "Confirmation of transaction",
+      "transaction_details": "Transaction details",
+      "fees": "Fees",
+      "transaction_no": "Transaction number",
+      "you_will_convert": "You will convert",
+      "you_will_receive": "You will receive",
+      "you_will_send": "You will send",
+      "goto_wallet": "Go to wallet",
+      "conversion": "Conversion",
+      "conversion_subtitle": "Initiating conversion",
+      "transfer_subtitle": "Initiating transfer",
+      "conversion_msg": "Please don’t leave this screen",
+      "conversion_timer": "Complete conversion in {{minutes}}:{{seconds}}",
+      "payment_fee": "Payment fee",
+      "total_cost": "Total cost",
+      "my_estia_iban": "My Estia IBAN",
+      "delete_friendly_wallet_desc": "Are you sure you want to delete “{{nameValue}}” external wallet?",
+      "convert_est_to_eur_page": {
+        "page_title": "Convert EST to EUR",
+        "iban_credit": "EUR will be sent to this IBAN",
+        "iban_credit_desc": "You will be notified once the EUR have been successfully added to your IBAN."
+      },
+      "convert_eur_to_est_page": {
+        "page_title": "Convert EUR to EST",
+        "iban_debit": "EUR will be debited from this IBAN",
+        "wallet_credit_desc": "You will be notified once the EST have been successfully added to your wallet."
+      },
+      "external_iban_page": {
+        "page_title": "External IBAN friendly names",
+        "add_iban_success_msg": "External IBAN added successfully",
+        "delete_iban_success_msg": "External IBAN deleted successfully",
+        "empty_iban_msg": "No external IBANs have been saved yet.",
+        "form_labels": {
+          "name_label": "FRIENDLY NAME",
+          "value_label": "IBAN NUMBER"
+        },
+        "add_new_iban": "Add New IBAN"
+      },
+      "external_wallet_page": {
+        "page_title": "External Wallets friendly names",
+        "add_wallet_success_msg": "Friendly wallet added successfully",
+        "delete_wallet_success_msg": "Friendly wallet deleted successfully",
+        "empty_wallet_msg": "No external wallet have been saved yet.",
+        "form_labels": {
+          "name_label": "FRIENDLY NAME",
+          "value_label": "WALLET ADDRESS"
+        },
+        "add_new_iban": "Add New External Wallet"
+      },
+      "my_iban_page": {
+        "page_title": "My IBAN",
+        "account_holder": "Account holder",
+        "bic": "BIC",
+        "iban": "IBAN",
+        "bank_name_and_address": "Bank name and address",
+        "error_title": "Unable to Retrieve IBAN",
+        "error_msg": "We couldn’t load your IBAN information. Please try again later or contact support if the issue persists."
+      },
+      "receive_est_page": {
+        "page_title": "Receive EST from other Wallets",
+        "wallet_address": "Wallet Address"
+      },
+      "send_est_page": {
+        "page_title": "Send EST to other Wallets",
+        "wallet_transfer_desc": "You will be notified once the EST have been successfully send to the wallet",
+        "send_to": "Send to",
+        "form_labels": {
+          "wallet_label": "WALLET FRIENDLY NAME",
+          "wallet_hint": "Your wallet friendly name",
+          "address_hint": "Enter recipient address"
+        }
+      },
+      "send_eur_page": {
+        "page_title": "Send EUR to other IBAN",
+        "no_iban_title": "No External IBAN Available",
+        "no_iban_msg": "You have not created any external IBAN on your account",
+        "no_iban_btn": "Create External IBAN",
+        "iban_debit_desc": "EUR will be debited from this IBAN",
+        "iban_transfer_desc": "EUR will be transferred to this IBAN",
+        "send_to": "Send to",
+        "form_labels": {
+          "wallet_label": "WALLET FRIENDLY NAME",
+          "wallet_hint": "Your wallet friendly name",
+          "address_hint": "Enter recipient address"
+        },
+        "receipt": {
+          "title": "Confirmation of transaction",
+          "you_sent": "You sent",
+          "form": "From",
+          "to": "to",
+          "transaction_details": "Transaction details",
+          "fees": "Fees",
+          "received": "Received",
+          "transaction_no": "Transaction number",
+          "download_btn": "Download transfer receipt"
+        }
+      }
+    },
+    "integrations_page": {
+      "page_title": "Integrations",
+      "page_desc": "Learn more about Estia Payment plug-ins available for various e-commerce platforms",
+      "plugin_tokens": "Plugin Tokens",
+      "secret_1": "Secret 1",
+      "secret_2": "Secret 2"
+    }
+  },
+  "privacy_policy": {
+    "page_title": "Terms & Conditions",
+    "page_sub_title": "Privacy Policy",
+    "payment_gateway": "Payments Gateway",
+    "effective_date": "Effective Date",
+    "sections": {
+      "section_1": {
+        "title": "Introduction",
+        "paragraphs": [
+          "Estia Payments S.A. (“we”, “us”, “our”) is committed to protecting the privacy and personal data of our users. This Privacy Policy explains how we collect, use, store, and protect your personal information in connection with our payment services gateway.",
+          "This policy is designed to comply with the <bold>General Data Protection Regulation (GDPR),</bold> the <bold>Greek Data Protection Law,</bold> and all other applicable EU data protection and financial regulatory requirements."
+        ]
+      },
+      "section_2": {
+        "title": "Data Controller and Contact Information",
+        "paragraphs": [
+          "Estia Payments S.A. is the <bold>data controller</bold> responsible for your personal data.",
+          "If you have any questions or concerns about this Privacy Policy or your personal data, you may contact our <bold>Data Protection Officer (DPO):</bold>",
+          "\uD83D\uDCE7 Email: dpo@estiapayments.io",
+          "You also have the right to lodge a complaint with the Hellenic Data Protection Authority (HDPA) or your local supervisory authority in the EU."
+        ]
+      },
+      "section_3": {
+        "title": "Scope of Services",
+        "paragraphs": [
+          "This Privacy Policy applies to all our services, including but not limited to:"
+        ],
+        "list": [
+          "Our website",
+          "Our applications (desktop and mobile)",
+          "Our mobile applications",
+          "Our APIs",
+          "Other digital platforms provided by us"
+        ]
+      },
+      "section_4": {
+        "title": "Data We Collect",
+        "paragraphs": [
+          "In order to provide regulated payment and crypto services, and to comply with <bold>anti-money laundering (AML), counter-terrorism financing (CTF),</bold> and <bold>MiCA</bold> obligations, we may collect the following categories of personal data:"
+        ],
+        "list": [
+          "Identification data: Full name, date of birth, nationality, gender",
+          "Contact details: Residential address, professional address, telephone number, email address",
+          "Professional and financial information: Profession, bank details, source of wealth/funds",
+          "Transactional data: Payment instructions, transaction history, crypto wallet addresses",
+          "Verification data: ID documents, proof of address, biometric verification (if applicable)",
+          "Technical data: IP address, browser type, device information, cookies and tracking data"
+        ],
+        "footer": [
+          "We will not collect more data than necessary for the purposes described below."
+        ]
+      },
+      "section_5": {
+        "title": "Purposes of Data Processing",
+        "paragraphs": [
+          "We process your personal data for the following purposes:"
+        ],
+        "list": [
+          "<bold>Contractual necessity:</bold> To provide and manage our payment services gateway.",
+          "<bold>Legal and regulatory compliance:</bold> To meet AML, CTF, MiCA, and other financial regulatory obligations.",
+          "<bold>Fraud prevention and monitoring:</bold> To protect our systems and prevent abuse.",
+          "<bold>Customer support:</bold> To respond to your requests and resolve issues.",
+          "<bold>Marketing:</bold> To send you information about our services (only with your consent).",
+          "<bold>Service improvement:</bold> To improve performance and develop new features."
+        ]
+      },
+      "section_6": {
+        "title": "Legal Bases for Processing",
+        "paragraphs": [
+          "We rely on the following legal grounds for processing your personal data:"
+        ],
+        "list": [
+          "<bold>Performance of a contract</bold> (Art. 6(1)(b) GDPR)",
+          "<bold>Legal obligation</bold> (Art. 6(1)(c) GDPR), e.g., AML and tax regulations",
+          "<bold>Legitimate interests</bold> (Art. 6(1)(f) GDPR), e.g., fraud prevention, IT security",
+          "<bold>Consent</bold> (Art. 6(1)(a) GDPR), where explicitly required (e.g., marketing, cookies)"
+        ]
+      },
+      "section_7": {
+        "title": "Automated Decision-Making and Profiling",
+        "paragraphs": [
+          "Certain activities, such as <bold>AML checks, fraud detection, and risk scoring,</bold> may involve automated decision-making. These processes are necessary to comply with regulatory obligations and to ensure secure transactions.",
+          "You have the right to request human intervention, to express your point of view, and to contest automated decisions."
+        ]
+      },
+      "section_8": {
+        "title": "Data Sharing and Third Parties",
+        "paragraphs": [
+          "We may share your personal data with:"
+        ],
+        "list": [
+          "<bold>Identity verification providers</bold> (for AML/KYC checks)",
+          "<bold>Payment processors and banking partners</bold>",
+          "<bold>Cloud hosting and IT service providers</bold> (within the EU/EEA)",
+          "<bold>Regulatory and supervisory authorities</bold> (when legally required)",
+          "<bold>Professional advisors</bold> (e.g., auditors, legal counsel)"
+        ],
+        "footer": [
+          "We ensure that all third parties comply with GDPR and apply appropriate safeguards."
+        ],
+        "info": "International transfers",
+        "info_desc": "At present, we do not transfer personal data outside the EU/EEA. If such transfers become necessary, we will ensure adequate safeguards, such as the EU Standard Contractual Clauses (SCCs) or adequacy decisions, and update this Policy accordingly."
+      },
+      "section_9": {
+        "title": "Data Retention",
+        "paragraphs": [
+          "We retain personal data only as long as necessary for legal and operational purposes:"
+        ],
+        "list": [
+          "<bold>Customer records (KYC/AML):</bold> 5–10 years from the end of the business relationship, as required by AML law.",
+          "<bold>Financial records:</bold> 10 years (tax compliance).</bold>",
+          "<bold><bold>Customer support data:</bold> 6 years.",
+          "<bold>Cookies and analytics data:</bold> As per your consent, usually no longer than 2 years."
+        ],
+        "footer": [
+          "After expiry, data is securely deleted or anonymized."
+        ]
+      },
+      "section_10": {
+        "title": "Cookies and Tracking Technologies",
+        "paragraphs": [
+          "We use cookies and similar technologies to:"
+        ],
+        "list": [
+          "Provide website functionality",
+          "Collect analytics and performance data",
+          "Support service improvements",
+          "Deliver personalized marketing (only with your consent)"
+        ],
+        "footer": [
+          "Upon first visit, you will see a <bold>cookie consent banner</bold> where you can accept, reject, or customize cookie preferences. You can also change your preferences anytime via browser settings or our consent tool."
+        ]
+      },
+      "section_11": {
+        "title": "Data Security",
+        "paragraphs": [
+          "We implement strict technical and organizational measures, including:"
+        ],
+        "list": [
+          "<bold>Encryption</bold> of data at rest and in transit",
+          "<bold>Access controls</bold> with role-based restrictions",
+          "<bold>Regular penetration testing and security audits</bold>",
+          "<bold>Employee training</bold> on data protection and confidentiality"
+        ]
+      },
+      "section_12": {
+        "title": "Your Rights Under GDPR",
+        "paragraphs": [
+          "You have the following rights regarding your personal data:"
+        ],
+        "list": [
+          "<bold>Access:</bold> Obtain a copy of your personal data.",
+          "<bold>Rectification:</bold> Correct inaccuracies.",
+          "<bold>Erasure:</bold> Request deletion (subject to regulatory retention).",
+          "<bold>Restriction</bold> Limit processing under certain conditions.",
+          "<bold>Data portability:</bold> Receive data in a structured, machine-readable format.",
+          "<bold>Objection:</bold> Object to processing, including direct marketing.",
+          "<bold>Withdraw consent:</bold> Where processing is based on consent, you may withdraw it anytime."
+        ],
+        "footer": [
+          "We will respond to all valid requests within <bold>one month</bold> (extendable by two months in complex cases)."
+        ]
+      },
+      "section_13": {
+        "title": "Children’s Data",
+        "paragraphs": [
+          "Our services are not intended for children under the age of <bold>16</bold>. We do not knowingly collect or process their data. If you believe we have collected such data, please contact us to have it deleted."
+        ]
+      },
+      "section_14": {
+        "title": "Changes to This Privacy Policy",
+        "paragraphs": [
+          "We may update this Privacy Policy from time to time. Any material changes will be communicated through our website, applications, or by email. We encourage you to review this Policy regularly."
+        ]
+      },
+      "section_15": {
+        "title": "Governing Law and Jurisdiction",
+        "paragraphs": [
+          "This Privacy Policy is governed by the laws of <bold>Greece</bold> and the <bold>European Union.</bold> Any disputes will be subject to the exclusive jurisdiction of the courts of <bold>Athens, Greece</bold>."
+        ]
+      }
+    }
+  },
+  "merchant_categories": {
+    "Hotelier": "Hotelier",
+    "Food and Beverage": "Food and Beverage",
+    "Retail": "Retail",
+    "E-commerce": "E-commerce",
+    "Travel and Tourism": "Travel and Tourism",
+    "Entertainment": "Entertainment",
+    "Health and Wellness": "Health and Wellness",
+    "Real Estate": "Real Estate",
+    "Construction Services": "Construction Services",
+    "Transportation Services": "Transportation Services",
+    "Education and Training": "Education and Training",
+    "Personal Care Services": "Personal Care Services",
+    "Automotive": "Automotive",
+    "Art and Crafts": "Art and Crafts",
+    "Grocery and Supermarkets": "Grocery and Supermarkets",
+    "Pharmaceuticals": "Pharmaceuticals",
+    "Home Goods": "Home Goods",
+    "Fitness and Sports": "Fitness and Sports",
+    "Florists": "Florists",
+    "Jewelry and Accessories": "Jewelry and Accessories",
+    "Pet Services": "Pet Services",
+    "Office Supplies": "Office Supplies",
+    "Electronics": "Electronics",
+    "Media and Publishing": "Media and Publishing",
+    "Event Planning": "Event Planning",
+    "Cleaning Services": "Cleaning Services",
+    "Consulting Services": "Consulting Services",
+    "Legal Services": "Legal Services",
+    "Financial Services": "Financial Services",
+    "Insurance Providers": "Insurance Providers",
+    "Technology Services": "Technology Services",
+    "Therapy and Counseling": "Therapy and Counseling",
+    "Craft Breweries": "Craft Breweries",
+    "Specialty Foods": "Specialty Foods",
+    "Photography and Videography": "Photography and Videography",
+    "Other": "Other"
+  },
+  "countries": {
+    "Austria": "Austria",
+    "Belgium": "Belgium",
+    "Bulgaria": "Bulgaria",
+    "Croatia": "Croatia",
+    "Republic of Cyprus": "Republic of Cyprus",
+    "Czech Republic": "Czech Republic",
+    "Denmark": "Denmark",
+    "Estonia": "Estonia",
+    "Finland": "Finland",
+    "France": "France",
+    "Germany": "Germany",
+    "Greece": "Greece",
+    "Hungary": "Hungary",
+    "Iceland": "Iceland",
+    "Ireland": "Ireland",
+    "Italy": "Italy",
+    "Latvia": "Latvia",
+    "Liechtenstein": "Liechtenstein",
+    "Lithuania": "Lithuania",
+    "Luxembourg": "Luxembourg",
+    "Malta": "Malta",
+    "Netherlands": "Netherlands",
+    "Norway": "Norway",
+    "Poland": "Poland",
+    "Portugal": "Portugal",
+    "Romania": "Romania",
+    "Slovakia": "Slovakia",
+    "Slovenia": "Slovenia",
+    "Spain": "Spain",
+    "Sweden": "Sweden",
+    "Switzerland": "Switzerland",
+    "United Kingdom": "United Kingdom"
+  }
+}

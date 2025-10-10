@@ -18,11 +18,12 @@ export const navbarLinks = [
   //   path: '/dashboard',
   // },
   {
-    title: 'Transactions',
+    key: 'dashboard.nav_links.transactions',
     path: '/dashboard/transactions',
+    matches: [SCREENS.KYB_REQUIREMENTS],
   },
   {
-    title: 'Analytics',
+    key: 'dashboard.nav_links.analytics',
     path: '/dashboard/analytics',
     matches: [
       '/dashboard/analytics/sales',
@@ -31,22 +32,25 @@ export const navbarLinks = [
     ],
   },
   {
-    title: 'Retailers',
+    key: 'dashboard.nav_links.retailers',
     path: '/dashboard/retailers',
   },
   {
-    title: 'Users & POS',
+    key: 'dashboard.nav_links.users_and_pos',
     matches: ['/dashboard/users', '/dashboard/pos'],
     path: '/dashboard/users',
   },
   {
-    title: 'Support',
+    key: 'dashboard.nav_links.support',
     path: '/dashboard/support',
     matches: ['/dashboard/support', '/dashboard/support/feedback'],
     subMenu: [
-      { title: 'Online Chat', path: '/dashboard/support' },
-      { title: 'Ticket', path: '/dashboard/support' },
-      { title: 'Feedback', path: '/dashboard/support/feedback' },
+      // { title: 'Online Chat', path: '/dashboard/support' },
+      { key: 'dashboard.nav_links.ticket', path: '/dashboard/support' },
+      {
+        key: 'dashboard.nav_links.feedback',
+        path: '/dashboard/support/feedback',
+      },
     ],
     isContextMenu: true,
   },
@@ -54,45 +58,45 @@ export const navbarLinks = [
 
 export const walletLinks = [
   {
-    title: 'Convert EUR to EST',
-    subtitle: 'Exchange € for EST tokens effortlessly',
+    key: 'dashboard.wallet_nav_links.convert_eur_to_est',
+    subtitle_key: 'dashboard.wallet_nav_links.convert_eur_to_est_info',
     path: '/dashboard/wallet/convert-eur-to-est',
   },
   {
-    title: 'Convert EST to EUR',
-    subtitle: 'Easily convert your EST tokens into €',
+    key: 'dashboard.wallet_nav_links.convert_est_to_eur',
+    subtitle_key: 'dashboard.wallet_nav_links.convert_est_to_eur_info',
     path: '/dashboard/wallet/convert-est-to-eur',
   },
   {
-    title: 'Send EST to other Wallets',
-    subtitle: 'Transfer EST tokens to external wallets',
+    key: 'dashboard.wallet_nav_links.send_est_to_others',
+    subtitle_key: 'dashboard.wallet_nav_links.send_est_to_others_info',
     path: '/dashboard/wallet/send-est-to-other-wallet',
   },
   {
-    title: 'Receive EST from other Wallets',
-    subtitle: 'Show wallet information so others can send you EST coins',
+    key: 'dashboard.wallet_nav_links.receive_est_from_others',
+    subtitle_key: 'dashboard.wallet_nav_links.receive_est_from_others_info',
     path: '/dashboard/wallet/receive-est',
   },
   {
-    title: 'Send EUR to other IBAN',
-    subtitle: 'Transfer € to External IBAN friendly names',
+    key: 'dashboard.wallet_nav_links.send_eur_to_others',
+    subtitle_key: 'dashboard.wallet_nav_links.send_eur_to_others_info',
     path: '/dashboard/wallet/send-eur-to-other-iban',
   },
   {
-    title: 'External IBAN friendly names',
-    subtitle:
-      'Effortlessly save and manage your External IBAN friendly names with personalized labels for quick and easy access',
+    key: 'dashboard.wallet_nav_links.external_iban_friendly_names',
+    subtitle_key:
+      'dashboard.wallet_nav_links.external_iban_friendly_names_info',
     path: '/dashboard/wallet/external-iban',
   },
   {
-    title: 'External Wallets friendly names',
-    subtitle:
-      'Effortlessly save and manage your External Wallet friendly names with personalized labels for quick and easy access',
+    key: 'dashboard.wallet_nav_links.external_wallet_friendly_names',
+    subtitle_key:
+      'dashboard.wallet_nav_links.external_wallet_friendly_names_info',
     path: '/dashboard/wallet/external-wallet',
   },
   {
-    title: 'My IBAN',
-    subtitle: 'Total control of your IBAN account',
+    key: 'dashboard.wallet_nav_links.my_iban',
+    subtitle_key: 'dashboard.wallet_nav_links.my_iban_info',
     path: '/dashboard/wallet/my-iban',
   },
 ];
@@ -100,27 +104,27 @@ export const walletLinks = [
 export const profileMgtLinks = [
   {
     icon: UserIcon,
-    title: 'My Profile',
+    key: 'dashboard.profile_management.links.my_profile',
     path: '/dashboard/profile',
   },
   {
     icon: MailIcon,
-    title: 'Change Email',
+    key: 'dashboard.profile_management.links.change_email',
     path: '/dashboard/profile/change-email',
   },
   {
     icon: PasswordIcon,
-    title: 'Change Password',
+    key: 'dashboard.profile_management.links.change_password',
     path: '/dashboard/profile/change-password',
   },
   {
     icon: MobileIcon,
-    title: 'Change Mobile',
+    key: 'dashboard.profile_management.links.change_mobile',
     path: '/dashboard/profile/change-mobile',
   },
   {
     icon: KybIcon,
-    title: 'ΚΥΒ - Know Your Business',
+    key: 'dashboard.profile_management.links.kyb',
     path: '/dashboard/profile/kyb',
   },
 ];
@@ -128,49 +132,48 @@ export const profileMgtLinks = [
 export const profileLinks = [
   {
     icon: UserIcon,
-    title: 'My Profile',
-    subtitle: 'Important account details',
+    key: 'dashboard.profile_nav_links.my_profile',
+    subtitle_key: 'dashboard.profile_nav_links.my_profile_info',
     path: '/dashboard/profile',
   },
   {
     icon: IntegrationIcon,
-    title: 'Integrations',
-    subtitle:
-      'Information about the Estia Payment plug-ins for various e-shops',
+    key: 'dashboard.profile_nav_links.integrations',
+    subtitle_key: 'dashboard.profile_nav_links.integrations_info',
     path: '/dashboard/integrations',
   },
   {
     icon: MarketingIcon,
-    title: 'Marketing',
-    subtitle: 'Insights for all your  marketing campaigns',
+    key: 'dashboard.profile_nav_links.marketing',
+    subtitle_key: 'dashboard.profile_nav_links.marketing_info',
     path: '/dashboard/analytics',
   },
   {
     icon: MarketingIcon,
-    title: 'Merchants',
-    subtitle: 'Check out our merchants list',
+    key: 'dashboard.profile_nav_links.merchants',
+    subtitle_key: 'dashboard.profile_nav_links.merchants_info',
     path: '/dashboard/retailers',
   },
   {
     icon: AgreementIcon,
-    title: 'Our Agreements',
-    subtitle: 'User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent',
-    path: 'https://estiapayments.io/estia-payments-s-m-p-c-privacy-policy',
+    key: 'dashboard.profile_nav_links.our_agreements',
+    subtitle_key: 'dashboard.profile_nav_links.our_agreements_info',
+    path: SCREENS.TERMS_AND_CONDITIONS,
   },
-  { icon: LogoutIcon, title: 'Log out', path: SCREENS.LOGIN },
+  { icon: LogoutIcon, key: 'logout', path: SCREENS.LOGIN },
 ];
 
 export const mobileNavLinks = [
   {
-    title: 'Dashboard',
+    key: 'dashboard.nav_links.dashboard',
     path: '/dashboard',
   },
   {
-    title: 'Transactions',
+    key: 'dashboard.nav_links.transactions',
     path: '/dashboard/transactions',
   },
   {
-    title: 'Analytics',
+    key: 'dashboard.nav_links.analytics',
     path: '/dashboard/analytics',
     matches: [
       '/dashboard/analytics/sales',
@@ -179,11 +182,11 @@ export const mobileNavLinks = [
     ],
   },
   {
-    title: 'Retailers',
+    key: 'dashboard.nav_links.retailers',
     path: '/dashboard/retailers',
   },
   {
-    title: 'Users & POS',
+    key: 'dashboard.nav_links.users_and_pos',
     matches: ['/dashboard/users', '/dashboard/pos'],
     path: '/dashboard/users',
   },
@@ -191,23 +194,26 @@ export const mobileNavLinks = [
 
 export const mobileLinks: MobileLink[] = [
   {
-    groupTitle: '',
+    groupTitleKey: '',
     list: [...mobileNavLinks],
   },
   {
-    groupTitle: 'Wallet',
+    groupTitleKey: 'dashboard.nav_links.wallet',
     list: walletLinks,
   },
   {
-    groupTitle: 'Profile Management',
+    groupTitleKey: 'dashboard.nav_links.profile_mgt',
     list: profileMgtLinks,
   },
   {
-    groupTitle: 'Support',
+    groupTitleKey: 'dashboard.nav_links.support',
     list: [
       // { title: 'Online Chat', path: '/dashboard/support' },
-      { title: 'Ticket', path: '/dashboard/support' },
-      { title: 'Feedback', path: '/dashboard/support/feedback' },
+      { key: 'dashboard.nav_links.ticket', path: '/dashboard/support' },
+      {
+        key: 'dashboard.nav_links.feedback',
+        path: '/dashboard/support/feedback',
+      },
     ],
   },
 ];

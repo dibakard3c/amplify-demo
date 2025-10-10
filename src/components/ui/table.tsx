@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 function Table({ className, ...props }: React.ComponentProps<'table'>) {
   return (
@@ -52,12 +52,22 @@ function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   );
 }
 
-function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
+function TableRow({
+  className,
+  disableHover = false,
+  disableBgSeparator = false,
+  ...props
+}: React.ComponentProps<'tr'> & {
+  disableHover?: boolean;
+  disableBgSeparator?: boolean;
+}) {
   return (
     <tr
       data-slot='table-row'
       className={cn(
-        'hover:bg-muted/20 data-[state=selected]:bg-muted border-b transition-colors',
+        'border-b transition-colors',
+        !disableHover && 'hover:bg-muted/20 data-[state=selected]:bg-muted',
+        !disableBgSeparator && 'even:border-0 even:bg-[#F4F5F6]',
         className
       )}
       {...props}

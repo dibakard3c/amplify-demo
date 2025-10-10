@@ -16,12 +16,12 @@ export const generalSlice = createSlice({
       state.showSpinningLoader = action?.payload;
     },
   },
-  extraReducers: (builder) => {
-    // builder.addCase(REHYDRATE, (state: GeneralSliceState) => {
-    //   console.log('REHYDRATED', state.showSpinningLoader);
-    //   state.showSpinningLoader = false;
-    // });
-  },
+  // extraReducers: (builder) => {
+  //   // builder.addCase(REHYDRATE, (state: GeneralSliceState) => {
+  //   //   console.log('REHYDRATED', state.showSpinningLoader);
+  //   //   state.showSpinningLoader = false;
+  //   // });
+  // },
 });
 
 export const { toggleLoader } = generalSlice.actions;

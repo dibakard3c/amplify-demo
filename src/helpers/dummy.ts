@@ -1,26 +1,4 @@
-export const notificationsList = [
-  {
-    title: 'Notification title',
-    subtitle: 'Step 3 completed',
-    date: '29-10-2024 20:19',
-  },
-  {
-    title: 'Notification title',
-    subtitle: 'Step 3 completed',
-    date: '29-10-2024 20:19',
-  },
-  {
-    title: 'Notification title',
-    subtitle: 'Step 3 completed',
-    date: '29-10-2024 20:19',
-  },
-  {
-    title: 'Notification title',
-    subtitle: 'Step 3 completed',
-    date: '29-10-2024 20:19',
-  },
-];
-
+/* eslint-disable i18next/no-literal-string */
 export const chartDemographicData = [
   // January
   { date: 'Jan 1', sales: 130000 },
@@ -214,4 +192,31 @@ export const chartDemographicData = [
   { date: 'Jun 28', sales: 88000 },
   { date: 'Jun 29', sales: 83000 },
   { date: 'Jun 30', sales: 79000 },
+];
+
+export const demographicsTable: any[] = [
+  {
+    city: 'Athens',
+    amount: 135230,
+  },
+  {
+    city: 'Thessaloniki',
+    amount: 39172,
+  },
+  {
+    city: 'Patra',
+    amount: 15230,
+  },
+  {
+    city: 'Heraklio',
+    amount: 5230,
+  },
+  {
+    city: 'Nafplio',
+    amount: 5030,
+  },
+  {
+    city: 'Lamia',
+    amount: 500,
+  },
 ];

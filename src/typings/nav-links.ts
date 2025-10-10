@@ -1,8 +1,8 @@
 export interface MobileLink {
-  groupTitle: string;
+  groupTitleKey: string;
   list: {
-    title: string;
-    subtitle?: string;
+    key: string;
+    subtitlekey?: string;
     path: string;
     matches?: string[];
     subMenu?: { title: string; path: string }[];

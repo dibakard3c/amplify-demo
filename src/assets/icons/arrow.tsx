@@ -36,3 +36,21 @@ export const ArrowDown = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
+export const ArrowRight = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width={14}
+    height={9}
+    viewBox='0 0 14 9'
+    fill='none'
+    {...props}
+  >
+    <path
+      fill='#FBFCFC'
+      fillRule='evenodd'
+      d='M9.09.265a1 1 0 0 1 1.414.057l3.23 3.5a1 1 0 0 1 0 1.356l-3.23 3.5a1 1 0 1 1-1.47-1.356L10.716 5.5H1a1 1 0 0 1 0-2h9.716L9.034 1.678A1 1 0 0 1 9.091.265Z'
+      clipRule='evenodd'
+    />
+  </svg>
+);

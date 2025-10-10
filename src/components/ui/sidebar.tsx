@@ -3,10 +3,9 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, VariantProps } from 'class-variance-authority';
-import { PanelLeftIcon } from 'lucide-react';
 
 import { useIsMobile } from '@estia/hooks/useIsMobile';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { Button } from '@estia/components/ui/button';
 import { Input } from '@estia/components/ui/input';
 import { Separator } from '@estia/components/ui/separator';

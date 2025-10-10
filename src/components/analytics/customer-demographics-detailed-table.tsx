@@ -23,135 +23,53 @@ import {
   TableHeader,
   TableRow,
 } from '@estia/components/ui/table';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { formatNumber } from '@estia/utils/general';
 import { DownTrend, UpTrend } from '@estia/assets';
+import { useTranx } from '@estia/hooks/useTranx';
 
 const data: any[] = [
   {
     age_group: '18-25',
     amount: 135230,
     percentage: '+21,3%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'up',
   },
   {
     age_group: '26-35',
     amount: 39172,
     percentage: '+8,3%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'up',
   },
   {
     age_group: '36-45',
     amount: 15230,
     percentage: '-7,3%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'down',
   },
   {
     age_group: '46-55',
     amount: 5230,
     percentage: '-3,3%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'down',
   },
   {
     age_group: '56-65',
     amount: 5030,
     percentage: '+2,3%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'up',
   },
   {
     age_group: '66+',
     amount: 500,
     percentage: '+0,7%',
+    // eslint-disable-next-line i18next/no-literal-string
     trend: 'up',
-  },
-];
-
-export const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: 'age_group',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          className='text-neutral-4 font-bold'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Age Group
-          <ChevronsUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='text-neutral-2 pl-6 text-base font-semibold capitalize'>
-        {row.getValue('age_group')}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'amount',
-    header: ({ column }) => {
-      return (
-        <div className='flex justify-end'>
-          <Button
-            variant='ghost'
-            className='text-neutral-4 font-bold'
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Count
-            <ChevronsUpDown />
-          </Button>
-        </div>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='text-neutral-2 pr-4 text-right text-base font-semibold'>
-        {formatNumber(row.getValue('amount'), 'el-GR', false)}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'percentage',
-    header: ({ column }) => {
-      return (
-        <div className='flex justify-end'>
-          <Button
-            variant='ghost'
-            className='text-neutral-4 px-3 font-bold'
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Percentage
-            <ChevronsUpDown />
-          </Button>
-        </div>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='text-neutral-2 px-3 text-right text-base font-semibold'>
-        {row.getValue('percentage')}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'trend',
-    header: ({ column }) => {
-      return (
-        <div className='flex justify-end'>
-          <Button
-            variant='ghost'
-            className='text-neutral-4 px-3 font-bold'
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Trend
-            <ChevronsUpDown />
-          </Button>
-        </div>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='flex justify-end pr-8'>
-        {row.getValue('trend') == 'up' ? <UpTrend /> : <DownTrend />}
-      </div>
-    ),
   },
 ];
 
@@ -163,6 +81,111 @@ export function CustomerDemographicsDetailedTable({ className }: any) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const { t } = useTranx();
+
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: 'age_group',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant='ghost'
+            className='text-neutral-4 font-bold'
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            {t(
+              'dashboard.analytics.demographics_page.demographics_detailed_table_labels.age_group'
+            )}
+            <ChevronsUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='text-neutral-2 pl-6 text-base font-semibold capitalize'>
+          {row.getValue('age_group')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'amount',
+      header: ({ column }) => {
+        return (
+          <div className='flex justify-end'>
+            <Button
+              variant='ghost'
+              className='text-neutral-4 font-bold'
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === 'asc')
+              }
+            >
+              {t(
+                'dashboard.analytics.demographics_page.demographics_detailed_table_labels.count'
+              )}
+              <ChevronsUpDown />
+            </Button>
+          </div>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='text-neutral-2 pr-4 text-right text-base font-semibold'>
+          {formatNumber(row.getValue('amount'), 'el-GR', false)}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'percentage',
+      header: ({ column }) => {
+        return (
+          <div className='flex justify-end'>
+            <Button
+              variant='ghost'
+              className='text-neutral-4 px-3 font-bold'
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === 'asc')
+              }
+            >
+              {t(
+                'dashboard.analytics.demographics_page.demographics_detailed_table_labels.percentage'
+              )}
+              <ChevronsUpDown />
+            </Button>
+          </div>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='text-neutral-2 px-3 text-right text-base font-semibold'>
+          {row.getValue('percentage')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'trend',
+      header: ({ column }) => {
+        return (
+          <div className='flex justify-end'>
+            <Button
+              variant='ghost'
+              className='text-neutral-4 px-3 font-bold'
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === 'asc')
+              }
+            >
+              {t(
+                'dashboard.analytics.demographics_page.demographics_detailed_table_labels.trend'
+              )}
+              <ChevronsUpDown />
+            </Button>
+          </div>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='flex justify-end pr-8'>
+          {row.getValue('trend') == 'up' ? <UpTrend /> : <DownTrend />}
+        </div>
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data,
@@ -228,7 +251,7 @@ export function CustomerDemographicsDetailedTable({ className }: any) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {t('common.no_results_found')}
                 </TableCell>
               </TableRow>
             )}

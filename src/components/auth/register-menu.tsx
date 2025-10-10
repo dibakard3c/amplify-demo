@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import Image from 'next/image';
 import { Icons } from '@estia/assets';
 import {
@@ -9,9 +9,11 @@ import {
   RegistrationForm,
 } from '@estia/typings/registration-form';
 import { UseFormReturn } from 'react-hook-form';
+import { useTranx } from '@estia/hooks/useTranx';
 
 interface RegisterMenuProps {
   steps: {
+    key: string;
     menuName: string;
     title?: string;
     Component: ({ onMoveToNextStep }: RegistrationForm) => React.JSX.Element;
@@ -31,6 +33,8 @@ export default function RegisterMenu({
   isCompleted,
   activeStep,
 }: RegisterMenuProps) {
+  const { t } = useTranx();
+
   return (
     <div className='max-w-max'>
       {steps?.map((item, index) => (
@@ -38,7 +42,7 @@ export default function RegisterMenu({
           <div
             className={cn(
               'flex cursor-pointer items-center self-start rounded-full bg-white/30 px-3.5 py-3 pr-5 2xl:py-4',
-              isCompleted(item?.menuName) && 'multistep-item-shadow'
+              isCompleted(item?.key) && 'multistep-item-shadow'
             )}
             onClick={() => {
               if (process.env.NODE_ENV === 'development') {
@@ -46,7 +50,7 @@ export default function RegisterMenu({
               }
             }}
           >
-            {isCompleted(item?.menuName) ? (
+            {isCompleted(item?.key) ? (
               <div
                 className={cn(
                   'bg-primary-4 border-primary-4 relative flex size-8 items-center justify-center rounded-full border-2 lg:size-10'
@@ -71,18 +75,18 @@ export default function RegisterMenu({
             )}
             <p
               className={cn(
-                'text-neutral-4 ml-4 flex-1 text-base font-bold',
-                isCompleted(item?.menuName) && 'text-neutral-3'
+                'text-neutral-4 ml-4 max-w-50 flex-1 text-base font-bold',
+                isCompleted(item?.key) && 'text-neutral-3'
               )}
             >
-              {item?.menuName}
+              {t(item?.menuName as any)}
             </p>
           </div>
           {Object.keys(steps)?.length - 1 !== index && (
             <div
               className={cn(
                 'border-neutral-4 ml-8 h-6 w-1 border-l border-dashed 2xl:h-8',
-                isCompleted(item?.menuName) && 'border-primary-4'
+                isCompleted(item?.key) && 'border-primary-4'
               )}
             ></div>
           )}

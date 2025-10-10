@@ -16,6 +16,8 @@ export const Toast = {
         duration: 2000,
         dismissible: true,
         icon: null,
+        className:
+          'min-[140rem]:min-w-[40rem] min-[140rem]:text-5xl min-[140rem]:p-6',
       });
     }
   },
@@ -27,6 +29,8 @@ export const Toast = {
         duration: 3500,
         dismissible: true,
         icon: null,
+        className:
+          'bg-red-500 min-[140rem]:min-w-[40rem] min-[140rem]:text-5xl min-[140rem]:p-6',
       });
     }
   },
@@ -36,7 +40,10 @@ export const Toast = {
         description: params?.description,
         duration: 5000,
         dismissible: true,
+        className:
+          'min-[140rem]:min-w-[40rem] min-[140rem]:text-5xl min-[140rem]:p-6',
       });
     }
   },
+  promise: toast.promise,
 };

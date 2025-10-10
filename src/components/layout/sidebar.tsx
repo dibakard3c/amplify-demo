@@ -18,10 +18,13 @@ import { usePathname } from 'next/navigation';
 import { EstiaLogo } from '@estia/assets';
 import React from 'react';
 import { CloseIcon } from '@estia/assets/icons/close';
+import { useTranx } from '@estia/hooks/useTranx';
 
 export function MobileSidebar() {
   const pathname = usePathname();
   const { toggleSidebar } = useSidebar();
+
+  const { t } = useTranx();
 
   return (
     <Sidebar>
@@ -40,13 +43,15 @@ export function MobileSidebar() {
         {mobileLinks?.map((item, index) => (
           <div key={index}>
             <SidebarGroup>
-              {item?.groupTitle ? (
-                <SidebarGroupLabel>{item?.groupTitle}</SidebarGroupLabel>
+              {item?.groupTitleKey ? (
+                <SidebarGroupLabel>
+                  {t(item?.groupTitleKey as any)}
+                </SidebarGroupLabel>
               ) : null}
               <SidebarGroupContent>
                 <SidebarMenu>
                   {item?.list?.map((groupItem) => (
-                    <SidebarMenuItem key={groupItem.title}>
+                    <SidebarMenuItem key={groupItem.key}>
                       <SidebarMenuButton
                         asChild
                         isActive={compareIgnoreCase(
@@ -56,7 +61,9 @@ export function MobileSidebar() {
                         )}
                       >
                         <a href={groupItem.path}>
-                          <span className='text-sm'>{groupItem.title}</span>
+                          <span className='text-sm'>
+                            {t(groupItem.key as any)}
+                          </span>
                         </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

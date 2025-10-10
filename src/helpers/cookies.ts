@@ -1,3 +1,5 @@
+/* eslint-disable i18next/no-literal-string */
+
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
 export const setAuthCookie = (token: string, name: string) => {

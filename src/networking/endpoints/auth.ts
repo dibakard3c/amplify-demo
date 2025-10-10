@@ -1,4 +1,8 @@
-import { apiHandler, QUERY_TAGS } from '@estia/networking/api-handler';
+import {
+  apiHandler,
+  errorResponse,
+  QUERY_TAGS,
+} from '@estia/networking/api-handler';
 import { API_ROUTES } from '../api-routes';
 import { User } from '@estia/typings/user';
 import { KycVerification } from '@estia/typings/kyc-verification';
@@ -34,21 +38,34 @@ export const authEndpoints = apiHandler.injectEndpoints({
       }),
     }),
     // MERCHANT LOGO
-    fetchMerchantUploadUrl: builder.mutation<{ url: string }, void>({
-      query: () => ({
+    fetchMerchantUploadUrl: builder.mutation<
+      { url: string },
+      void | { showLoader: boolean }
+    >({
+      query: (params: any) => ({
         url: API_ROUTES.MERCHANT_UPLOAD_URL,
         method: 'GET',
+        params,
       }),
     }),
-    saveMerchantLogo: builder.mutation<void, void>({
-      query: () => ({
+    saveMerchantLogo: builder.mutation<void, void | { showLoader: boolean }>({
+      query: (params: any) => ({
         url: API_ROUTES.MERCHANT_LOGO,
         method: 'PUT',
+        params,
+      }),
+      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.ACCOUNT_INFO]),
+    }),
+    deleteMerchantLogo: builder.mutation<void, void | { showLoader: boolean }>({
+      query: (params: any) => ({
+        url: API_ROUTES.MERCHANT_LOGO,
+        method: 'DELETE',
+        params,
       }),
     }),
     uploadMerchantLogo: builder.mutation<
       void,
-      { signedUrl: string; file: File }
+      { signedUrl: string; file: File; showLoader?: boolean }
     >({
       async queryFn({ signedUrl, file }: any) {
         try {
@@ -61,14 +78,12 @@ export const authEndpoints = apiHandler.injectEndpoints({
           });
 
           if (!res.ok) {
-            return {
-              error: { status: 'CUSTOM_ERROR', error: 'Logo Upload failed' },
-            };
+            return errorResponse('Logo Upload failed');
           }
 
           return { data: undefined };
         } catch (error: any) {
-          return { error: { status: 'CUSTOM_ERROR', error: error.message } };
+          return errorResponse(error.message);
         }
       },
     }),
@@ -351,6 +366,7 @@ export const {
   useRefreshTokenMutation,
   // MERCHANT LOGO
   useFetchMerchantUploadUrlMutation,
+  useDeleteMerchantLogoMutation,
   useSaveMerchantLogoMutation,
   useUploadMerchantLogoMutation,
   // Account

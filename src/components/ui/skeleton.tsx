@@ -1,4 +1,4 @@
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import React from 'react';
 
 function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {

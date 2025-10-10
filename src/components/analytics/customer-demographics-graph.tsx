@@ -7,7 +7,6 @@ import {
   Brush,
   CartesianGrid,
   Legend,
-  ReferenceLine,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -18,6 +17,7 @@ import {
   ChartTooltipContent,
 } from '@estia/components/ui/chart';
 import { chartDemographicData } from '@estia/helpers/dummy';
+import { useTranx } from '@estia/hooks/useTranx';
 
 const CustomTraveller = ({ x, y, width, height }: any) => {
   return (
@@ -48,6 +48,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function CustomerDemographicsGraph({ className }: any) {
+  const { t } = useTranx();
   return (
     <div className={className}>
       <ChartContainer
@@ -99,7 +100,9 @@ export function CustomerDemographicsGraph({ className }: any) {
             wrapperStyle={{
               lineHeight: '40px',
             }}
-            formatter={() => 'Total Sales'}
+            formatter={() =>
+              t('dashboard.analytics.demographics_page.total_sales')
+            }
           />
           <Brush
             dataKey='date'

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { buttonVariants } from '@estia/components/ui/button';
 
 const AlertDialog = AlertDialogPrimitive.Root;

@@ -73,13 +73,20 @@ export const API_ROUTES = {
   CREATE_IBAN: '/wallet/iban',
   LIST_IBAN: '/wallet/iban-list',
   DELETE_IBAN: '/wallet/iban',
+  // FRIENDLY WALLETS
+  LIST_DEFI_WALLETS: '/v1/wallet/friendly/defi',
+  CREATE_DEFI_WALLET: '/v1/wallet/friendly/defi',
+  LIST_FIAT_WALLETS: '/v1/wallet/friendly/fiat',
+  CREATE_FIAT_WALLET: '/v1/wallet/friendly/fiat',
+  DELETE_FIAT_OR_DEFI_WALLET: '/v1/wallet/friendly',
   // NOTIFICATIONS
   LIST_NOTIFICATIONS: '/notification/',
   PENDING_NOTIFICATIONS_STATUS: '/notification/pending',
   READ_NOTIFICATION: '/notification/read',
   READ_ALL_NOTIFICATION: '/notification/read-all',
   // SUPPORT
-  TICKET_FORM: process.env.NEXT_PUBLIC_FRESH_DESK_TICKET_DOMAIN + '/v2/tickets',
+  TICKET_FORM:
+    process.env.NEXT_PUBLIC_FRESH_DESK_TICKET_DOMAIN + '/api/v2/tickets',
   // RECAPTCHA
   VERIFY_RECAPTCHA: '/recaptcha/verify-recaptcha',
   // MERCHANT SUPPORT USER

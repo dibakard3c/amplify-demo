@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { isEmpty } from 'lodash';
 import Image from 'next/image';
 import { Icons } from '@estia/assets';
+import { useTranx } from '@estia/hooks/useTranx';
 
 interface PasswordValidatorProps {
   password?: string;
@@ -12,30 +13,32 @@ export default function PasswordValidator({
   password,
   confirmPassword,
 }: PasswordValidatorProps) {
+  const { t } = useTranx();
+
   const requirements = useMemo(
     () => [
       {
-        title: '8-32 characters long',
+        title: 'validations.password_checker.password_length',
         isValid: /^.{8,32}$/.test(password || ''), // Matches passwords between 8 and 32 characters long
       },
       {
-        title: '1 lowercase letter (a-z)',
+        title: 'validations.password_checker.one_lowercase',
         isValid: /[a-z]/.test(password || ''), // Matches at least one lowercase letter
       },
       {
-        title: '1 uppercase character (A-Z)',
+        title: 'validations.password_checker.one_uppercase',
         isValid: /[A-Z]/.test(password || ''), // Matches at least one uppercase letter
       },
       {
-        title: '1 number',
+        title: 'validations.password_checker.one_number',
         isValid: /\d/.test(password || ''), // Matches at least one digit
       },
       {
-        title: '1 special character e.g. !@#$%',
+        title: 'validations.password_checker.one_special_char',
         isValid: /[!@#$%^&*(),.?":{}|<>_\-[\]\\`~'/+;=]/.test(password || ''), // Matches at least one special character
       },
       {
-        title: 'Passwords do match',
+        title: 'validations.password_checker.match',
         isValid: isEmpty(password) ? false : password === confirmPassword, // Matches at least one special character
       },
     ],
@@ -44,7 +47,9 @@ export default function PasswordValidator({
 
   return (
     <div className='w-full sm:w-auto'>
-      <p className='mb-2 text-base'>Your password must contain:</p>
+      <p className='mb-2 text-base'>
+        {t('validations.password_checker.title')}
+      </p>
       {requirements?.map((item, index) => (
         <div key={index} className='realtive mb-1 flex flex-row items-center'>
           <div className='relative h-6 w-6'>
@@ -62,7 +67,7 @@ export default function PasswordValidator({
               />
             )}
           </div>
-          <p className='ml-2 text-base'>{item?.title}</p>
+          <p className='ml-2 text-base'>{t(item?.title as any)}</p>
         </div>
       ))}
     </div>

@@ -3,12 +3,11 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
 } from '@estia/components/ui/navigation-menu';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import Link from 'next/link';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
-import { useAppDispatch } from '@estia/store/store';
-import { logoutAction } from '@estia/store/slices/auth';
 import { compareIgnoreCase } from '@estia/utils/general';
+import { useTranx } from '@estia/hooks/useTranx';
 
 interface ProfileMenuItemProps {
   item: any;
@@ -21,6 +20,8 @@ export default function ContextMenuItem({
   pathname,
   totalSize,
 }: ProfileMenuItemProps) {
+  const { t } = useTranx();
+
   return (
     <NavigationMenuItem>
       <NavigationMenuPrimitive.Trigger
@@ -30,12 +31,12 @@ export default function ContextMenuItem({
         <span
           className={cn(
             'text-neutral-4',
-            'cursor-pointer px-3 py-6 text-base font-bold',
+            'cursor-pointer px-3 py-6 text-base font-bold min-[140rem]:text-xl',
             compareIgnoreCase(pathname, item?.path, ...(item?.matches || [])) &&
               'text-neutral-1'
           )}
         >
-          {item?.title}
+          {t(item?.key as any)}
         </span>
       </NavigationMenuPrimitive.Trigger>
       <NavigationMenuContent>
@@ -55,7 +56,7 @@ export default function ContextMenuItem({
               )}
             >
               <p className='text-neutral-1 text-base font-bold'>
-                {item?.title}
+                {t(item?.key as any)}
               </p>
             </Link>
           </NavigationMenuPrimitive.Link>

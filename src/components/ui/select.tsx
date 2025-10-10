@@ -4,14 +4,14 @@ import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 interface SelectProps
   extends React.ComponentProps<typeof SelectPrimitive.Root> {
   label?: string;
 }
 
-function Select({ label, ...props }: SelectProps) {
+function Select({ ...props }: SelectProps) {
   return <SelectPrimitive.Root data-slot='select' {...props} />;
 }
 
@@ -51,15 +51,16 @@ function SelectTrigger({
         'disabled:opacity-50 data-[size=default]:h-12 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1',
         '*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2',
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        'min-[140rem]:text-2xl',
         className
       )}
       {...props}
     >
       {children}
       {showIcon ? (
-        <div className='bg-neutral-4 flex size-5 items-center justify-center rounded'>
+        <div className='bg-neutral-4 flex items-center justify-center rounded p-1'>
           <SelectPrimitive.Icon asChild>
-            <ChevronDownIcon className='size-4 text-white' />
+            <ChevronDownIcon className='size-4 text-white min-[140rem]:size-6' />
           </SelectPrimitive.Icon>
         </div>
       ) : null}

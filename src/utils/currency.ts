@@ -1,4 +1,4 @@
-const locale = 'en';
+const locale: any = 'en';
 
 export function parseLocalizedNumber(input: any) {
   if (typeof input === 'number') return input; // Already a number
@@ -66,7 +66,7 @@ export const formatCurrency = (
     maximumFractionDigits: 4,
   }).format(Number(number));
 
-  const currencySymbol = currency === 'euro' ? '€' : 'EST';
+  const currencySymbol = currency === 'euro' ? '€' : 'EST ';
 
   return `${currencySymbol}${formattedNumber}`;
 };

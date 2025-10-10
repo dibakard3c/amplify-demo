@@ -1,9 +1,8 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MerchantUser, User } from '@estia/typings/user';
 import { authEndpoints } from '@estia/networking/endpoints/auth';
-import { deleteAuthCookie } from '@estia/helpers/cookies';
 import { userEndpoints } from '@estia/networking/endpoints/user';
-import { DashboardSummary } from '@estia/typings/dashboard-summary';
+import { isEmpty } from 'lodash';
 
 interface AuthSliceState {
   user: any;
@@ -77,21 +76,23 @@ export const authSlice = createSlice({
         }
       )
       .addMatcher(
-        authEndpoints.endpoints.accountInfo.matchFulfilled,
+        (action): action is PayloadAction<any> =>
+          authEndpoints.endpoints.accountInfo.matchFulfilled(action) ||
+          authEndpoints.endpoints.refreshAccountInfo.matchFulfilled(action),
         (state: AuthSliceState, action: PayloadAction<User>) => {
-          state.user = action?.payload;
+          state.user = {
+            ...action?.payload,
+            merchantLogo: !isEmpty(action?.payload?.merchantLogo)
+              ? `${action?.payload?.merchantLogo}?date=${new Date().getTime()}`
+              : action?.payload?.merchantLogo,
+          };
+          console.log('set logo------', state.user);
         }
       )
       .addMatcher(
         userEndpoints.endpoints.fetchMerchantUserAccountInfo.matchFulfilled,
         (state: AuthSliceState, action: PayloadAction<MerchantUser>) => {
           state.merchantUserInfo = action?.payload;
-        }
-      )
-      .addMatcher(
-        authEndpoints.endpoints.refreshAccountInfo.matchFulfilled,
-        (state: AuthSliceState, action: PayloadAction<User>) => {
-          state.user = action?.payload;
         }
       );
   },

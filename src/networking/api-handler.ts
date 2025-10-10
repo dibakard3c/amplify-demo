@@ -13,12 +13,15 @@ import { Toast } from '@estia/helpers/toast';
 import { includes, isEmpty } from 'lodash';
 import { RootState } from '@estia/store/store';
 import { toggleLoader } from '@estia/store/slices/general';
+import { tranx } from '@estia/translations/i18next';
 
 export const QUERY_TAGS: any = {
   ACCOUNT_INFO: 'ACCOUNT_INFO',
   COUNTRY_CODES: 'COUNTRY_CODES',
   KYC_STATUS: 'KYC_STATUS',
   LIST_IBANS: 'LIST_IBANS',
+  LIST_FIAT_WALLET: 'LIST_FIAT_WALLET',
+  LIST_DEFI_WALLET: 'LIST_DEFI_WALLET',
   FIAT_WALLET: 'FIAT_WALLET',
   DEFI_WALLET: 'DEFI_WALLET',
   LIST_NOTIFICATIONS: 'LIST_NOTIFICATIONS',
@@ -33,7 +36,7 @@ export const QUERY_TAGS: any = {
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000,
+  timeout: 20000,
   prepareHeaders: (headers, { getState, arg, endpoint }: any) => {
     if (endpoint === 'submitTicket') {
       const encodedCredentials = btoa(
@@ -56,7 +59,7 @@ const baseQuery = fetchBaseQuery({
 // create a new mutex
 const mutex = new Mutex();
 
-const errorResponse = (message: string, status = 400) => {
+export const errorResponse = (message: string, status = 400) => {
   return {
     error: {
       status: status,
@@ -118,7 +121,7 @@ const baseQueryWithRefresh: BaseQueryFn<
         return refreshResult.data;
       } else if (refreshResult?.error?.status?.toString() === '401') {
         Toast.showError({
-          message: 'Your session has expired. Please login again.',
+          message: tranx('alerts.network_session_expired'),
         });
         api.dispatch(logoutAction());
       }
@@ -133,7 +136,7 @@ const baseQueryWithRefresh: BaseQueryFn<
     if (newTokens) {
       result = await baseQuery(args, api, extraOptions, ...rest);
     } else {
-      return errorResponse('Session expired', 401);
+      return errorResponse(tranx('alerts.network_session_expired'), 401);
     }
   } else {
     result = await baseQuery(args, api, extraOptions, ...rest);
@@ -147,33 +150,27 @@ const baseQueryWithRefresh: BaseQueryFn<
     result?.error?.status === 'FETCH_ERROR'
   ) {
     Toast.showError({
-      message: 'Unable to connect. Please check your internet.',
+      message: tranx('alerts.network_connect_error'),
     });
-    return errorResponse('Unable to connect. Please check your internet.');
+    return errorResponse(tranx('alerts.network_connect_error'));
   } else if (result?.error?.status === 'TIMEOUT_ERROR') {
     Toast.showError({
-      message:
-        'Oops! The server seems to be unreachable right now. Please try again shortly.',
+      message: tranx('alerts.network_timeout'),
     });
-    return errorResponse(
-      'Oops! The server seems to be unreachable right now. Please try again shortly.'
-    );
+    return errorResponse(tranx('alerts.network_timeout'));
   } else if (
     result?.error &&
     !(args?.params?.hideErrorMsg || args?.body?.hideErrorMsg)
   ) {
     Toast.showError({
-      message:
-        result?.error?.data?.detail ||
-        'Encountered an issue processing your request. Please try again',
+      message: result?.error?.data?.detail || tranx('alerts.network_retry'),
     });
     return errorResponse(
-      result?.error?.data?.detail ||
-        'Encountered an issue processing your request. Please try again'
+      result?.error?.data?.detail || tranx('alerts.network_retry')
     );
   } else if (result?.error?.status === 401) {
     Toast.showError({
-      message: 'Session expired, Please login again',
+      message: tranx('alerts.network_session_expired'),
     });
     api.dispatch(logoutAction());
   }

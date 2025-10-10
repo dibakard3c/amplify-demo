@@ -28,9 +28,10 @@ export interface NewPasswordForm {
 }
 
 export interface ProfileForm {
-  currency: string;
-  language: string;
-  theme: boolean;
+  business_logo?: any;
+  currency?: string;
+  language?: string;
+  theme?: boolean;
 }
 
 export interface ChangeEmailForm {

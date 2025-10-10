@@ -1,51 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useTimer } from 'react-timer-hook';
+import { addSeconds } from 'date-fns';
 
 export const useCountDownTimer = (
   autoRun: boolean = true,
   totalSeconds: number,
-  onComplete?: () => void,
-  duration?: number
+  onComplete?: () => void
+  //   duration?: number
 ) => {
-  const [initialDuration] = useState(totalSeconds || 0);
-  const [secondsLeft, setSecondsLeft] = useState(totalSeconds || 0);
-  const [isRunning, setIsRunning] = useState(autoRun);
+  const { seconds, minutes, start, restart } = useTimer({
+    expiryTimestamp: addSeconds(new Date(), totalSeconds),
+    onExpire: () => {
+      if (onComplete) {
+        onComplete();
+      }
+      console.warn('onExpire called');
+    },
+    autoStart: autoRun,
+  });
 
-  const resetTimer = () => {
-    setSecondsLeft(initialDuration);
+  const resetTimer = (newTotalSeconds?: number) => {
+    restart(
+      addSeconds(new Date(), newTotalSeconds ? newTotalSeconds : totalSeconds)
+    );
   };
 
-  const startTimer = () => {
-    resetTimer();
-    setIsRunning(true);
-  };
-
-  useEffect(() => {
-    let intervalId: any;
-    if (isRunning && secondsLeft > 0) {
-      intervalId = setInterval(() => {
-        setSecondsLeft((secondsLeftValue) => {
-          if (secondsLeftValue <= 1) {
-            clearInterval(intervalId);
-            if (onComplete) {
-              onComplete();
-            }
-            return 0;
-          }
-          return secondsLeftValue - 1;
-        });
-      }, duration || 1000);
-    }
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [duration, isRunning, onComplete, secondsLeft, totalSeconds]);
+  function twoDigits(n: any) {
+    return String(Math.abs(Math.trunc(n))).padStart(2, '0');
+  }
 
   return {
-    minutes: `${Math.floor(secondsLeft / 60)}`,
-    seconds: `${secondsLeft % 60 < 10 ? '0' : ''}${secondsLeft % 60}`,
-    secondsLeft,
-    startTimer,
+    minutes: twoDigits(minutes),
+    seconds: twoDigits(seconds),
+    secondsLeft: 0,
+    startTimer: start,
     resetTimer,
-    isComplete: secondsLeft % 60 === 0,
   };
 };
