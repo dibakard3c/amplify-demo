@@ -33,14 +33,17 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      # ✅ Correct ZIP (contents only, not folder)
-      - name: Prepare deployment ZIP
+      - name: Prepare deployment ZIP (SSR standalone)
         run: |
-          echo "📦 Packaging app for Amplify..."
+          echo "📦 Packaging Next.js standalone build for Amplify..."
+          npm run build
           mkdir -p dist
-          cd ${{ github.workspace }}
-          zip -r dist/source.zip * .[^.]* -x "*.git*" "node_modules/*" "*.github/*"
+          cd .next/standalone
+          cp -r ../static ./
+          zip -r ../../dist/source.zip . -x "*.git*" "*.github/*"
+          cd ../../
           unzip -l dist/source.zip | head -20
+
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
