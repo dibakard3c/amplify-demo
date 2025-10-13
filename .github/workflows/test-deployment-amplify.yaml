@@ -1,160 +1,95 @@
-name: Deploy SSR Next.js App to Amplify
+name: Deploy Next.js SSR App to Amplify
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      branch:
-        description: "Amplify branch to deploy"
-        required: false
-        default: "main"
-      app_id:
-        description: "Amplify App ID (optional override)"
-        required: false
-        default: "d23o9z9yprlq3v"
-      message:
-        description: "Deployment note (optional)"
-        required: false
-        default: "Manual trigger from GitHub Actions"
 
 permissions:
-  contents: read
   id-token: write
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     env:
-      APP_ID: ${{ inputs.app_id || secrets.AMPLIFY_APP_ID }}
-      BRANCH: ${{ inputs.branch || secrets.AMPLIFY_BRANCH }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+      AMPLIFY_BRANCH: main
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build Next.js app
+        run: npm run build
+
+      # ✅ Include full standalone build for Amplify SSR
+      - name: Prepare deployment ZIP
+        run: |
+          echo "Packaging app for Amplify..."
+          mkdir -p dist
+          zip -r dist/source.zip . -x "*.git*" "node_modules/*" "*.github/*"
+
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq zip
-
-      # 🧠 Step 1: Build locally (mimics Amplify buildspec)
-      - name: Build Next.js App (SSR)
-        run: |
-          echo "⚙️ Cleaning and installing dependencies..."
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install --legacy-peer-deps --save-dev
-
-          echo "🏗️ Building Next.js app..."
-          npm run build
-
-      # 🧩 Step 2: Prepare ZIP for Amplify (upload only build output)
-      - name: Zip Built Artifacts
-        run: |
-          echo "📦 Packaging build output for Amplify..."
-          zip -r source.zip .next public package.json next.config.js node_modules
-
-      # 🚀 Step 3: Stop any stuck deployment
-      - name: Check and Stop Stuck Amplify Deployment (if any)
-        run: |
-          echo "Checking for existing Amplify deployment..."
-          JOB_ID=$(aws amplify list-jobs \
-            --app-id $APP_ID \
-            --branch-name $BRANCH \
-            --max-items 1 \
-            --query "jobSummaries[0].jobId" \
-            --output text 2>/dev/null | grep -Eo '^[0-9]+' || echo "")
-
-          if [ -n "$JOB_ID" ]; then
-            STATUS=$(aws amplify get-job \
-              --app-id $APP_ID \
-              --branch-name $BRANCH \
-              --job-id "$JOB_ID" \
-              --query "job.summary.status" \
-              --output text 2>/dev/null || echo "UNKNOWN")
-
-            echo "Job status: $STATUS"
-            if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ] || [ "$STATUS" = "DEPLOYING" ]; then
-              echo "🛑 Stopping stuck job $JOB_ID..."
-              aws amplify stop-job \
-                --app-id $APP_ID \
-                --branch-name $BRANCH \
-                --job-id "$JOB_ID" || true
-              sleep 20
-            fi
-          else
-            echo "✅ No active job found."
-          fi
-
-      # 🪣 Step 4: Create a new Amplify deployment slot
-      - name: Create Amplify Deployment
+      - name: Create Amplify deployment
         id: create
         run: |
-          echo "🧩 Creating Amplify deployment for app $APP_ID..."
+          echo "Creating Amplify deployment..."
           RESPONSE=$(aws amplify create-deployment \
-            --app-id $APP_ID \
-            --branch-name $BRANCH)
-          echo "$RESPONSE" > resp.json
-          cat resp.json
+            --app-id $AMPLIFY_APP_ID \
+            --branch-name $AMPLIFY_BRANCH)
+          echo "$RESPONSE" > response.json
+          echo "UPLOAD_URL=$(jq -r '.zipUploadUrl' response.json)" >> $GITHUB_ENV
+          echo "JOB_ID=$(jq -r '.jobId' response.json)" >> $GITHUB_ENV
 
-          UPLOAD_URL=$(jq -r '.zipUploadUrl' resp.json)
-          DEPLOYMENT_ID=$(jq -r '.jobId // empty' resp.json)
-
-          if [ -z "$UPLOAD_URL" ] || [ "$UPLOAD_URL" = "null" ]; then
-            echo "❌ ERROR: Amplify did not return upload URL"
-            exit 1
-          fi
-
-          echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
-          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
-          echo "🆔 Created deployment job: $DEPLOYMENT_ID"
-
-      # ☁️ Step 5: Upload your build ZIP to Amplify’s S3 slot
-      - name: Upload Source ZIP
+      - name: Upload build artifact
         run: |
-          echo "⬆️ Uploading source.zip to Amplify..."
-          curl -T source.zip "${UPLOAD_URL}"
+          echo "Uploading build ZIP to Amplify..."
+          curl -T dist/source.zip "${UPLOAD_URL}"
 
-      # ▶️ Step 6: Trigger deployment
-      - name: Start Amplify Deployment (SSR)
+      - name: Start Amplify deployment
         run: |
-          echo "🚀 Starting Amplify deployment (job ID: $DEPLOYMENT_ID)..."
+          echo "Starting Amplify deployment job..."
           aws amplify start-deployment \
-            --app-id $APP_ID \
-            --branch-name $BRANCH \
-            --job-id $DEPLOYMENT_ID
+            --app-id $AMPLIFY_APP_ID \
+            --branch-name $AMPLIFY_BRANCH \
+            --job-id $JOB_ID
 
-      # 🕒 Step 7: Wait until deployment finishes
-      - name: Wait for Amplify Deployment to Finish
+      - name: Wait for Amplify deployment to complete
         run: |
-          echo "⏳ Waiting for Amplify deployment to complete..."
-          for i in {1..60}; do
+          echo "Waiting for deployment..."
+          for i in {1..40}; do
             STATUS=$(aws amplify list-jobs \
-              --app-id $APP_ID \
-              --branch-name $BRANCH \
+              --app-id $AMPLIFY_APP_ID \
+              --branch-name $AMPLIFY_BRANCH \
               --max-items 1 \
               --query "jobSummaries[0].status" \
-              --output text 2>/dev/null)
-            STATUS=${STATUS:-UNKNOWN}
-            echo "Deployment status: $STATUS"
-
+              --output text)
+            echo "Status: $STATUS"
             if [ "$STATUS" = "SUCCEED" ]; then
-              echo "✅ Amplify deployment succeeded!"
-              break
+              echo "✅ Deployment completed successfully."
+              exit 0
             elif [ "$STATUS" = "FAILED" ]; then
-              echo "❌ Amplify deployment failed!"
+              echo "❌ Deployment failed."
               exit 1
             fi
             sleep 15
           done
+          echo "⚠️ Timed out waiting for deployment."
+          exit 1
