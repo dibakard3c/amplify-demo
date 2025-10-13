@@ -33,12 +33,14 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      # ✅ Include full standalone build for Amplify SSR
+      # ✅ Correct ZIP (contents only, not folder)
       - name: Prepare deployment ZIP
         run: |
-          echo "Packaging app for Amplify..."
+          echo "📦 Packaging app for Amplify..."
           mkdir -p dist
-          zip -r dist/source.zip . -x "*.git*" "node_modules/*" "*.github/*"
+          cd ${{ github.workspace }}
+          zip -r dist/source.zip * .[^.]* -x "*.git*" "node_modules/*" "*.github/*"
+          unzip -l dist/source.zip | head -20
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -50,7 +52,7 @@ jobs:
       - name: Create Amplify deployment
         id: create
         run: |
-          echo "Creating Amplify deployment..."
+          echo "🧩 Creating Amplify deployment..."
           RESPONSE=$(aws amplify create-deployment \
             --app-id $AMPLIFY_APP_ID \
             --branch-name $AMPLIFY_BRANCH)
@@ -60,36 +62,15 @@ jobs:
 
       - name: Upload build artifact
         run: |
-          echo "Uploading build ZIP to Amplify..."
+          echo "⬆️ Uploading build ZIP to Amplify..."
           curl -T dist/source.zip "${UPLOAD_URL}"
 
       - name: Start Amplify deployment
         run: |
-          echo "Starting Amplify deployment job..."
+          echo "🚀 Starting Amplify deployment job..."
           aws amplify start-deployment \
             --app-id $AMPLIFY_APP_ID \
             --branch-name $AMPLIFY_BRANCH \
             --job-id $JOB_ID
 
-      - name: Wait for Amplify deployment to complete
-        run: |
-          echo "Waiting for deployment..."
-          for i in {1..40}; do
-            STATUS=$(aws amplify list-jobs \
-              --app-id $AMPLIFY_APP_ID \
-              --branch-name $AMPLIFY_BRANCH \
-              --max-items 1 \
-              --query "jobSummaries[0].status" \
-              --output text)
-            echo "Status: $STATUS"
-            if [ "$STATUS" = "SUCCEED" ]; then
-              echo "✅ Deployment completed successfully."
-              exit 0
-            elif [ "$STATUS" = "FAILED" ]; then
-              echo "❌ Deployment failed."
-              exit 1
-            fi
-            sleep 15
-          done
-          echo "⚠️ Timed out waiting for deployment."
-          exit 1
+      - name: Wait for Amplify deployment
