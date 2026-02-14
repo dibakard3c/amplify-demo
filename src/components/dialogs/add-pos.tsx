@@ -15,14 +15,16 @@ import {
 import { useForm } from 'react-hook-form';
 import { Form, FormField } from '@estia/components/ui/form';
 import { FormInputField } from '@estia/components/form/form-input';
-import { isEmpty } from 'lodash';
+import { isEmpty, upperCase } from 'lodash';
 import { FormSelectField } from '@estia/components/form/form-select';
 import { ScrollArea } from '@estia/components/ui/scroll-area';
 import { useCreatePosUserMutation } from '@estia/networking/endpoints/user';
 import { createPosUserResolver } from '@estia/helpers/resolvers';
 import { Toast } from '@estia/helpers/toast';
+import { cn } from '@estia/utils/utils';
+import { useTranx } from '@estia/hooks/useTranx';
 
-export function AddPosDialog() {
+export function AddPosDialog({ className }: any) {
   const [isVisible, setVisible] = useState(false);
   const form = useForm({
     resolver: createPosUserResolver,
@@ -31,6 +33,8 @@ export function AddPosDialog() {
   });
 
   const [createPosUser] = useCreatePosUserMutation();
+
+  const { t } = useTranx();
 
   async function onSubmit(formValues: any) {
     setVisible(false);
@@ -46,7 +50,7 @@ export function AddPosDialog() {
       .then(() => {
         form.reset();
         Toast.showSuccess({
-          message: 'POS added successfully',
+          message: t('alerts.pos_added_success'),
         });
       });
   }
@@ -56,19 +60,24 @@ export function AddPosDialog() {
       <DialogTrigger asChild>
         <Button
           variant='default'
-          className='border-primary-1 h-11 w-36 self-end hover:border-white'
+          className={cn(
+            'border-primary-1 h-11 w-auto self-end hover:border-white min-[140rem]:h-14 min-[140rem]:w-44',
+            className
+          )}
         >
           <div className='flex items-center'>
-            <AddIcon className='mr-2 size-6' />
-            <span className='mr-1 text-base font-bold'>Add POS</span>
+            <AddIcon className='mr-2 size-6 min-[140rem]:size-8' />
+            <span className='mr-1 text-base font-bold min-[140rem]:text-lg'>
+              {t('dashboard.users_and_pos.add_pos_dialog.dialog_title')}
+            </span>
           </div>
         </Button>
       </DialogTrigger>
       <ScrollArea type='always'>
-        <DialogContent className='max-h-[95vh] overflow-y-scroll px-8 sm:max-w-[450px] 2xl:max-w-[500px]'>
+        <DialogContent className='max-h-[85vh] max-w-sm overflow-y-scroll rounded-2xl px-8 sm:max-w-[450px] md:max-h-[95vh] 2xl:max-w-[500px]'>
           <DialogHeader>
             <DialogTitle className='mt-10 mb-0 text-center text-2xl font-bold'>
-              Add POS
+              {t('dashboard.users_and_pos.add_pos_dialog.dialog_title')}
             </DialogTitle>
           </DialogHeader>
           <div className='grid gap-4 py-4'>
@@ -78,10 +87,16 @@ export function AddPosDialog() {
                 name='name'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='NAME (MUST BE UNIQUE)'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_pos_dialog.form_labels.name'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter name'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_pos_dialog.form_labels.name_hint'
+                    )}
                     inputClassName='max-w-auto'
                     aria-invalid={!isEmpty(formState?.errors?.name)}
                   />
@@ -92,10 +107,16 @@ export function AddPosDialog() {
                 name='pos_mac_id'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='POS MACID'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_pos_dialog.form_labels.pos_mac_id'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter POS MACID'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_pos_dialog.form_labels.pos_mac_id_hint'
+                    )}
                     className='mt-2'
                     inputClassName='max-w-auto'
                     aria-invalid={!isEmpty(formState?.errors?.pos_mac_id)}
@@ -107,10 +128,16 @@ export function AddPosDialog() {
                 name='login_token'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='LOGIN TOKEN'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_pos_dialog.form_labels.login_token'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter login token'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_pos_dialog.form_labels.login_token_hint'
+                    )}
                     className='mt-2'
                     inputClassName='max-w-auto'
                     aria-invalid={!isEmpty(formState?.errors?.login_token)}
@@ -122,10 +149,16 @@ export function AddPosDialog() {
                 name='register_token'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='REGISTER TOKEN'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_pos_dialog.form_labels.register_token'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter register token'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_pos_dialog.form_labels.register_token_hint'
+                    )}
                     className='mt-2'
                     inputClassName='max-w-auto'
                     aria-invalid={!isEmpty(formState?.errors?.login_token)}
@@ -137,17 +170,25 @@ export function AddPosDialog() {
                 name='pos_model'
                 render={({ field, formState }) => (
                   <FormSelectField
-                    label='POS MODEL'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_pos_dialog.form_labels.pos_model'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter model'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_pos_dialog.form_labels.pos_model_hint'
+                    )}
                     items={[
                       {
                         title: 'Estia',
                         value: 'ESTIA',
                       },
                       {
-                        title: 'Others',
+                        title: t(
+                          'dashboard.users_and_pos.add_pos_dialog.form_labels.others_pos_model'
+                        ),
                         value: 'OTHERS',
                       },
                     ]}
@@ -166,11 +207,11 @@ export function AddPosDialog() {
               className='w-full'
               onClick={form.handleSubmit(onSubmit)}
             >
-              Add POS
+              {t('dashboard.users_and_pos.add_pos_dialog.submit')}
             </Button>
             <DialogClose asChild>
               <Button size='lg' className='my-4 w-full' variant='outline'>
-                Cancel
+                {t('common.cancel')}
               </Button>
             </DialogClose>
           </DialogFooter>

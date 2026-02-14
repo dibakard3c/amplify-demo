@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import React, { useEffect, useMemo, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import {
@@ -8,9 +9,10 @@ import {
 } from '@estia/components/ui/form';
 import { formatBytes } from '@estia/utils/general';
 import { get, isEmpty } from 'lodash';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import Image from 'next/image';
 import { CONSTANTS } from '@estia/constants';
+import { useTranx } from '@estia/hooks/useTranx';
 
 const baseStyle = {
   flex: 1,
@@ -44,6 +46,7 @@ interface FormUploadProps {
   placeholder?: string;
   onChange: (value: FileWithPath) => void;
   className?: string;
+  containerClassName?: string;
   description?: string;
   previewMode?: boolean;
 }
@@ -58,7 +61,7 @@ function Display({ file, errors }: any) {
           <ul>
             {errors.map((e: any) => (
               <li key={e.code}>
-                <p className='mt-1 text-sm text-red-500'>
+                <p className='mt-1 text-sm'>
                   {e.code === 'file-too-large'
                     ? 'File is larger than 2MB'
                     : e?.message}
@@ -88,6 +91,7 @@ export function AttachmentUpload({
   label,
   onChange,
   className,
+  containerClassName,
   description,
   previewMode,
 }: FormUploadProps) {
@@ -117,6 +121,8 @@ export function AttachmentUpload({
     },
   });
 
+  const { t } = useTranx();
+
   const style = useMemo(
     () => ({
       ...baseStyle,
@@ -137,12 +143,12 @@ export function AttachmentUpload({
   return (
     <FormItem className={className}>
       {label ? <FormLabel>{label}</FormLabel> : null}
-      <section className='relative container max-w-96'>
+      <section className={cn('relative max-w-96', containerClassName)}>
         <div {...getRootProps({ className: 'dropzone', style: style as any })}>
           <input {...getInputProps()} />
           <div className='flex h-full w-full items-center justify-center py-18'>
             <p className='text-neutral-4 ml-3 text-base font-medium'>
-              Tap to browse
+              {t('common.tap_to_browse')}
             </p>
           </div>
           {previewMode ? (

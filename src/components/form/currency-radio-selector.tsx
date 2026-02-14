@@ -1,6 +1,7 @@
 import React from 'react';
 import RoundGradient from '@estia/components/round-gradient';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
+import { useTranx } from '@estia/hooks/useTranx';
 
 interface CurrencyRadioSelectorProps {
   className?: string;
@@ -15,6 +16,8 @@ export default function CurrencyRadioSelector({
   title,
   subTitle,
 }: CurrencyRadioSelectorProps) {
+  const { t } = useTranx();
+
   return (
     <div className={className}>
       <div
@@ -35,7 +38,9 @@ export default function CurrencyRadioSelector({
         </div>
       </div>
       {disabled && (
-        <p className='text-neutral-4 mt-3 text-sm font-medium'>Coming soon!</p>
+        <p className='text-neutral-4 mt-3 text-sm font-medium'>
+          {t('common.coming_soon')}
+        </p>
       )}
     </div>
   );

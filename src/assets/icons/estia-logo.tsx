@@ -3,8 +3,8 @@ import { SVGProps } from 'react';
 export const EstiaLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    width={457}
-    height={458}
+    width={props?.width || 457}
+    height={props?.height || 458}
     viewBox='0 0 457 458'
     fill='currentColor'
     {...props}

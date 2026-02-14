@@ -87,7 +87,8 @@ export const tempSlice = createSlice({
               page: 0,
               groupedList: action?.payload?.content,
               hasMore:
-                action?.payload?.currentPage < action?.payload?.totalPages,
+                action?.payload?.currentPage < action?.payload?.totalPages &&
+                action?.payload?.totalPages !== 1,
             };
           } else {
             if (
@@ -96,7 +97,8 @@ export const tempSlice = createSlice({
             ) {
               state.transactions.page = action?.payload?.currentPage;
               state.transactions.hasMore =
-                action?.payload?.currentPage < action?.payload?.totalPages;
+                action?.payload?.currentPage < action?.payload?.totalPages &&
+                action?.payload?.totalPages !== 1;
               Object.keys(action?.payload?.content)?.map((key) => {
                 if (has(state.transactions.groupedList, key)) {
                   state.transactions.groupedList[key] = [

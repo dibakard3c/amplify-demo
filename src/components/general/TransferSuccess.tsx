@@ -1,12 +1,13 @@
 import React, { PropsWithChildren, useRef } from 'react';
 import { Icons } from '@estia/assets';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import Image from 'next/image';
 import { formatCurrency } from '@estia/utils/general';
 import { Button } from '@estia/components/ui/button';
 import IbanSelectorView from '@estia/components/general/IbanSelectorView';
 import html2canvas from 'html2canvas-pro';
 import { jsPDF } from 'jspdf';
+import { useTranx } from '@estia/hooks/useTranx';
 
 interface TransferSuccessProps extends PropsWithChildren {
   className?: string;
@@ -29,6 +30,8 @@ export default function TransferSuccess({
   toIban,
   fromIban,
 }: TransferSuccessProps) {
+  const { t } = useTranx();
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   async function handleDownload() {
@@ -70,43 +73,55 @@ export default function TransferSuccess({
         className='flex-col items-center justify-center px-12 pt-12'
       >
         <h1 className='text-center text-2xl font-bold'>
-          Confirmation of transaction
+          {t('dashboard.wallet.send_eur_page.receipt.title')}
         </h1>
         <div className='relative mx-auto my-8 size-28'>
           <Image src={Icons.success} alt='' fill />
         </div>
-        <h2 className='text-center text-lg font-bold'>You sent</h2>
+        <h2 className='text-center text-lg font-bold'>
+          {t('dashboard.wallet.send_eur_page.receipt.you_sent')}
+        </h2>
         <h3 className='my-4 text-center text-4xl font-medium'>
           {formatCurrency(amount)}
         </h3>
         <div className='pl-4'>
           <IbanSelectorView
-            subText='From'
+            subText={t('dashboard.wallet.send_eur_page.receipt.from')}
             title={fromIban?.name || ''}
             iban={fromIban?.iban || ''}
           />
           <IbanSelectorView
-            subText='To'
+            subText={t('dashboard.wallet.send_eur_page.receipt.to')}
             title={toIban?.name || ''}
             iban={toIban?.iban || ''}
           />
         </div>
         <div className='mt-8 w-full rounded-2xl bg-white p-4 px-5'>
-          <h5 className='pt-2 pb-3 text-base font-bold'>Transaction details</h5>
+          <h5 className='pt-2 pb-3 text-base font-bold'>
+            {t('dashboard.wallet.send_eur_page.receipt.transaction_details')}
+          </h5>
           <div className='flex justify-between pb-3'>
-            <p className='text-lg font-medium'>You sent</p>
+            <p className='text-lg font-medium'>
+              {t('dashboard.wallet.send_eur_page.receipt.you_sent')}
+            </p>
             <p className='text-lg'>{formatCurrency(amount)}</p>
           </div>
           <div className='flex justify-between pb-3'>
-            <p className='text-lg font-medium'>Fees</p>
+            <p className='text-lg font-medium'>
+              {t('dashboard.wallet.send_eur_page.receipt.fees')}
+            </p>
             <p className='text-lg'>{fees}</p>
           </div>
           <div className='flex justify-between pb-3'>
-            <p className='text-lg font-medium'>Received</p>
+            <p className='text-lg font-medium'>
+              {t('dashboard.wallet.send_eur_page.receipt.received')}
+            </p>
             <p className='text-lg font-bold'>{formatCurrency(received)}</p>
           </div>
           <div className='flex justify-between pb-3'>
-            <p className='text-lg font-medium'>Transaction number</p>
+            <p className='text-lg font-medium'>
+              {t('dashboard.wallet.send_eur_page.receipt.transaction_no')}
+            </p>
             <p className='text-right text-lg'>{transRef}</p>
           </div>
           {/*<h1 className='mt-4 text-lg font-bold'>*/}
@@ -137,7 +152,7 @@ export default function TransferSuccess({
           variant='outline'
           className='border-primary-1 mt-8 w-full border shadow-none'
         >
-          Download transfer receipt
+          {t('dashboard.wallet.send_eur_page.receipt.download_btn')}
         </Button>
         <Button
           onClick={() => {
@@ -146,7 +161,7 @@ export default function TransferSuccess({
           size='lg'
           className='mt-5 mb-16 w-full'
         >
-          Go to wallet
+          {t('dashboard.wallet.goto_wallet')}
         </Button>
       </div>
     </div>

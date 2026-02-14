@@ -1,4 +1,4 @@
-import en from '../translations/languages/en.json';
+import en from '../translations/locales/en.json';
 
 import 'i18next';
 

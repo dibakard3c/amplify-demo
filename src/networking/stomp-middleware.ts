@@ -56,7 +56,7 @@ export const stompMiddleware = ({ dispatch, getState }: any) => {
             },
           });
 
-          client.onConnect = function (_frame: any) {
+          client.onConnect = function () {
             client.subscribe(
               `/user/${state?.auth?.user?.id}/topic/notifications`,
               (message: any) => {

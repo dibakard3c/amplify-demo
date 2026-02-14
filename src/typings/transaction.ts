@@ -13,6 +13,14 @@ export interface Transaction {
   merchantLogo: string;
 }
 
+export interface SalesTransaction {
+  shop_id: string;
+  date: string;
+  trans_id: string;
+  amount: number;
+  status: string;
+}
+
 export interface PaginatedTransaction {
   content: Transaction[];
   totalPages: number;

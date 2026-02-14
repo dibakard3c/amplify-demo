@@ -1,0 +1,542 @@
+{
+  "common": {
+    "filter": "Φίλτρο",
+    "date": "Ημερομηνία",
+    "load_more": "Φόρτωση περισσότερων",
+    "back_to_top": "Επιστροφή στην κορυφή",
+    "see_all": "Δείτε όλα",
+    "no_results_found": "Δεν βρέθηκαν αποτελέσματα",
+    "loading": "Φόρτωση...",
+    "loading_please_wait": "Φόρτωση, παρακαλώ περιμένετε...",
+    "clipboard_copy": "Αντιγράφηκε με επιτυχία στο πρόχειρο",
+    "cancel": "Ματαίωση",
+    "today": "Σήμερα",
+    "euro": "Ευρώ",
+    "english": "αγγλικός",
+    "greek": "ελληνικά"
+  },
+  "auth": {
+    "recaptcha_error": "reCAPTCHA validation failed. Please refresh this page and try again.",
+    "welcome_page": {
+      "slide_1_title": "Spend Smart,<lb/>Earn More,",
+      "slide_1_desc": "Enjoy Instant up to <bold>10% Cashback</bold> with {{app_name}}!,",
+      "slide_2_title": "Instant IBAN account,",
+      "slide_2_desc": "Open your IBAN account <bold>instantly</bold> with {{app_name}} payments!",
+      "slide_3_title": "Unlock Your Financial Freedom",
+      "slide_3_desc": "Discover the power of {{app_name}} token!",
+      "slide_4_title": "Seamless Transactions, Limitless Possibilities",
+      "slide_4_desc": "Experience the {{app_name}} payment gateway!",
+      "slide_5_title": "Know Your Earnings",
+      "slide_5_desc": "Empowering you with <bold>smart analytics</bold> through the {{app_name}} App!",
+      "get_started": "Get Started",
+      "next": "Next",
+      "arrow_btn_alt": "arrow right"
+    },
+    "login_page": {
+      "page_title": "Σύνδεση",
+      "form_labels": {
+        "email": "EMAIL",
+        "email_hint": "Διεύθυνση email",
+        "password": "ΚΩΔΙΚΟΣ ΠΡΟΣΒΑΣΗΣ",
+        "password_hint": "Κωδικός πρόσβασης"
+      },
+      "forgot_password": "Ξεχάσατε τον κωδικό;",
+      "submit_btn": "Σύνδεση",
+      "dont_have_an_account": "Δεν έχετε λογαριασμό; Δημιουργήστε έναν",
+      "here": "εδώ",
+      "choose_2_factor_verification": "Επιλέξτε επαλήθευση 2 βημάτων",
+      "2_step_sms": "Κωδικός ασφαλείας μέσω SMS",
+      "2_step_email": "Κωδικός ασφαλείας μέσω email",
+      "method": "μέθοδος"
+    },
+    "register_page": {
+      "menu_labels": {
+        "language_and_currency": "Γλώσσα & νόμισμα",
+        "language_and_currency_title": "Επιλέξτε τη χώρα, τη γλώσσα και το νόμισμά σας",
+        "business_details": "Στοιχεία επιχείρησης",
+        "business_details_title": "Εισαγάγετε τα στοιχεία της επιχείρησής σας",
+        "create_password": "Δημιουργία κωδικού πρόσβασης",
+        "create_password_title": "Δημιουργήστε τον κωδικό πρόσβασής σας",
+        "review_business_details": "Επισκόπηση στοιχείων επιχείρησης",
+        "mobile_validation": "Επαλήθευση κινητού",
+        "email_validation": "Επαλήθευση email"
+      },
+      "form_labels": {
+        "business_name": "ΕΠΩΝΥΜΙΑ ΕΠΙΧΕΙΡΗΣΗΣ (όπως εμφανίζεται στο Εθνικό Μητρώο Επιχειρήσεων)",
+        "business_name_hint": "Το όνομα της επιχείρησής σας",
+        "business_name_info": "Πρέπει να είναι από 2 έως 150 χαρακτήρες. Μόνο αλφαβητικοί χαρακτήρες.",
+        "business_logo": "ΛΟΓΟΤΥΠΟ ΕΠΙΧΕΙΡΗΣΗΣ",
+        "business_logo_info": "Σημείωση: Μέγιστο μέγεθος αρχείου 2MB. Διαστάσεις εικόνας: 120x120px",
+        "merchant_category": "ΚΑΤΗΓΟΡΙΑ ΕΜΠΟΡΟΥ",
+        "merchant_category_hint": "Η κατηγορία του εμπορίου σας",
+        "vat_id": "ΑΡΙΘΜΟΣ ΦΟΡΟΛΟΓΙΚΗΣ ΤΑΥΤΟΤΗΤΑΣ (ΑΦΜ)",
+        "vat_hint": "Ο αριθμός φορολογικής ταυτότητας (ΑΦΜ) της επιχείρησής σας",
+        "vat_info": "Ελάχιστο 2 έως μέγιστο 40 χαρακτήρες",
+        "revenue_range": "ΕΥΡΟΣ ΕΣΟΔΩΝ",
+        "revenue_range_hint": "Το εύρος εσόδων της εταιρείας σας",
+        "business_phone": "ΤΗΛΕΦΩΝΟ ΕΠΙΧΕΙΡΗΣΗΣ",
+        "business_phone_hint": "Ο αριθμός κινητού της επιχείρησής σας",
+        "business_email": "EMAIL ΕΠΙΧΕΙΡΗΣΗΣ",
+        "business_email_hint": "Το email της επιχείρησής σας",
+        "contact_first_name": "ΟΝΟΜΑ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_first_name_hint": "Το όνομά σας",
+        "contact_first_name_info": "Ελάχιστο 2 έως μέγιστο 40 χαρακτήρες",
+        "contact_last_name": "ΕΠΩΝΥΜΟ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_last_name_hint": "Το επώνυμό σας",
+        "contact_last_name_info": "Ελάχιστο 2 έως μέγιστο 40 χαρακτήρες",
+        "contact_email": "EMAIL ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_email_hint": "Το email σας",
+        "contact_email_info": "Αυτό το email συσχετίζεται με το όνομα χρήστη σας και θα χρησιμοποιείται για αποστολή σημαντικών πληροφοριών.",
+        "contact_phone": "ΑΡΙΘΜΟΣ ΚΙΝΗΤΟΥ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_phone_hint": "Ο αριθμός κινητού σας"
+      },
+      "language_step": {
+        "country_label": "ΧΩΡΑ *",
+        "country_hint": "Η χώρα σας",
+        "language_label": "ΓΛΩΣΣΑ",
+        "language_hint": "Η γλώσσα σας",
+        "usd": "Δολάριο Ηνωμένων Πολιτειών",
+        "euro": "Ευρώ",
+        "agreement_checkbox_alt": "Κουτάκι αποδοχής όρων",
+        "terms_pre": "Εγγραφόμενος δηλώνω ότι είμαι άνω των 18 ετών και αποδέχομαι τους",
+        "terms_continue": "Όρους Χρήσης και την Πολιτική Απορρήτου",
+        "continue_btn": "Συνέχεια στα στοιχεία",
+        "terms_dialog": {
+          "title": "Όροι Χρήσης",
+          "subtitle": "Πολιτική Απορρήτου",
+          "description": "Εκτιμούμε την ιδιωτικότητά σας και δεσμευόμαστε να προστατεύουμε τα προσωπικά σας δεδομένα. Η πολιτική μας εξηγεί πώς συλλέγουμε, χρησιμοποιούμε και διασφαλίζουμε τις πληροφορίες σας. Διαβάστε τις λεπτομέρειες — η συνέχιση της χρήσης των υπηρεσιών μας σημαίνει αποδοχή των όρων.",
+          "learn_more": "Μάθετε περισσότερα"
+        }
+      },
+      "password_step": {
+        "instructions": "Ο κωδικός πρόσβασής σας πρέπει να αποτελείται από τουλάχιστον 8 χαρακτήρες και να πληροί τις παρακάτω απαιτήσεις ασφαλείας.",
+        "password_label": "ΕΙΣΑΓΕΤΕ ΤΟΝ ΚΩΔΙΚΟ ΠΡΟΣΒΑΣΗΣ",
+        "confirm_password_label": "ΕΠΙΒΕΒΑΙΩΣΗ ΚΩΔΙΚΟΥ ΠΡΟΣΒΑΣΗΣ",
+        "password_hint": "Ο κωδικός πρόσβασής σας",
+        "continue_btn": "Συνέχεια"
+      },
+      "business_details_step": {
+        "revenue_range_less_than": "Λιγότερο από {{amount}}",
+        "revenue_range_more_than": "Περισσότερο από {{amount}}"
+      },
+      "review_business_details_step": {
+        "step_title": "Επισκόπηση στοιχείων επιχείρησης",
+        "error_msg_title": "Κάτι πήγε στραβά",
+        "error_msg_btn": "Επιστροφή στα στοιχεία επιχείρησης",
+        "proceed_btn": "Ολοκλήρωση εγγραφής εμπόρου",
+        "revert_btn": "Αλλαγή στοιχείων επιχείρησης"
+      },
+      "mobile_verification_step": {
+        "step_success": "Επιτυχία",
+        "step_success_desc": "Ο αριθμός κινητού σας επαληθεύτηκε",
+        "continue_to_email_verification": "Συνέχεια στην επαλήθευση email"
+      },
+      "email_verification_step": {
+        "step_success": "Επιτυχία",
+        "step_success_desc": "Ο αριθμός κινητού σας επαληθεύτηκε",
+        "continue_to_dashboard": "Μετάβαση στον πίνακα ελέγχου"
+      }
+    },
+    "register_sub_user_page": {
+      "menu_labels": {
+        "create_password": "Create Password",
+        "create_password_title": "Create your password",
+        "review_business_details": "Review Business Details",
+        "mobile_validation": "Mobile validation",
+        "email_validation": "E-mail validation"
+      }
+    },
+    "forgot_password_page": {}
+  },
+  "dashboard": {
+    "transactions": {
+      "page_title": "Συναλλαγές",
+      "search_hint": "Ερευνα",
+      "type": "Τύπος",
+      "type_filter": {
+        "all": "Όλος ο τύπος δραστηριότητας",
+        "transactions": "Συναλλαγές",
+        "payments": "Πληρωμές"
+      },
+      "empty_transactions": "Κενές Συναλλαγές",
+      "no_transactions_found": "Δεν βρέθηκαν συναλλαγές",
+      "table_labels": {
+        "date_and_time": "Ημερομηνία Ώρα",
+        "transaction_no": "Αριθμός Συναλλαγής",
+        "pos_id": "Αναγνωριστικό σημείου πώλησης",
+        "status": "Κατάσταση",
+        "amount": "Ποσό",
+        "description": "Περιγραφή"
+      }
+    },
+    "analytics": {
+      "main_page": {
+        "page_title": "Ανάλυση Πωλήσεων",
+        "sales_euro": "Πωλήσεις (Ευρώ)",
+        "sales_estia": "Πωλήσεις (Εστία)",
+        "sales_current_year": "Πωλήσεις (Τρέχον Έτος)",
+        "customer_demo_current_year": "Δημογραφικά στοιχεία πελατών (τρέχον έτος)",
+        "account_transfers": "Μεταφορές Λογαριασμού",
+        "demographics_table_labels": {
+          "city": "Πόλη",
+          "total_sales": "Συνολικές Πωλήσεις"
+        }
+      },
+      "demographics_page": {
+        "page_title": "Δημογραφικά στοιχεία πελατών",
+        "total_customers": "Σύνολο πελατών",
+        "total_customers_metrics": "{{percentage}}% από τον προηγούμενο μήνα",
+        "average_age": "Μέση ηλικία",
+        "average_age_metrics": "{{percentage}}% από πέρυσι",
+        "income": "Εισόδημα (ανά έτος)",
+        "income_metrics": "{{percentage}}% από τον προηγούμενο μήνα",
+        "age_distribution_title": "Κατανομή Ηλικίας",
+        "age_distribution_chart": {
+          "time": "Φορά",
+          "1_day": "1D",
+          "1_week": "1W",
+          "1_month": "1 εκατομμύριο",
+          "3_months": "3M",
+          "current_year": "ΤΡΕΧΟΝ ΕΤΟΣ",
+          "all_time": "ΟΛΟΥΣ ΤΟΥΣ ΕΠΟΧΟΥΣ"
+        },
+        "detailed_demographics_title": "Λεπτομερή Δημογραφικά Στοιχεία",
+        "demographics_detailed_table_labels": {
+          "age_group": "Ηλικιακή ομάδα",
+          "count": "Κόμης",
+          "percentage": "Ποσοστό",
+          "trend": "Τάση"
+        }
+      },
+      "sales_page": {
+        "page_title": "Πωλήσεις (Τρέχον Έτος)",
+        "sales_euro": "Πωλήσεις (Ευρώ)",
+        "sales_estia": "Πωλήσεις (Εστία)",
+        "chart_title": "Πωλήσεις (Τρέχον Έτος)",
+        "search_sales": "Αναζήτηση Πωλήσεων",
+        "sales_chart": {
+          "time": "Φορά",
+          "1_day": "1D",
+          "1_week": "1W",
+          "1_month": "1 εκατομμύριο",
+          "3_months": "3M",
+          "current_year": "ΤΡΕΧΟΝ ΕΤΟΣ",
+          "all_time": "ΟΛΟΥΣ ΤΟΥΣ ΕΠΟΧΟΥΣ"
+        },
+        "sales_table": {
+          "pos_id": "Αναγνωριστικό σημείου πώλησης",
+          "transaction_no": "Αριθμός Συναλλαγής",
+          "date_and_time": "Ημερομηνία/Ώρα",
+          "amount": "Ποσό"
+        }
+      },
+      "transfer_page": {
+        "page_title": "Αναλυτικά στοιχεία",
+        "table_title": "Μεταφορές Λογαριασμού",
+        "search_hint": "Αναζήτηση Μεταφορών Ποσού",
+        "table_labels": {
+          "iban_friendly_name": "Όνομα φιλικό προς το IBAN",
+          "recipient_iban": "IBAN παραλήπτη",
+          "date_and_time": "Ημερομηνία/Ώρα",
+          "transaction_no": "Αριθμός Συναλλαγής",
+          "amount": "Ποσό",
+          "transfer_fee": "Τέλος Μεταφοράς",
+          "amount_credited": "Ποσό που πιστώθηκε"
+        }
+      }
+    },
+    "kyb": {
+      "requirements_page": {
+        "kyc_reminder": "Υπενθύμιση KYC: Όλοι οι Τελικοί Πραγματικοί Δικαιούχοι (UBOs) και τα άτομα πρέπει επίσης να συμπληρώσουν την τεκμηρίωση KYC.",
+        "search_hint": "Αναζήτηση με βάση το όνομα, τον κωδικό ή την περιγραφή της οντότητας",
+        "kyb_table_labels": {
+          "entity_type": "Τύπος Οντότητας",
+          "code": "Κώδικας",
+          "required_docs": "Απαιτούμενα Έγγραφα",
+          "last_updated": "Τελευταία ενημέρωση",
+          "actions": "Ενέργειες"
+        }
+      }
+    },
+    "notifications_page": {
+      "page_title": "Ειδοποιήσεις",
+      "mark_all_as_read": "Επισήμανση όλων ως αναγνωσμένων",
+      "no_new_notifications": "Δεν υπάρχουν νέες ειδοποιήσεις"
+    },
+    "users_and_pos": {
+      "users_switcher": "Χρήστες",
+      "pos_switcher": "Τερματικό σημείο πώλησης",
+      "pos_page": {
+        "page_title": "Διαχείριση POS",
+        "search_hint": "Αναζήτηση POS",
+        "table_title": "Τερματικό σημείο πώλησης",
+        "table_labels": {
+          "name": "Ονομα",
+          "pos_mac_id": "POS MacID",
+          "pos_model": "Μοντέλο POS",
+          "login_token": "Διακριτικό σύνδεσης",
+          "auth_token": "Διακριτικό Εξουσιοδότησης",
+          "actions": "Ενέργειες"
+        }
+      },
+      "users_page": {
+        "page_title": "Διαχείριση χρηστών",
+        "search_hint": "Αναζήτηση χρήστη",
+        "table_title": "Χρήστες",
+        "default_role": "Όλοι οι χρήστες",
+        "manager_role": "Διευθυντής",
+        "staff_role": "Προσωπικό",
+        "viewer_role": "Θεατής",
+        "table_labels": {
+          "first_name": "Ονομα",
+          "last_name": "Επώνυμο",
+          "company_email": "Ηλεκτρονικό ταχυδρομείο εταιρείας",
+          "mobile": "Κινητός",
+          "role": "Ρόλος",
+          "actions": "Ενέργειες"
+        }
+      },
+      "add_user_dialog": {
+        "dialog_title": "Προσθήκη χρήστη",
+        "form_labels": {
+          "first_name": "ΟΝΟΜΑ",
+          "first_name_hint": "Εισαγάγετε το μικρό σας όνομα",
+          "last_name": "ΕΠΩΝΥΜΟ",
+          "last_name_hint": "Εισαγάγετε επώνυμο",
+          "name_info": "Ελάχιστο μήκος 2 έως 40 χαρακτήρες",
+          "company_email": "ΕΤΑΙΡΙΚΗ ΔΙΕΥΘΥΝΣΗ ΗΛΕΚΤΡΟΝΙΚΟΥ ΤΑΧΥΔΡΟΜΕΙΟΥ",
+          "company_email_hint": "Εισαγάγετε το email της εταιρείας",
+          "company_email_info": "Εάν ο χρήστης χρησιμοποιεί ήδη το Estia Payments στην εφαρμογή για κινητά ή σε υπολογιστή, θα πρέπει να εισαγάγει εδώ μια διαφορετική διεύθυνση email.",
+          "mobile": "ΑΡΙΘΜΟΣ ΚΙΝΗΤΟΥ",
+          "mobile_hint": "Εισαγάγετε τον αριθμό κινητού τηλεφώνου",
+          "role": "ΡΟΛΟΣ",
+          "role_hint": "Εισαγωγή ρόλου"
+        },
+        "submit": "Προσθήκη χρήστη"
+      },
+      "add_pos_dialog": {
+        "dialog_title": "Προσθήκη POS",
+        "form_labels": {
+          "name": "ΟΝΟΜΑ (ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΜΟΝΑΔΙΚΟ)",
+          "name_hint": "Εισαγάγετε όνομα",
+          "pos_mac_id": "POS MACID",
+          "pos_mac_id_hint": "Εισαγάγετε το POS MACID",
+          "login_token": "ΚΩΔΙΚΟ ΣΥΝΔΕΣΗΣ",
+          "login_token_hint": "Εισαγάγετε διακριτικό σύνδεσης",
+          "register_token": "ΚΩΔΙΚΟ ΕΓΓΡΑΦΗΣ",
+          "register_token_hint": "Εισαγάγετε διακριτικό μητρώου",
+          "pos_model": "ΜΟΝΤΕΛΟ POS",
+          "pos_model_hint": "Εισαγωγή μοντέλου",
+          "others_pos_model": "Άλλοι"
+        },
+        "submit": "Προσθήκη POS"
+      }
+    },
+    "retailers_page": {
+      "page_title": "Λίστα εμπόρων",
+      "search_hint": "Ερευνα"
+    },
+    "support": {
+      "feedback_page": {
+        "page_title": "Υποστήριξη",
+        "page_sub_title": "Ανατροφοδότηση",
+        "page_desc": "Η εμπειρία σας έχει σημασία για εμάς.\nΑφιερώστε λίγο χρόνο για να αξιολογήσετε την εμπειρία σας με την εφαρμογή μας και να μας ενημερώσετε για το πώς μπορούμε να βελτιωθούμε. Τα σχόλιά σας θα μας βοηθήσουν να δημιουργήσουμε μια καλύτερη εφαρμογή για εσάς!\nΕδώ, μπορείτε να ανοίξετε ένα αίτημα υποστήριξης για να αναφέρετε τυχόν προβλήματα σχετικά με την εφαρμογή και τις υπηρεσίες μας.",
+        "ratings": {
+          "overall_satisfaction": "συνολική ικανοποίηση",
+          "overall_satisfaction_desc": "Αξιολογήστε τη συνολική εμπειρία χρήσης της εφαρμογής",
+          "ease_of_use": "ευκολία χρήσης",
+          "ease_of_use_desc": "Πόσο εύκολη ήταν η πλοήγηση και η χρήση της εφαρμογής; Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST;",
+          "design_and_aesthetics": "σχεδιασμός & αισθητική",
+          "design_and_aesthetics_desc": "Πόσο ικανοποιημένοι είστε με τον σχεδιασμό και τη διάταξη της εφαρμογής; Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST;",
+          "performance_and_speed": "απόδοση και ταχύτητα",
+          "performance_and_speed_desc": "Πώς θα αξιολογούσατε την απόδοση, την ταχύτητα και την ανταπόκριση της εφαρμογής; Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST;",
+          "feature_satisfaction": "ικανοποίηση χαρακτηριστικών",
+          "feature_satisfaction_desc": "Πόσο ικανοποιημένοι είστε με τις λειτουργίες που είναι διαθέσιμες στην εφαρμογή; Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST;",
+          "security_and_privacy": "ασφάλεια και ιδιωτικότητα",
+          "security_and_privacy_desc": "Αξιολογήστε το επίπεδο εμπιστοσύνης σας στις λειτουργίες ασφάλειας και απορρήτου της εφαρμογής",
+          "reliability": "αξιοπιστία",
+          "reliability_desc": "Πόσο συχνά λειτουργεί η εφαρμογή χωρίς προβλήματα, διακοπές λειτουργίας ή σφάλματα; Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST;",
+          "support_experience": "εμπειρία υποστήριξης",
+          "support_experience_desc": "Αξιολογήστε την εξυπηρετικότητα και την ανταπόκριση της ομάδας υποστήριξής μας, εάν αλληλεπιδράσατε μαζί τους"
+        },
+        "submit": "Στέλνω"
+      },
+      "ticket_page": {
+        "page_title": "Υποστήριξη",
+        "page_sub_title": "Φόρμα Εισιτηρίου",
+        "page_desc": "Εδώ, μπορείτε να ανοίξετε ένα αίτημα υποστήριξης για να αναφέρετε τυχόν προβλήματα σχετικά με την εφαρμογή και τις υπηρεσίες μας.\nΗ ομάδα μας είναι αφοσιωμένη στην παροχή άμεσων και αποτελεσματικών λύσεων και είμαστε εδώ για να σας βοηθήσουμε σε κάθε βήμα.\nΓια να διασφαλίσουμε ότι μπορούμε να σας βοηθήσουμε αποτελεσματικά, παρακαλούμε να παρέχετε όσο το δυνατόν περισσότερες λεπτομέρειες κατά την υποβολή του αιτήματός σας.\nΑφού υποβάλετε το αίτημα σας, θα λάβετε ένα email επιβεβαίωσης με έναν μοναδικό σύνδεσμο για να παρακολουθείτε την κατάστασή του.\nΑπό εκεί, μπορείτε να παρακολουθείτε την πρόοδό του, να βλέπετε ενημερώσεις και να απαντάτε σε τυχόν ερωτήσεις από την ομάδα υποστήριξής μας.",
+        "form_labels": {
+          "full_name": "ΟΝΟΜΑΤΕΠΩΝΥΜΟ",
+          "email": "ΔΙΕΥΘΥΝΣΗ ΗΛΕΚΤΡΟΝΙΚΟΥ ΤΑΧΥΔΡΟΜΕΙΟΥ",
+          "subject": "ΘΕΜΑ ΕΙΣΙΤΗΡΙΟΥ",
+          "subject_info": "Περιγράψτε σύντομα το πρόβλημα ή το αίτημα",
+          "description": "ΛΕΠΤΟΜΕΡΗΣ ΠΕΡΙΓΡΑΦΗ",
+          "description_info": "Περιγράψτε λεπτομερώς το πρόβλημα ή το αίτημα",
+          "issue_type": "ΤΥΠΟΣ ΘΕΜΑΤΟΣ",
+          "issue_type_hint": "Επιλέξτε τύπο",
+          "attachment_upload": "ΑΝΕΒΑΣΗ ΣΥΝΗΜΜΕΝΟΥ ΑΡΧΕΙΟΥ",
+          "attachment_upload_info": "Ανεβάστε στιγμιότυπα οθόνης που θα μπορούσαν να βοηθήσουν την ομάδα υποστήριξης να κατανοήσει και να διαγνώσει καλύτερα το πρόβλημα"
+        },
+        "submit": "Στέλνω",
+        "issue_types": {
+          "technical": "Τεχνικός",
+          "account": "Λογαριασμός",
+          "billing": "Χρέωση",
+          "payments": "Πληρωμές",
+          "transfer": "Μεταφορά",
+          "conversion": "Μετατροπή"
+        }
+      }
+    },
+    "nav_links": {
+      "transactions": "Συναλλαγές",
+      "analytics": "Αναλυτικά στοιχεία",
+      "retailers": "Λιανοπωλητές",
+      "users_and_pos": "Χρήστες & POS",
+      "support": "Υποστήριξη",
+      "ticket": "Εισιτήριο",
+      "feedback": "Ανατροφοδότηση",
+      "wallet": "Πορτοφόλι"
+    },
+    "wallet_nav_links": {
+      "convert_eur_to_est": "Μετατροπή EUR σε EST",
+      "convert_eur_to_est_info": "Ανταλλάξτε € με EST tokens χωρίς κόπο",
+      "convert_est_to_eur": "Μετατροπή EST σε EUR",
+      "convert_est_to_eur_info": "Μετατρέψτε εύκολα τα EST tokens σας σε €",
+      "send_est_to_others": "Στείλτε EST σε άλλα πορτοφόλια",
+      "send_est_to_others_info": "Μεταφορά EST tokens σε εξωτερικά πορτοφόλια",
+      "receive_est_from_others": "Λήψη EST από άλλα πορτοφόλια",
+      "receive_est_from_others_info": "Εμφάνιση πληροφοριών πορτοφολιού, ώστε άλλοι να μπορούν να σας στέλνουν κρυπτονομίσματα EST",
+      "send_eur_to_others": "Στείλτε EUR σε άλλο IBAN",
+      "send_eur_to_others_info": "Μεταφορά € σε εξωτερικά ονόματα φιλικά προς το IBAN",
+      "external_iban_friendly_names": "Εξωτερικά ονόματα φιλικά προς το IBAN",
+      "external_iban_friendly_names_info": "Αποθηκεύστε και διαχειριστείτε εύκολα τα ονόματά σας που είναι φιλικά προς το εξωτερικό IBAN με εξατομικευμένες ετικέτες για γρήγορη και εύκολη πρόσβαση",
+      "external_wallet_friendly_names": "Ονόματα φιλικά προς τα εξτερικά πορτοφόλια",
+      "external_wallet_friendly_names_info": "Αποθηκεύστε και διαχειριστείτε εύκολα τα φιλικά προς το εξωτερικό πορτοφόλι ονόματά σας με εξατομικευμένες ετικέτες για γρήγορη και εύκολη πρόσβαση",
+      "my_iban": "Το IBAN μου",
+      "my_iban_info": "Πλήρης έλεγχος του λογαριασμού IBAN σας"
+    },
+    "profile_nav_links": {
+      "my_profile": "Το προφίλ μου",
+      "my_profile_info": "Σημαντικές λεπτομέρειες λογαριασμού",
+      "integrations": "Ενσωματώσεις",
+      "integrations_info": "Πληροφορίες σχετικά με τα πρόσθετα (plug-ins) του Estia Payment για διάφορα ηλεκτρονικά καταστήματα",
+      "marketing": "Εμπορία",
+      "marketing_info": "Πληροφορίες για όλες τις καμπάνιες μάρκετινγκ σας",
+      "merchants": "Έμποροι",
+      "merchants_info": "Δείτε τη λίστα των εμπόρων μας",
+      "our_agreements": "Οι Συμφωνίες μας",
+      "our_agreements_info": "Συμφωνίες Χρήστη, Πολιτική Απορρήτου, Πολιτική Cookie, Συγκατάθεση Ηλεκτρονικής Υπογραφής",
+      "logout": "Αποσύνδεση"
+    },
+    "home_page": {
+      "page_title": "Ταμπλό",
+      "paid_with_method": "Πληρώθηκε με {{method}}",
+      "payment_type": "Τύπος πληρωμής",
+      "transactions": "Συναλλαγές",
+      "sales_analytics": "Ανάλυση Πωλήσεων",
+      "sales": "Εμπορικός",
+      "account": {
+        "total_amount": "Συνολικό Ποσό",
+        "tokens": "μάρκες",
+        "cash_back": "Επιστροφή μετρητών",
+        "iban_balance": "Υπόλοιπο IBAN",
+        "revenue_type": "Έσοδα {{type}}",
+        "estia_rate": "Τιμή"
+      }
+    },
+    "profile_management": {
+      "page_title": "Διαχείριση προφίλ",
+      "links": {
+        "my_profile": "Το προφίλ μου",
+        "change_email": "Αλλαγή ηλεκτρονικού ταχυδρομείου",
+        "change_password": "Αλλαγή κωδικού πρόσβασης",
+        "change_mobile": "Αλλαγή κινητού",
+        "kyb": "ΚΥΒ - Γνωρίστε την Επιχείρησή σας"
+      },
+      "my_profile_page": {
+        "business_name": "ΕΠΩΝΥΜΙΑ ΕΠΙΧΕΙΡΗΣΗΣ (όπως εμφανίζεται στο Εθνικό Μητρώο Επιχειρήσεων)",
+        "business_logo": "ΛΟΓΟΤΥΠΟ ΕΠΙΧΕΙΡΗΣΗΣ",
+        "business_logo_info": "Αποποίηση ευθύνης: Μέγεθος αρχείου λογότυπου έως 2MB. Μέγεθος εικόνας: 120x120px",
+        "merchant_category": "ΚΑΤΗΓΟΡΙΑ ΕΜΠΟΡΟΥ",
+        "vat_id": "ΑΡΙΘΜΟΣ ΦΠΑ",
+        "revenue_range": "ΕΥΡΟΣ ΕΣΟΔΩΝ",
+        "address": "ΔΙΕΥΘΥΝΣΗ",
+        "postal_code": "ΤΑΧΥΔΡΟΜΙΚΟΣ ΚΩΔΙΚΑΣ",
+        "country": "ΧΩΡΑ",
+        "business_phone": "ΕΠΑΓΓΕΛΜΑΤΙΚΟΣ ΑΡΙΘΜΟΣ ΤΗΛΕΦΩΝΟΥ",
+        "business_email": "ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΗΛΕΚΤΡΟΝΙΚΟ ΤΑΧΥΔΡΟΜΕΙΟ",
+        "contact_first_name": "ΕΠΙΚΟΙΝΩΝΙΑ ΟΝΟΜΑ",
+        "contact_last_name": "ΕΠΩΝΥΜΟ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_mobile_no": "ΚΙΝΗΤΟ ΑΡΙΘΜΟΣ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "contact_email": "ΗΛΕΚΤΡΟΝΙΚΗ ΔΙΕΥΘΥΝΣΗ ΕΠΙΚΟΙΝΩΝΙΑΣ",
+        "language": "ΓΛΩΣΣΑ",
+        "language_hint": "Η γλώσσα σας",
+        "dark_theme": "ΣΚΟΤΕΙΝΟ ΘΕΜΑ",
+        "save_settings": "Αποθήκευση ρυθμίσεων"
+      }
+    }
+  },
+  "privacy_policy": {
+    "section_1": {
+      "title": "Εισαγωγή",
+      "paragraph_1": "Η Estia Payments S.A. («εμείς», «εμάς», «μας») δεσμεύεται να προστατεύει το απόρρητο και τα προσωπικά δεδομένα των χρηστών μας. Η παρούσα Πολιτική Απορρήτου εξηγεί πώς συλλέγουμε, χρησιμοποιούμε, αποθηκεύουμε και προστατεύουμε τα προσωπικά σας στοιχεία σε σχέση με την πύλη υπηρεσιών πληρωμών μας.",
+      "paragraph_2": "Αυτή η πολιτική έχει σχεδιαστεί για να συμμορφώνεται με τον <strong>Γενικό Κανονισμό για την Προστασία Δεδομένων (GDPR),</strong> τον <strong>Ελληνικό Νόμο περί Προστασίας Δεδομένων</strong> και όλες τις άλλες ισχύουσες απαιτήσεις της ΕΕ για την προστασία δεδομένων και τις οικονομικές κανονιστικές απαιτήσεις."
+    },
+    "section_2": {
+      "title": "Υπεύθυνος Επεξεργασίας Δεδομένων και Στοιχεία Επικοινωνίας",
+      "paragraph_1": "Η Estia Payments S.A. είναι ο <strong>υπεύθυνος επεξεργασίας</strong> που είναι υπεύθυνος για τα προσωπικά σας δεδομένα.",
+      "paragraph_2": "Εάν έχετε οποιεσδήποτε ερωτήσεις ή ανησυχίες σχετικά με την παρούσα Πολιτική Απορρήτου ή τα προσωπικά σας δεδομένα, μπορείτε να επικοινωνήσετε με τον <strong>Υπεύθυνο Προστασίας Δεδομένων (DPO):</strong>",
+      "paragraph_3": "📧 Ηλεκτρονικό ταχυδρομείο: dpo@estiapayments.io",
+      "paragraph_4": "Έχετε επίσης το δικαίωμα να υποβάλετε καταγγελία στην Ελληνική Αρχή Προστασίας Δεδομένων (ΑΠΔΠΧ) ή στην τοπική εποπτική αρχή στην ΕΕ. "
+    },
+    "section_3": {
+      "title": "Πεδίο εφαρμογής των υπηρεσιών",
+      "paragraph_1": "Αυτή η Πολιτική Απορρήτου ισχύει για όλες τις υπηρεσίες μας, συμπεριλαμβανομένων ενδεικτικά:",
+      "list": [
+        "Ο ιστότοπός μας",
+        "Οι εφαρμογές μας (για υπολογιστές και κινητά)",
+        "Οι εφαρμογές μας για κινητά",
+        "Τα API μας",
+        "Άλλες ψηφιακές πλατφόρμες που παρέχουμε"
+      ]
+    }
+  },
+  "merchant_categories": {
+    "Hotelier": "Ξενοδόχος",
+    "Food and Beverage": "Τρόφιμα και Ποτά",
+    "Retail": "Λιανικό Εμπόριο",
+    "E-commerce": "Ηλεκτρονικό Εμπόριο",
+    "Travel and Tourism": "Ταξίδια και Τουρισμός",
+    "Entertainment": "Ψυχαγωγία",
+    "Health and Wellness": "Υγεία και Ευεξία",
+    "Real Estate": "Ακίνητα",
+    "Construction Services": "Κατασκευαστικές Υπηρεσίες",
+    "Transportation Services": "Υπηρεσίες Μεταφοράς",
+    "Education and Training": "Εκπαίδευση και Κατάρτιση",
+    "Personal Care Services": "Υπηρεσίες Προσωπικής Φροντίδας",
+    "Automotive": "Αυτοκινητοβιομηχανία",
+    "Art and Crafts": "Τέχνες και Χειροτεχνίες",
+    "Grocery and Supermarkets": "Παντοπωλεία και Σούπερ Μάρκετ",
+    "Pharmaceuticals": "Φαρμακευτικά",
+    "Home Goods": "Είδη Σπιτιού",
+    "Fitness and Sports": "Γυμναστική και Αθλητισμός",
+    "Florists": "Ανθοπωλεία",
+    "Jewelry and Accessories": "Κοσμήματα και Αξεσουάρ",
+    "Pet Services": "Υπηρεσίες για Κατοικίδια",
+    "Office Supplies": "Είδη Γραφείου",
+    "Electronics": "Ηλεκτρονικά",
+    "Media and Publishing": "Μέσα Μαζικής Ενημέρωσης και Εκδόσεις",
+    "Event Planning": "Διοργάνωση Εκδηλώσεων",
+    "Cleaning Services": "Υπηρεσίες Καθαρισμού",
+    "Consulting Services": "Συμβουλευτικές Υπηρεσίες",
+    "Legal Services": "Νομικές Υπηρεσίες",
+    "Financial Services": "Χρηματοοικονομικές Υπηρεσίες",
+    "Insurance Providers": "Πάροχοι Ασφαλειών",
+    "Technology Services": "Υπηρεσίες Τεχνολογίας",
+    "Therapy and Counseling": "Θεραπεία και Συμβουλευτική",
+    "Craft Breweries": "Μικροζυθοποιίες",
+    "Specialty Foods": "Εξειδικευμένα Τρόφιμα",
+    "Photography and Videography": "Φωτογραφία και Βιντεοσκόπηση"
+  }
+}

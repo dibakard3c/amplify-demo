@@ -15,7 +15,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { Form, FormField } from '@estia/components/ui/form';
 import { FormInputField } from '@estia/components/form/form-input';
-import { isEmpty } from 'lodash';
+import { isEmpty, upperCase } from 'lodash';
 import MobileInput from '@estia/components/form/mobile-input';
 import { FormSelectField } from '@estia/components/form/form-select';
 import { ScrollArea } from '@estia/components/ui/scroll-area';
@@ -27,6 +27,8 @@ import {
 } from '@estia/networking/endpoints/auth';
 import { phoneCountryCodeDefault } from '@estia/helpers/defaults';
 import { Toast } from '@estia/helpers/toast';
+import { cn } from '@estia/utils/utils';
+import { useTranx } from '@estia/hooks/useTranx';
 
 export function AddUserDialog() {
   const [isVisible, setVisible] = useState(false);
@@ -43,9 +45,9 @@ export function AddUserDialog() {
   const [checkEmail] = useCheckEmailAndValidateMutation();
   const [createMerchantUser] = useCreateMerchantUserMutation();
 
-  async function onSubmit(formValues: any) {
-    setVisible(false);
+  const { t } = useTranx();
 
+  async function onSubmit(formValues: any) {
     const email = form.getValues('email');
     const phone = form.getValues('phone');
 
@@ -54,6 +56,7 @@ export function AddUserDialog() {
       checkMobile({
         number: `${phone?.country_code?.mobileCode}${phone?.number}`,
         countryCode: phone?.country_code?.countryAbbreviation,
+        hideLoader: true,
       }).unwrap(),
     ]);
 
@@ -74,6 +77,7 @@ export function AddUserDialog() {
       mobileResult.status === 'fulfilled'
     ) {
       form.clearErrors();
+      setVisible(false);
       createMerchantUser({
         email: formValues?.email,
         firstName: formValues?.firstname,
@@ -86,7 +90,7 @@ export function AddUserDialog() {
         .then(() => {
           form.reset();
           Toast.showSuccess({
-            message: 'User added successfully',
+            message: t('alerts.create_sub_user_success'),
           });
         });
     }
@@ -97,19 +101,23 @@ export function AddUserDialog() {
       <DialogTrigger asChild>
         <Button
           variant='default'
-          className='border-primary-1 h-11 w-36 self-end hover:border-white'
+          className={cn(
+            'border-primary-1 h-11 min-w-36 self-end hover:border-white min-[140rem]:h-14 min-[140rem]:w-44'
+          )}
         >
           <div className='flex items-center'>
-            <AddIcon className='mr-2 size-6' />
-            <span className='mr-1 text-base font-bold'>Add User</span>
+            <AddIcon className='mr-2 size-6 min-[140rem]:size-8' />
+            <span className='mr-1 text-base font-bold min-[140rem]:text-lg'>
+              {t('dashboard.users_and_pos.add_user_dialog.dialog_title')}
+            </span>
           </div>
         </Button>
       </DialogTrigger>
       <ScrollArea type='always'>
-        <DialogContent className='max-h-[95vh] overflow-y-scroll px-8 sm:max-w-[450px] 2xl:max-w-[500px]'>
+        <DialogContent className='max-h-[85vh] max-w-sm overflow-y-scroll rounded-2xl px-8 sm:max-w-[450px] md:max-h-[95vh] 2xl:max-w-[500px]'>
           <DialogHeader>
             <DialogTitle className='mt-10 mb-0 text-center text-2xl font-bold'>
-              Add User
+              {t('dashboard.users_and_pos.add_user_dialog.dialog_title')}
             </DialogTitle>
           </DialogHeader>
           <div className='grid gap-4 py-4'>
@@ -119,12 +127,20 @@ export function AddUserDialog() {
                 name='firstname'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='FIRST NAME'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_user_dialog.form_labels.first_name'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter first name'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.first_name_hint'
+                    )}
                     inputClassName='max-w-auto'
-                    description='Minimum of 2 up to 40 characters in length'
+                    description={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.name_info'
+                    )}
                     aria-invalid={!isEmpty(formState?.errors?.firstname)}
                   />
                 )}
@@ -134,13 +150,21 @@ export function AddUserDialog() {
                 name='lastname'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='LAST NAME'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_user_dialog.form_labels.last_name'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter last name'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.last_name_hint'
+                    )}
                     className='mt-2'
                     inputClassName='max-w-auto'
-                    description='Minimum of 2 up to 40 characters in length'
+                    description={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.name_info'
+                    )}
                     aria-invalid={!isEmpty(formState?.errors?.lastname)}
                   />
                 )}
@@ -150,11 +174,17 @@ export function AddUserDialog() {
                 name='email'
                 render={({ field, formState }) => (
                   <FormInputField
-                    label='COMPANY EMAIL'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_user_dialog.form_labels.company_email'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter company email'
-                    description='If the user already uses Estia Payments on the mobile app or desktop, they should enter a different email address here'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.company_email_hint'
+                    )}
+                    description=''
                     className='mt-2'
                     inputClassName='max-w-auto'
                     aria-invalid={!isEmpty(formState?.errors?.email)}
@@ -165,8 +195,14 @@ export function AddUserDialog() {
                 control={form?.control}
                 countryCodeName='phone.country_code'
                 numberName='phone.number'
-                label='MOBILE NUMBER'
-                placeholder='Enter mobile number'
+                label={upperCase(
+                  t(
+                    'dashboard.users_and_pos.add_user_dialog.form_labels.mobile'
+                  )
+                )}
+                placeholder={t(
+                  'dashboard.users_and_pos.add_user_dialog.form_labels.mobile_hint'
+                )}
                 className='mt-2'
                 inputContainerClassName='max-w-auto'
                 error={form?.formState?.errors?.phone?.number?.message}
@@ -176,21 +212,33 @@ export function AddUserDialog() {
                 name='role'
                 render={({ field, formState }) => (
                   <FormSelectField
-                    label='ROLE'
+                    label={upperCase(
+                      t(
+                        'dashboard.users_and_pos.add_user_dialog.form_labels.role'
+                      )
+                    )}
                     value={field?.value}
                     onChange={field.onChange}
-                    placeholder='Enter role'
+                    placeholder={t(
+                      'dashboard.users_and_pos.add_user_dialog.form_labels.role_hint'
+                    )}
                     items={[
                       {
-                        title: 'Manager',
+                        title: t(
+                          'dashboard.users_and_pos.users_page.manager_role'
+                        ),
                         value: 'MANAGER',
                       },
                       {
-                        title: 'Staff',
+                        title: t(
+                          'dashboard.users_and_pos.users_page.staff_role'
+                        ),
                         value: 'STAFF',
                       },
                       {
-                        title: 'Viewer',
+                        title: t(
+                          'dashboard.users_and_pos.users_page.viewer_role'
+                        ),
                         value: 'VIEWER',
                       },
                     ]}
@@ -209,11 +257,11 @@ export function AddUserDialog() {
               className='w-full'
               onClick={form.handleSubmit(onSubmit)}
             >
-              Add User
+              {t('dashboard.users_and_pos.add_user_dialog.submit')}
             </Button>
             <DialogClose asChild>
               <Button size='lg' className='my-4 w-full' variant='outline'>
-                Cancel
+                {t('common.cancel')}
               </Button>
             </DialogClose>
           </DialogFooter>

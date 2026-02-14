@@ -13,7 +13,7 @@ import {
   type FieldValues,
 } from 'react-hook-form';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { Label } from '@estia/components/ui/label';
 
 const Form = FormProvider;
@@ -139,7 +139,10 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot='form-description'
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-xs xl:text-sm', className)}
+      className={cn(
+        'text-muted-foreground text-xs xl:text-sm min-[140rem]:text-xl',
+        className
+      )}
       {...props}
     />
   );

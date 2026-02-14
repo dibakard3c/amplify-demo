@@ -1,9 +1,8 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ExchangeIcon } from '@estia/assets/icons/exchange';
 import { formatCurrency, formatNumbers } from '@estia/utils/currency';
 import { parseLocalizedNumber } from '@estia/utils/currency';
-import CurrencyInput from 'react-currency-input-field';
-import AutosizeInput from 'react-input-autosize';
+import CurrencyInput from '@estia/components/form/currency-input';
 
 interface AmountInputProps {
   isFromEst?: boolean;
@@ -22,8 +21,7 @@ export default function AmountInput({
   onChangeValue,
   readonly,
 }: AmountInputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(0);
 
   const exchangeRate = useMemo(() => +(rate || 0).toFixed(4), [rate]);
 
@@ -36,36 +34,27 @@ export default function AmountInput({
   );
 
   return (
-    <div className='flex max-w-96 flex-col items-center'>
+    <div className='flex max-w-96 flex-col items-center min-[140rem]:max-w-[50rem]'>
       <div className='flex max-w-max items-center'>
-        <h1 className='text-primary-1 pr-2 text-5xl font-semibold'>
-          {!isFromEst ? '€' : 'EST'}
-        </h1>
         {readonly ? (
-          <h2 className='text-5xl font-semibold text-black outline-none'>
-            {formatNumbers(value)}
+          <h2 className='text-5xl font-semibold text-black outline-none min-[140rem]:text-7xl'>
+            {formatCurrency(value, true, !isFromEst ? `euro` : 'EST ')}
           </h2>
         ) : (
           <CurrencyInput
-            autoFocus
-            ref={inputRef}
-            placeholder='0.00'
-            className='currency-input placeholder-primary text-5xl font-semibold text-black outline-none'
-            decimalsLimit={2}
-            groupSeparator=','
-            decimalSeparator='.'
-            onValueChange={(value, name, values) => {
-              setValue(value || '');
-              onChangeValue(+(values?.float || 0));
+            inputClassName={`currency-input placeholder-primary text-5xl font-semibold text-black text-center outline-none min-[140rem]:text-7xl w-full`}
+            prefix={!isFromEst ? '€' : 'EST '}
+            currency={!isFromEst ? `euro` : 'EST'}
+            onValueChange={(value: number) => {
+              setValue(value);
+              onChangeValue(value);
             }}
-            maxLength={10}
-            customInput={AutosizeInput}
           />
         )}
       </div>
       {showDetails && (
         <>
-          <ExchangeIcon className='my-3' />
+          <ExchangeIcon className='my-3 min-[140rem]:my-8 min-[140rem]:size-24' />
           {isFromEst ? (
             <h3 className='text-xl font-medium'>
               {formatCurrency(estConversion, true)}
@@ -75,11 +64,12 @@ export default function AmountInput({
               EST {formatNumbers(estConversion, true)}
             </h3>
           )}
-          <h4 className='mt-2 text-lg font-medium'>
+          <h4 className='mt-2 text-lg font-medium min-[140rem]:mt-6'>
+            {/* eslint-disable-next-line i18next/no-literal-string */}
             {formatCurrency(exchangeRate, true)} (EST)
           </h4>
           {infoText ? (
-            <h5 className='text-primary-1 mt-6 text-lg font-bold'>
+            <h5 className='text-primary-1 mt-6 text-base font-bold max-lg:mt-12 md:text-lg min-[140rem]:my-8'>
               {infoText}
             </h5>
           ) : null}

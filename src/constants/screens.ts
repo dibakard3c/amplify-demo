@@ -5,6 +5,7 @@ export const SCREENS = {
   DASHBOARD: '/dashboard',
   PROFILE: '/dashboard/profile',
   NOTIFICATIONS: '/dashboard/notifications',
+  KYB_REQUIREMENTS: '/dashboard/kyb-requirements',
   KYB: '/dashboard/profile/kyb',
   WALLET: '/dashboard/wallet',
   EUR_TO_EST: '/dashboard/wallet/convert-eur-to-est',
@@ -15,5 +16,6 @@ export const SCREENS = {
   // ANALYTICS
   SALES: '/dashboard/analytics/sales',
   DEMOGRAPHICS: '/dashboard/analytics/demographics',
-  PAYOUTS: '/dashboard/analytics/payouts',
+  TRANSFERS: '/dashboard/analytics/transfers',
+  TERMS_AND_CONDITIONS: '/privacy-policy',
 };

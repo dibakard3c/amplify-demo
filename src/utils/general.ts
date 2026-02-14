@@ -1,4 +1,3 @@
-// @ts-ignore
 import byteSize from 'byte-size';
 import { toLower } from 'lodash';
 import { format, isThisWeek, isToday, isYesterday, parseISO } from 'date-fns';

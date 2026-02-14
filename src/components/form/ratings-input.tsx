@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star, StarHalf } from 'lucide-react';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 interface RatingBlockProps {
   size?: number;
@@ -20,7 +20,7 @@ export const RatingsInput = ({
         {new Array(5)?.fill(null)?.map((item, index) => (
           <div key={index} className='mr-1'>
             <Star
-              className='size-7 cursor-pointer'
+              className='size-7 cursor-pointer min-[140rem]:size-12'
               onClick={() => {
                 onChange(
                   value >= 5 ? 0 : index + (value === index + 0.5 ? 1 : 0.5)
@@ -46,13 +46,13 @@ export const RatingsInput = ({
             >
               {index + 0.5 === value ? (
                 <StarHalf
-                  className='size-7 cursor-pointer'
+                  className='size-7 cursor-pointer min-[140rem]:size-12'
                   fill='#DFB300'
                   strokeWidth={0}
                 />
               ) : (
                 <Star
-                  className='size-7 cursor-pointer'
+                  className='size-7 cursor-pointer min-[140rem]:size-12'
                   fill='#DFB300'
                   strokeWidth={0}
                 />

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { SVGProps } from 'react';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 export const GradientCircleComp = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -58,16 +58,16 @@ export function GradientCircle({
   className,
 }: GradientCircleProps) {
   return (
-    <div className={cn('relative size-12 rounded-full', className)}>
-      <GradientCircleComp className={cn('size-full', containerClassName)} />
-      <div
-        className={cn(
-          'absolute top-0 right-0 bottom-0 left-[20%] flex size-[60%] items-center justify-center self-center',
-          containerClassName
-        )}
-      >
-        {children}
-      </div>
+    <div
+      className={cn(
+        'relative flex size-12 items-center justify-center rounded-full',
+        className
+      )}
+    >
+      <GradientCircleComp
+        className={cn('absolute z-10 size-full', containerClassName)}
+      />
+      <div className={cn('z-20', containerClassName)}>{children}</div>
     </div>
   );
 }

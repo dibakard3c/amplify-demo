@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 const buttonVariants = cva(
-  "shadow-none cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-4xl text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "shadow-none cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-4xl min-[140rem]:rounded-full text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -25,9 +25,9 @@ const buttonVariants = cva(
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
         sm: 'h-8 gap-1.5 px-3 has-[>svg]:px-2.5',
         md: 'h-12 gap-1.5 px-5 has-[>svg]:px-2.5',
-        lg: 'h-14 px-6 has-[>svg]:px-4 text-lg font-bold',
+        lg: 'h-14  min-[140rem]:h-22 px-6 has-[>svg]:px-4 text-lg font-bold',
         icon: 'size-9',
-        xl: 'px-6 h-12',
+        xl: 'px-6 h-12 min-[140rem]:h-22',
       },
     },
     defaultVariants: {

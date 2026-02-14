@@ -23,82 +23,63 @@ import {
   TableHeader,
   TableRow,
 } from '@estia/components/ui/table';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { formatCurrency } from '@estia/utils/general';
-
-const data: any[] = [
-  {
-    city: 'Athens',
-    amount: 135230,
-  },
-  {
-    city: 'Thessaloniki',
-    amount: 39172,
-  },
-  {
-    city: 'Patra',
-    amount: 15230,
-  },
-  {
-    city: 'Heraklio',
-    amount: 5230,
-  },
-  {
-    city: 'Nafplio',
-    amount: 5030,
-  },
-  {
-    city: 'Lamia',
-    amount: 500,
-  },
-];
-
-export const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: 'city',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          className='text-neutral-4 font-bold'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          City
-          <ChevronsUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='text-neutral-2 pl-3 text-base font-semibold capitalize'>
-        {row.getValue('city')}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'amount',
-    header: ({ column }) => {
-      return (
-        <div className='flex justify-end'>
-          <Button
-            variant='ghost'
-            className='text-neutral-4 px-3 font-bold'
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Total Sales
-            <ChevronsUpDown />
-          </Button>
-        </div>
-      );
-    },
-    cell: ({ row }) => (
-      <div className='text-neutral-2 px-3 text-right text-base font-semibold'>
-        {formatCurrency(row.getValue('amount'))}
-      </div>
-    ),
-  },
-];
+import { useTranx } from '@estia/hooks/useTranx';
+import { demographicsTable } from '@estia/helpers/dummy';
 
 export function CustomerDemographicsTable({ className }: any) {
+  const { t } = useTranx();
+
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: 'city',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant='ghost'
+            className='text-neutral-4 font-bold'
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            {t('dashboard.analytics.main_page.demographics_table_labels.city')}
+            <ChevronsUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='text-neutral-2 pl-3 text-base font-semibold capitalize'>
+          {row.getValue('city')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'amount',
+      header: ({ column }) => {
+        return (
+          <div className='flex justify-end'>
+            <Button
+              variant='ghost'
+              className='text-neutral-4 px-3 font-bold'
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === 'asc')
+              }
+            >
+              {t(
+                'dashboard.analytics.main_page.demographics_table_labels.total_sales'
+              )}
+              <ChevronsUpDown />
+            </Button>
+          </div>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='text-neutral-2 px-3 text-right text-base font-semibold'>
+          {formatCurrency(row.getValue('amount'))}
+        </div>
+      ),
+    },
+  ];
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -108,7 +89,7 @@ export function CustomerDemographicsTable({ className }: any) {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: demographicsTable,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -171,7 +152,7 @@ export function CustomerDemographicsTable({ className }: any) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {t('common.no_results_found')}
                 </TableCell>
               </TableRow>
             )}

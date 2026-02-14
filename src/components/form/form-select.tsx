@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@estia/components/ui/select';
 import ReactCountryFlag from 'react-country-flag';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 interface FormSelectItems {
   flag?: string;

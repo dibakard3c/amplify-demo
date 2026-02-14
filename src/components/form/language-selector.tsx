@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Check, ChevronDownIcon } from 'lucide-react';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import {
   Command,
   CommandEmpty,
@@ -21,6 +21,7 @@ import { Button } from '@estia/components/ui/button';
 import ReactCountryFlag from 'react-country-flag';
 import { isEmpty, isEqual } from 'lodash';
 import { FormItem, FormLabel } from '@estia/components/ui/form';
+import { useTranx } from '@estia/hooks/useTranx';
 
 export function LanguageSelector({
   inputClassName,
@@ -33,6 +34,8 @@ export function LanguageSelector({
   label,
 }: any) {
   const [open, setOpen] = React.useState(false);
+
+  const { t } = useTranx();
 
   return (
     <FormItem className={className}>
@@ -50,7 +53,7 @@ export function LanguageSelector({
               "border-neutral-4 data-[placeholder]:text-neutral-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
               'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20',
               'dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50',
-              'flex h-14 w-fit w-full items-center justify-between gap-2 rounded-lg border-2 bg-transparent',
+              'flex h-14 w-full items-center justify-between gap-2 rounded-lg border-2 bg-transparent',
               'text-sm font-bold whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px]',
               'disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-12 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1',
               '*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none',
@@ -100,11 +103,11 @@ export function LanguageSelector({
           <Command>
             <CommandInput
               className='text-base font-medium'
-              placeholder='Search country...'
+              placeholder={t('auth.register_page.language_step.country_search')}
             />
             <CommandList>
               <CommandEmpty className='text-base font-medium'>
-                No country found.
+                {t('auth.register_page.language_step.country_not_found')}
               </CommandEmpty>
               <CommandGroup>
                 {items.map((item: any, index: number) => (

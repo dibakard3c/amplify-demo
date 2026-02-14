@@ -11,7 +11,8 @@ import {
 
 import { ChartConfig, ChartContainer } from '@estia/components/ui/chart';
 import { useState } from 'react';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
+import { useTranx } from '@estia/hooks/useTranx';
 
 const chartData = [
   { month: '18-25', desktop: 100 },
@@ -20,33 +21,6 @@ const chartData = [
   { month: '46-55', desktop: 50 },
   { month: '56-66', desktop: 50 },
   { month: '66+', desktop: 120 },
-];
-
-const options = [
-  {
-    title: '1D',
-    value: '1d',
-  },
-  {
-    title: '1W',
-    value: '1w',
-  },
-  {
-    title: '1M',
-    value: '1m',
-  },
-  {
-    title: '3M',
-    value: '3m',
-  },
-  {
-    title: 'CURRENT YEAR',
-    value: 'current-year',
-  },
-  {
-    title: 'ALL TIME',
-    value: 'all-time',
-  },
 ];
 
 const chartConfig = {
@@ -59,6 +33,47 @@ const chartConfig = {
 export function CustomerDemographicsAgeDistributionChart({
   showTimeline = true,
 }: any) {
+  const { t } = useTranx();
+
+  const options = [
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.1_day'
+      ),
+      value: '1d',
+    },
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.1_week'
+      ),
+      value: '1w',
+    },
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.1_month'
+      ),
+      value: '1m',
+    },
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.3_months'
+      ),
+      value: '3m',
+    },
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.current_year'
+      ),
+      value: 'current-year',
+    },
+    {
+      title: t(
+        'dashboard.analytics.demographics_page.age_distribution_chart.all_time'
+      ),
+      value: 'all-time',
+    },
+  ];
+
   const [activeTime, setActiveTime] = useState('1m');
   const [activeIndex, setActiveIndex] = useState(3);
 
@@ -94,7 +109,11 @@ export function CustomerDemographicsAgeDistributionChart({
     <div className='relative w-full'>
       {showTimeline ? (
         <div className='mt-4 flex items-center'>
-          <h3 className='mr-4 -ml-1 p-2 text-base font-bold'>Time</h3>
+          <h3 className='mr-4 -ml-1 p-2 text-base font-bold'>
+            {t(
+              'dashboard.analytics.demographics_page.age_distribution_chart.time'
+            )}
+          </h3>
           {options?.map((item, index) => (
             <div
               key={index}
@@ -136,6 +155,7 @@ export function CustomerDemographicsAgeDistributionChart({
               content={<CustomLabel />}
             />
           </Bar>
+          {/* eslint-disable-next-line i18next/no-literal-string */}
           <YAxis domain={['dataMin - 60', 'dataMax + 40']} hide={true} />
           <XAxis
             dataKey='month'

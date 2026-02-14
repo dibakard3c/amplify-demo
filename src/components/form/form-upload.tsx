@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import React, { useEffect, useMemo, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import {
@@ -9,9 +10,10 @@ import {
 import { Button } from '@estia/components/ui/button';
 import { formatBytes } from '@estia/utils/general';
 import { get, isEmpty } from 'lodash';
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import Image from 'next/image';
 import { CONSTANTS } from '@estia/constants';
+import { useTranx } from '@estia/hooks/useTranx';
 
 const baseStyle = {
   flex: 1,
@@ -46,10 +48,15 @@ interface FormUploadProps {
   value?: FileWithPath;
   onChange: (value: FileWithPath) => void;
   className?: string;
+  containerClassName?: string;
   description?: string;
+  triggerUi?: any;
+  preview?: boolean;
 }
 
-function Display({ file, errors }: any) {
+function Display({ file, errors, preview = true, isError }: any) {
+  const { t } = useTranx();
+
   return (
     <li key={file.path} className='flex items-center justify-between'>
       <div>
@@ -59,9 +66,14 @@ function Display({ file, errors }: any) {
           <ul>
             {errors.map((e: any) => (
               <li key={e.code}>
-                <p className='mt-1 text-sm text-red-500'>
+                <p
+                  className={cn(
+                    'mt-1 text-sm',
+                    isError && 'text-danger font-medium'
+                  )}
+                >
                   {e.code === 'file-too-large'
-                    ? 'File is larger than 2MB'
+                    ? t('common.file_max_size', { size: '2MB' })
                     : e?.message}
                 </p>
               </li>
@@ -69,16 +81,18 @@ function Display({ file, errors }: any) {
           </ul>
         )}
       </div>
-      <div className='relative size-12 rounded border'>
-        <Image
-          src={URL.createObjectURL(file)}
-          alt={``}
-          fill
-          onLoad={() => {
-            URL.revokeObjectURL(file);
-          }}
-        />
-      </div>
+      {preview ? (
+        <div className='relative size-12 rounded border'>
+          <Image
+            src={URL.createObjectURL(file)}
+            alt={``}
+            fill
+            onLoad={() => {
+              URL.revokeObjectURL(file);
+            }}
+          />
+        </div>
+      ) : null}
     </li>
   );
 }
@@ -88,8 +102,13 @@ export default function FormUpload({
   value,
   onChange,
   className,
+  containerClassName,
   description,
+  triggerUi,
+  preview,
 }: FormUploadProps) {
+  const { t } = useTranx();
+
   const [files, setFiles] = useState<FileWithPath[] | any[]>([]);
   const {
     getRootProps,
@@ -125,10 +144,21 @@ export default function FormUpload({
     return () => files.forEach((file) => URL.revokeObjectURL(file?.preview));
   }, [files]);
 
+  if (triggerUi) {
+    return (
+      <section className='max-w-96'>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          <div className='flex h-full w-full items-center'>{triggerUi}</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <FormItem className={className}>
       {label ? <FormLabel>{label}</FormLabel> : null}
-      <section className='max-w-96'>
+      <section className={cn('max-w-96', containerClassName)}>
         <div {...getRootProps({ className: 'dropzone', style: style as any })}>
           <input {...getInputProps()} />
           <div className='flex h-full w-full items-center'>
@@ -140,27 +170,29 @@ export default function FormUpload({
               }}
             >
               <div className='h-5 w-5 rounded bg-[#667085]/20 group-hover:bg-white/20'></div>
-              Upload
+              {t('common.upload')}
             </Button>
             <p className='text-neutral-4 ml-3 text-sm font-medium'>
-              Or Drop Files
+              {t('common.drop_files')}
             </p>
           </div>
         </div>
         <aside
           className={cn(
-            (!isEmpty(value) || !isEmpty(files) || !isEmpty(fileRejections)) &&
-              'mt-6 mb-4'
+            (!isEmpty(value) || !isEmpty(fileRejections)) && 'mt-6 mb-4'
           )}
         >
           <ul>
             {value ? (
-              <Display key={value.path} file={value} />
-            ) : (
-              files.map((file) => <Display key={file.path} file={file} />)
-            )}
+              <Display key={value.path} file={value} preview={preview} />
+            ) : null}
+            {/*{value ? (*/}
+            {/*  <Display key={value.path} file={value} preview={preview} />*/}
+            {/*) : (*/}
+            {/*  files.map((file) => <Display key={file.path} file={file} />)*/}
+            {/*)}*/}
             {fileRejections?.map(({ file, errors }) => (
-              <Display key={file.path} file={file} errors={errors} />
+              <Display isError key={file.path} file={file} errors={errors} />
             ))}
           </ul>
         </aside>

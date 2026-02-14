@@ -4,7 +4,7 @@ import * as React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 import { buttonVariants } from '@estia/components/ui/button';
 
 function Calendar({

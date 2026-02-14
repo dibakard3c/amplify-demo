@@ -1,10 +1,20 @@
-import { apiHandler, QUERY_TAGS } from '@estia/networking/api-handler';
+import {
+  apiHandler,
+  invalidateOnSuccess,
+  QUERY_TAGS,
+} from '@estia/networking/api-handler';
 import { API_ROUTES } from '@estia/networking/api-routes';
 import { Merchant, MerchantGroup } from '@estia/typings/merchant';
 import { DashboardSummary } from '@estia/typings/dashboard-summary';
-import { DefaultWallet, DefiWallet } from '@estia/typings/wallet';
+import {
+  CreateDefiFriendlyWallet,
+  CreateFiatFriendlyWallet,
+  DefaultWallet,
+  DefiFriendlyWallet,
+  DefiWallet,
+  FiatFriendlyWallet,
+} from '@estia/typings/wallet';
 import { PaginatedTransaction } from '@estia/typings/transaction';
-import { CreateIbanPayload, Iban } from '@estia/typings/Iban';
 import { SpendingTrends } from '@estia/typings/spending-trends';
 
 const PAYMENT_REFRESH_INVALIDATIONS = [
@@ -16,12 +26,6 @@ const PAYMENT_REFRESH_INVALIDATIONS = [
   QUERY_TAGS.LIST_NOTIFICATIONS,
   QUERY_TAGS.PENDING_NOTIFICATIONS_STATUS,
 ];
-
-function invalidateOnSuccess<T>(success: T[] = []) {
-  return (_: unknown, hasError: any) => {
-    return hasError ? [] : success;
-  };
-}
 
 export const transactionEndpoints = apiHandler.injectEndpoints({
   endpoints: (builder) => ({
@@ -60,7 +64,7 @@ export const transactionEndpoints = apiHandler.injectEndpoints({
     // DASHBOARD
     fetchBalanceSummary: builder.query<
       DashboardSummary,
-      { showLoader: boolean }
+      { showLoader: boolean } | undefined
     >({
       query: (params) => ({
         url: API_ROUTES.BALANCE_SUMMARY,
@@ -105,28 +109,51 @@ export const transactionEndpoints = apiHandler.injectEndpoints({
       }),
       providesTags: [QUERY_TAGS.LIST_TRANSACTIONS],
     }),
-    // IBAN
-    listIban: builder.query<Iban[], void>({
+    // Friendly Defi Wallets
+    listFiatFriendlyWallet: builder.query<FiatFriendlyWallet[], void>({
       query: () => ({
-        url: API_ROUTES.LIST_IBAN,
+        url: API_ROUTES.LIST_FIAT_WALLETS,
         method: 'GET',
       }),
-      providesTags: [QUERY_TAGS.LIST_IBANS],
+      providesTags: [QUERY_TAGS.LIST_FIAT_WALLET],
     }),
-    createIban: builder.mutation<void, CreateIbanPayload>({
+    createFiatFriendlyWallet: builder.mutation<void, CreateFiatFriendlyWallet>({
       query: (params) => ({
-        url: API_ROUTES.CREATE_IBAN,
+        url: API_ROUTES.CREATE_FIAT_WALLET,
         method: 'POST',
         body: params,
       }),
-      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_IBANS]),
+      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_FIAT_WALLET]),
     }),
-    deleteIban: builder.mutation<void, string>({
-      query: (ibanId) => ({
-        url: `${API_ROUTES.DELETE_IBAN}/${ibanId}`,
+    deleteFiatFriendlyWallet: builder.mutation<void, string>({
+      query: (friendlyId) => ({
+        url: `${API_ROUTES.DELETE_FIAT_OR_DEFI_WALLET}/${friendlyId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_IBANS]),
+      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_FIAT_WALLET]),
+    }),
+    // Friendly Defi Wallets
+    listDefiFriendlyWallet: builder.query<DefiFriendlyWallet[], void>({
+      query: () => ({
+        url: API_ROUTES.LIST_DEFI_WALLETS,
+        method: 'GET',
+      }),
+      providesTags: [QUERY_TAGS.LIST_DEFI_WALLET],
+    }),
+    createDefiFriendlyWallet: builder.mutation<void, CreateDefiFriendlyWallet>({
+      query: (params) => ({
+        url: API_ROUTES.CREATE_DEFI_WALLET,
+        method: 'POST',
+        body: params,
+      }),
+      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_DEFI_WALLET]),
+    }),
+    deleteDefiFriendlyWallet: builder.mutation<void, string>({
+      query: (friendlyId) => ({
+        url: `${API_ROUTES.DELETE_FIAT_OR_DEFI_WALLET}/${friendlyId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: invalidateOnSuccess([QUERY_TAGS.LIST_DEFI_WALLET]),
     }),
     // Wallet
     buyEST: builder.mutation<{ estiaTxId: string }, object>({
@@ -202,10 +229,13 @@ export const {
   useFetchDefiWalletQuery,
   useFetchFiatWalletQuery,
   useFetchTransactionsQuery,
-  //IBAN
-  useListIbanQuery,
-  useCreateIbanMutation,
-  useDeleteIbanMutation,
+  // FRIENDLY WALLETS
+  useListFiatFriendlyWalletQuery,
+  useCreateFiatFriendlyWalletMutation,
+  useDeleteFiatFriendlyWalletMutation,
+  useListDefiFriendlyWalletQuery,
+  useCreateDefiFriendlyWalletMutation,
+  useDeleteDefiFriendlyWalletMutation,
   // WALLET
   useBuyESTMutation,
   useSellESTMutation,

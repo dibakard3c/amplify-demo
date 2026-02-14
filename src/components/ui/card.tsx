@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '@estia/lib/utils';
+import { cn } from '@estia/utils/utils';
 
 function Card({ className, ...props }: React.ComponentProps<'div'>) {
   return (

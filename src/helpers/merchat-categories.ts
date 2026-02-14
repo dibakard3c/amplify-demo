@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 export const merchantCategories =
   process.env.NODE_ENV === 'development'
     ? [

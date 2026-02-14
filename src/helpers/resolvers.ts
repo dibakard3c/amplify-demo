@@ -1,16 +1,29 @@
+/* eslint-disable i18next/no-literal-string */
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { CONSTANTS } from '@estia/constants';
+import { tranx } from '@estia/translations/i18next';
 
 export const langAndCountryResolver = yupResolver(
   yup.object().shape({
-    language: yup.string().required('Language is required'),
+    language: yup
+      .string()
+      .required(tranx('validations.register.language_required')),
     country: yup.object({
-      countryAbbreviation: yup.string().required('Country is required'),
-      countryName: yup.string().required('Country is required'),
-      mobileCode: yup.string().required('Country is required'),
+      countryAbbreviation: yup
+        .string()
+        .required(tranx('validations.register.country_required')),
+      countryName: yup
+        .string()
+        .required(tranx('validations.register.country_required')),
+      mobileCode: yup
+        .string()
+        .required(tranx('validations.register.country_required')),
     }),
-    agreement: yup.boolean().isTrue().required('Agreement is required'),
+    agreement: yup
+      .boolean()
+      .isTrue()
+      .required(tranx('validations.register.agreement_required')),
   })
 );
 
@@ -18,65 +31,114 @@ export const businessDetailsResolver = yupResolver(
   yup.object().shape({
     business_name: yup
       .string()
-      .matches(/^[A-Za-z\s]+$/, 'Only alphabetic characters are allowed')
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 150 characters')
-      .required('Business name is required'),
+      .matches(
+        /^[A-Za-z\s]+$/,
+        tranx('validations.register.business_name_alpha')
+      )
+      .min(2, tranx('validations.register.business_name_min'))
+      .max(40, tranx('validations.register.business_name_max'))
+      .required(tranx('validations.register.business_name_required')),
     business_logo: yup
       .mixed()
-      .test('fileSize', 'Image is too large (max 2MB)', (value: any) => {
-        if (!value || value.length === 0) return false; // required check
-        const file = value[0] ?? value;
-        return file.size <= CONSTANTS.MERCHANT_BUSINESS_LOGO_SIZE;
-      })
-      .test('fileType', 'Only image files are allowed', (value: any) => {
-        if (!value || value.length === 0) return false;
-        const file = value[0] ?? value;
-        return CONSTANTS.MERCHANT_BUSINESS_LOGO_REGEX.test(file.type);
-      })
-      .required('Business logo image is required'),
-    merchant_category: yup.string().required('Merchant category is required'),
+      .test(
+        'fileSize',
+        tranx('validations.register.business_logo_size'),
+        (value: any) => {
+          if (!value || value.length === 0) return true; // required check
+          const file = value[0] ?? value;
+          return file.size <= CONSTANTS.MERCHANT_BUSINESS_LOGO_SIZE;
+        }
+      )
+      .test(
+        'fileType',
+        tranx('validations.register.business_logo_type'),
+        (value: any) => {
+          if (!value || value.length === 0) return true;
+          const file = value[0] ?? value;
+          return CONSTANTS.MERCHANT_BUSINESS_LOGO_REGEX.test(file.type);
+        }
+      )
+      .required(tranx('validations.register.business_logo_required')),
+    merchant_category: yup
+      .string()
+      .required(tranx('validations.register.merchant_category_required')),
     vat_identification_no: yup
       .string()
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 40 characters')
-      .required('VAT Identification number is required'),
-    revenue_range: yup.string().required('Revenue range is required'),
+      .min(2, tranx('validations.register.vat_min'))
+      .max(40, tranx('validations.register.vat_max'))
+      .required(tranx('validations.register.vat_required')),
+    revenue_range: yup
+      .string()
+      .required(tranx('validations.register.revenue_range_required')),
     business_phone: yup.object({
       country_code: yup.object({
-        countryAbbreviation: yup.string().required('Country code is required'),
-        countryName: yup.string().required('Country code is required'),
-        mobileCode: yup.string().required('Country code is required'),
+        countryAbbreviation: yup
+          .string()
+          .required(
+            tranx('validations.register.business_phone_country_code_required')
+          ),
+        countryName: yup
+          .string()
+          .required(
+            tranx('validations.register.business_phone_country_code_required')
+          ),
+        mobileCode: yup
+          .string()
+          .required(
+            tranx('validations.register.business_phone_country_code_required')
+          ),
       }),
-      number: yup.string().required('Business phone is required'),
+      number: yup
+        .string()
+        .required(tranx('validations.register.business_phone_required')),
     }),
     business_email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Business Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
+      .email(tranx('validations.register.business_email_invalid'))
+      .required(tranx('validations.register.business_email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.register.business_email_invalid')
+      ),
     contact_firstname: yup
       .string()
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 40 characters')
-      .required('Contact first name is required'),
+      .min(2, tranx('validations.register.contact_firstname_min'))
+      .max(40, tranx('validations.register.contact_firstname_max'))
+      .required(tranx('validations.register.contact_firstname_required')),
     contact_lastname: yup
       .string()
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 40 characters')
-      .required('Contact last name is required'),
+      .min(2, tranx('validations.register.contact_lastname_min'))
+      .max(40, tranx('validations.register.contact_lastname_max'))
+      .required(tranx('validations.register.contact_lastname_required')),
     contact_email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Contact Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
+      .email(tranx('validations.register.contact_email_invalid'))
+      .required(tranx('validations.register.contact_email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.register.contact_email_invalid')
+      ),
     contact_phone: yup.object({
       country_code: yup.object({
-        countryAbbreviation: yup.string().required('Country code is required'),
-        countryName: yup.string().required('Country code is required'),
-        mobileCode: yup.string().required('Country code is required'),
+        countryAbbreviation: yup
+          .string()
+          .required(
+            tranx('validations.register.contact_phone_country_code_required')
+          ),
+        countryName: yup
+          .string()
+          .required(
+            tranx('validations.register.contact_phone_country_code_required')
+          ),
+        mobileCode: yup
+          .string()
+          .required(
+            tranx('validations.register.contact_phone_country_code_required')
+          ),
       }),
-      number: yup.string().required('Contact phone is required'),
+      number: yup
+        .string()
+        .required(tranx('validations.register.contact_phone_required')),
     }),
   })
 );
@@ -85,20 +147,24 @@ export const passwordResolver = yupResolver(
   yup.object().shape({
     password: yup
       .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters long')
-      .max(32, 'Password must be at most 32 characters long')
-      .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-      .matches(/\d/, 'Password must contain at least one number')
+      .required(tranx('validations.password.password_required'))
+      .min(8, tranx('validations.password.password_min'))
+      .max(32, tranx('validations.password.password_max'))
+      .matches(/[a-z]/, tranx('validations.password.password_lowercase'))
+      .matches(/[A-Z]/, tranx('validations.password.password_uppercase'))
+      .matches(/\d/, tranx('validations.password.password_number'))
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        'Password must contain at least one special character'
+        tranx('validations.password.password_special')
       ),
+
     confirm_password: yup
       .string()
-      .required('Confirm Password is required')
-      .oneOf([yup.ref('password')], 'Password does not match'),
+      .required(tranx('validations.password.confirm_password_required'))
+      .oneOf(
+        [yup.ref('password')],
+        tranx('validations.password.confirm_password_match')
+      ),
   })
 );
 
@@ -106,10 +172,15 @@ export const loginResolver = yupResolver(
   yup.object().shape({
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
-    password: yup.string().required('Password is required'),
+      .email(tranx('validations.login.email_valid'))
+      .required(tranx('validations.login.email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.login.email_valid')
+      ),
+    password: yup
+      .string()
+      .required(tranx('validations.login.password_required')),
   })
 );
 
@@ -117,29 +188,38 @@ export const forgotPasswordResolver = yupResolver(
   yup.object().shape({
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
+      .email(tranx('validations.forgot_password.email_valid'))
+      .required(tranx('validations.forgot_password.email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.forgot_password.email_valid')
+      ),
   })
 );
 
 export const sendOtpResolver = yupResolver(
   yup.object().shape({
-    type: yup.string().required('otp type is required'),
+    type: yup.string().required(tranx('validations.otp_type_required')),
   })
 );
 
 export const verifyOtpResolver = yupResolver(
   yup.object().shape({
-    code: yup.string().required('otp code is required'),
+    code: yup.string().required(tranx('validations.otp_code_required')),
   })
 );
 
 export const supportTicketResolver = yupResolver(
   yup.object().shape({
-    subject: yup.string().required('subject is required'),
-    description: yup.string().required('description is required'),
-    issue_type: yup.string().required('issue type is required'),
+    subject: yup
+      .string()
+      .required(tranx('validations.ticket.subject_required')),
+    description: yup
+      .string()
+      .required(tranx('validations.ticket.description_required')),
+    issue_type: yup
+      .string()
+      .required(tranx('validations.ticket.issue_type_required')),
   })
 );
 
@@ -147,44 +227,66 @@ export const feedbackTicketResolver = yupResolver(
   yup.object().shape({
     overall_satisfaction: yup
       .number()
-      .min(1, 'Please rate your overall satisfaction.')
-      .required('Overall satisfaction is required.'),
+      .min(1, tranx('validations.feedback.overall_satisfaction_min'))
+      .required(tranx('validations.feedback.overall_satisfaction_required')),
     ease_of_use: yup
       .number()
-      .min(1, 'Please rate the ease of use.')
-      .required('Ease of use is required.'),
+      .min(1, tranx('validations.feedback.ease_of_use_min'))
+      .required(tranx('validations.feedback.ease_of_use_required')),
     design_and_aesthetics: yup
       .number()
-      .min(1, 'Please rate the design and aesthetics.')
-      .required('Design and aesthetics rating is required.'),
+      .min(1, tranx('validations.feedback.design_and_aesthetics_min'))
+      .required(tranx('validations.feedback.design_and_aesthetics_required')),
     performance_and_speed: yup
       .number()
-      .min(1, 'Please rate the performance and speed.')
-      .required('Performance and speed rating is required.'),
+      .min(1, tranx('validations.feedback.performance_and_speed_min'))
+      .required(tranx('validations.feedback.performance_and_speed_required')),
     feature_satisfaction: yup
       .number()
-      .min(1, 'Please rate your satisfaction with the features.')
-      .required('Feature satisfaction is required.'),
+      .min(1, tranx('validations.feedback.feature_satisfaction_min'))
+      .required(tranx('validations.feedback.feature_satisfaction_required')),
     security_and_privacy: yup
       .number()
-      .min(1, 'Please rate the security and privacy.')
-      .required('Security and privacy rating is required.'),
+      .min(1, tranx('validations.feedback.security_and_privacy_min'))
+      .required(tranx('validations.feedback.security_and_privacy_required')),
     reliability: yup
       .number()
-      .min(1, 'Please rate the reliability.')
-      .required('Reliability rating is required.'),
+      .min(1, tranx('validations.feedback.reliability_min'))
+      .required(tranx('validations.feedback.reliability_required')),
     support_experience: yup
       .number()
-      .min(1, 'Please rate your support experience.')
-      .required('Support experience rating is required.'),
+      .min(1, tranx('validations.feedback.support_experience_min'))
+      .required(tranx('validations.feedback.support_experience_required')),
   })
 );
 
 export const profileResolver = yupResolver(
   yup.object().shape({
-    currency: yup.string().required(),
-    language: yup.string().required(),
-    theme: yup.boolean().required(),
+    business_logo: yup
+      .mixed()
+      .test(
+        'fileSize',
+        tranx('validations.register.business_logo_size'),
+        (value: any) => {
+          if (!value || value.length === 0) return true;
+          const file = value[0] ?? value;
+          return file.size <= CONSTANTS.MERCHANT_BUSINESS_LOGO_SIZE;
+        }
+      )
+      .test(
+        'fileType',
+        tranx('validations.register.business_logo_type'),
+        (value: any) => {
+          if (!value || value.length === 0) return true;
+          const file = value[0] ?? value;
+          return CONSTANTS.MERCHANT_BUSINESS_LOGO_REGEX.test(file.type);
+        }
+      )
+      .nullable()
+      .optional(),
+    currency: yup.string().optional(),
+    language: yup.string().optional(),
+    theme: yup.boolean().optional(),
   })
 );
 
@@ -192,22 +294,12 @@ export const changeEmailResolver = yupResolver(
   yup.object().shape({
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
-  })
-);
-
-export const changeMobileResolver = yupResolver(
-  yup.object().shape({
-    mobile_phone: yup.object({
-      country_code: yup.object({
-        countryAbbreviation: yup.string().required('Country code is required'),
-        countryName: yup.string().required('Country code is required'),
-        mobileCode: yup.string().required('Country code is required'),
-      }),
-      number: yup.string().required('Contact phone is required'),
-    }),
+      .email(tranx('validations.change_email.email_valid'))
+      .required(tranx('validations.change_email.email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.change_email.email_valid')
+      ),
   })
 );
 
@@ -215,38 +307,63 @@ export const createMerchantUserResolver = yupResolver(
   yup.object().shape({
     firstname: yup
       .string()
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 40 characters')
-      .required('Contact first name is required'),
+      .min(2, tranx('validations.create_user.name_min'))
+      .max(40, tranx('validations.create_user.name_max'))
+      .required(tranx('validations.create_user.firstname_required')),
     lastname: yup
       .string()
-      .min(2, 'Must be at least 2 characters')
-      .max(40, 'Cannot exceed 40 characters')
-      .required('Contact last name is required'),
+      .min(2, tranx('validations.create_user.name_min'))
+      .max(40, tranx('validations.create_user.name_max'))
+      .required(tranx('validations.create_user.lastname_required')),
     email: yup
       .string()
-      .email('Please enter a valid email')
-      .required('Contact Email is required')
-      .matches(/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email'),
+      .email(tranx('validations.create_user.email_invalid'))
+      .required(tranx('validations.create_user.email_required'))
+      .matches(
+        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/,
+        tranx('validations.create_user.email_invalid')
+      ),
     phone: yup.object({
       country_code: yup.object({
-        countryAbbreviation: yup.string().required('Country code is required'),
-        countryName: yup.string().required('Country code is required'),
-        mobileCode: yup.string().required('Country code is required'),
+        countryAbbreviation: yup
+          .string()
+          .required(
+            tranx('validations.create_user.phone_country_code_required')
+          ),
+        countryName: yup
+          .string()
+          .required(
+            tranx('validations.create_user.phone_country_code_required')
+          ),
+        mobileCode: yup
+          .string()
+          .required(
+            tranx('validations.create_user.phone_country_code_required')
+          ),
       }),
-      number: yup.string().required('Contact phone is required'),
+      number: yup
+        .string()
+        .required(tranx('validations.create_user.phone_number_required')),
     }),
-    role: yup.string().required('Role is required'),
+    role: yup.string().required(tranx('validations.create_user.role_required')),
   })
 );
 
 export const createPosUserResolver = yupResolver(
   yup.object().shape({
-    name: yup.string().required('Name is required'),
-    pos_mac_id: yup.string().required('POS Mac ID is required'),
-    pos_model: yup.string().required('POS model is required'),
-    login_token: yup.string().required('Login token is required'),
-    register_token: yup.string().required('Register token is required'),
+    name: yup.string().required(tranx('validations.create_pos.name_required')),
+    pos_mac_id: yup
+      .string()
+      .required(tranx('validations.create_pos.pos_mac_id_required')),
+    pos_model: yup
+      .string()
+      .required(tranx('validations.create_pos.pos_model_required')),
+    login_token: yup
+      .string()
+      .required(tranx('validations.create_pos.login_token_required')),
+    register_token: yup
+      .string()
+      .required(tranx('validations.create_pos.register_token_required')),
   })
 );
 
@@ -278,5 +395,23 @@ export const sendEurResolver = yupResolver(
         bankBeneficiaryId: yup.string(),
       })
       .required('Bank Beneficiary is required'),
+  })
+);
+
+export const uploadLogoResolver = yupResolver(
+  yup.object().shape({
+    business_logo: yup
+      .mixed()
+      .test('fileSize', 'Image is too large (max 2MB)', (value: any) => {
+        if (!value || value.length === 0) return false; // required check
+        const file = value[0] ?? value;
+        return file.size <= CONSTANTS.MERCHANT_BUSINESS_LOGO_SIZE;
+      })
+      .test('fileType', 'Only image files are allowed', (value: any) => {
+        if (!value || value.length === 0) return false;
+        const file = value[0] ?? value;
+        return CONSTANTS.MERCHANT_BUSINESS_LOGO_REGEX.test(file.type);
+      })
+      .required('Business logo image is required'),
   })
 );
